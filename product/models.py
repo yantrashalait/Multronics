@@ -1,5 +1,8 @@
 from django.db import models
 from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from datetime import datetime
 
 
 class Category(models.Model):
@@ -81,6 +84,8 @@ class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='cart', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='cart', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
+    removed = models.BooleanField(default=False)
+    removed_date = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return self.user.username + ' ' + self.product.name
@@ -93,3 +98,28 @@ class UserBargain(models.Model):
 
     def __str__(self):
         return self.user.username + ' ' + self.product.name    
+
+
+@receiver(post_save, sender=Product)
+def product_notify(sender, instance, created, **kwargs):
+    # check if the product is made available and user have added it to their wish list
+    if instance.availability == True:
+        if WishList.objects.filter(product=instance).exists():
+            users = WishList.objects.filter(product=instance)
+            for item in users:
+                Notification.objects.create(
+                    user=item.user, 
+                    date=datetime.now(), 
+                    title='Product Available',
+                    description='Product ' + item.product.name + ' is available on stock now.')
+
+    # check if price has reduced
+    if instance.new_price < instance.old_price:
+        if UserBargain.objects.filter(product=instance).exists():
+            users = UserBargain.objects.filter(product=instance)
+            for item in users:
+                Notification.objects.create(
+                        user=item.user, 
+                        date=datetime.now(), 
+                        title='Price Drop',
+                        description='Product ' + item.product.name + ' is now available at ' + instance.new_price)
