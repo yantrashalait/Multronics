@@ -10,4 +10,7 @@ urlpatterns = [
     path('cart/<int:pk>/', views.view_cart, name='cart'),
     path('product/list/', views.ProductList.as_view(), name='product_list'),
     path('product/add/', views.ProductAdd.as_view(), name='product_add'),
+
+    # for notifications
+    path('notification/view/<int:pk>/', views.see_notification, name='see_notification'),
 ]
