@@ -36,3 +36,10 @@ class ProductList(ListView):
 
 class ProductAdd(CreateView):
     pass
+
+
+def see_notification(request, *args, **kwargs):
+    notification = Notification.objects.get(id=kwargs.get('pk'))
+    notification.is_seen = True
+    notification.save()
+    return HttpResponse('notification seen')

@@ -75,6 +75,8 @@ class WishList(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='wishlist', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='wishlist', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
+    removed = models.BooleanField(default=False)
+    removed_date = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return self.user.username + ' ' + self.product.name
