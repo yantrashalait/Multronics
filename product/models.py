@@ -71,9 +71,9 @@ class Notification(models.Model):
     is_seen = models.BooleanField(default=False)
 
 
-class WishList(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='wishlist', on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, related_name='wishlist', on_delete=models.CASCADE)
+class WaitList(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='waitlist', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='waitlist', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     removed = models.BooleanField(default=False)
     removed_date = models.DateTimeField(default=datetime.now)
@@ -82,9 +82,21 @@ class WishList(models.Model):
         return self.user.username + ' ' + self.product.name
 
 
+class Favourite(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='favourite', on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name='favourite', on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    removed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.user.username + ' ' + self.product.name
+
+
 class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='cart', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='cart', on_delete=models.CASCADE)
+    amount = models.IntegerField(null=True, blank=True)
+    color = models.CharField(max_length=255, null=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
     removed = models.BooleanField(default=False)
     removed_date = models.DateTimeField(default=datetime.now)
@@ -99,15 +111,28 @@ class UserBargain(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.user.username + ' ' + self.product.name    
+        return self.user.username + ' ' + self.product.name
+
+
+class UserRequestProduct(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='product_request', on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    product_name = models.CharField(max_length=255)
+    specification = models.TextField()
+    active = models.BooleanField(default=False)
+    amount = models.IntegerField(null=True, blank=True)
+
+    def __str__(self):
+        return self.user.username + ' ' + self.product_name
+
 
 
 @receiver(post_save, sender=Product)
 def product_notify(sender, instance, created, **kwargs):
     # check if the product is made available and user have added it to their wish list
     if instance.availability == True:
-        if WishList.objects.filter(product=instance).exists():
-            users = WishList.objects.filter(product=instance)
+        if WaitList.objects.filter(product=instance).exists():
+            users = WaitList.objects.filter(product=instance)
             for item in users:
                 Notification.objects.create(
                     user=item.user, 
