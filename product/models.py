@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime
+from django.urls import reverse
 
 
 class Category(models.Model):
@@ -37,11 +38,13 @@ class Product(models.Model):
     views = models.IntegerField(default=0)
     super_deals = models.BooleanField(default=False, verbose_name='Do you want this item to display in super deals section?')
     offer = models.BooleanField(default=False, verbose_name='Does this item have an offer?')
-    availability = models.BooleanField(default=False, name='Is this product available in stock?')
+    availability = models.BooleanField(default=False, verbose_name='Is this product available in stock?')
 
     def __str__(self):
         return self.name 
 
+    def get_absolute_url(self):
+        return reverse("product:product-list")
 
 class ProductHighlight(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='highlights')
@@ -141,7 +144,7 @@ def product_notify(sender, instance, created, **kwargs):
                     description='Product ' + item.product.name + ' is available on stock now.')
 
     # check if price has reduced
-    if instance.new_price < instance.old_price:
+    if instance.new_price < instance.previous_price:
         if UserBargain.objects.filter(product=instance).exists():
             users = UserBargain.objects.filter(product=instance)
             for item in users:

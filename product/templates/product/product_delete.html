@@ -7,6 +7,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Product Detail Page</h1>
+    <form action="" method="POST">{% csrf_token %}
+        <h1>Do you want to delete "{{ item.name }}"?</h1>
+        <p><input type='submit' value="Yes"/><a href='../'></a>Cancel</a></p>
+    </form>
 </body>
 </html>
