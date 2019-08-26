@@ -1,5 +1,4 @@
 from django.shortcuts import render
-<<<<<<< Updated upstream
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
@@ -7,26 +6,16 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 from .models import Product, Category, Brand, Type, BannerImage
 from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm
 from django.urls import reverse
-=======
-from django.http import HttpResponseRedirect, HttpResponse
-from .models import *
-from django.views.generic import ListView, DetailView, CreateView, DeleteView
-from .models import Product 
-from .forms import ProductForm
->>>>>>> Stashed changes
 
 
 def index(request):
     return render(request, 'product/index.html')
-<<<<<<< Updated upstream
 
 
 # class NotificationList(ListView):
 #     model = Notification
 #     template_name = 'product/notification_list.html'
 #     context_object_name = 'notifications'
-=======
->>>>>>> Stashed changes
 
 #     def get_queryset(self, *args, **kwargs):
 #         return self.queryset.filter(user_id=kwargs.get('pk')).order_by('-date')
