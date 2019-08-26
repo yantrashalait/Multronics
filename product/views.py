@@ -91,15 +91,14 @@ def view_favourite(request, *args, **kwargs):
     else:
         return HttpResponse('favourite not found')
 
-# def product_detail_view(request):
 
-    # obj = Product.objects.all()
-    # context = {
-    #     'name': obj.name,
-    #     # 'previous_price': obj.previous_price,
-    #     # 'new_price': obj.new_price
-    # }
-    # return render(request, "product/product_detail.html", {'object': obj})
+# mark a notification as seen
+def see_notification(request, *args, **kwargs):
+    notification = Notification.objects.get(id=kwargs.get('pk'))
+    notification.is_seen = True
+    notification.save()
+    return HttpResponse('notification seen')
+
 
 class ProductList(ListView):
     template_name = 'product/product_list.html'
@@ -113,28 +112,11 @@ class ProductList(ListView):
     #     context = super(ProductList,self).get_context_data(**kwargs)
     #     return context
 
-# class ProductAdd(CreateView):
-#     template_name = 'product/product_add.html'
-#     model = Product
-#     context_object_name = 'product'
-      
 
 class ProductDetail(DetailView):
     model = Product
     template_name = 'product/product_detail.html'
     context_object_name = 'product'
-    
-
-# def product_add(request):
-#     model = Product
-#     return render(request, 'product/product_add.html')
-
-
-def see_notification(request, *args, **kwargs):
-    notification = Notification.objects.get(id=kwargs.get('pk'))
-    notification.is_seen = True
-    notification.save()
-    return HttpResponse('notification seen')
 
 
 class ProductCreate(CreateView):
