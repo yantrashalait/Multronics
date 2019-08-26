@@ -3,8 +3,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .models import Product 
-from .forms import ProductForm
+from .models import Product, Category, Brand, Type, BannerImage
+from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm
 from django.urls import reverse
 
 
@@ -169,4 +169,175 @@ class ProductDelete(DeleteView):
     def get_success_url(self):
         return reverse('product:product-list')
 
-  
+class CategoryList(ListView):
+    template_name = 'product/category_list.html'
+    model = Category
+    context_object_name = 'category'
+
+class CategoryCreate(CreateView):
+    model = Category
+    template_name = 'product/category_create.html'
+    form_class = CategoryForm
+
+    def get_success_url(self):
+        return reverse('product:category-list')
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+    
+class CategoryDelete(DeleteView):
+    template_name = 'product/category_delete.html'
+    form_class = CategoryForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Product, pk=id_)
+    
+    def get_success_url(self):
+        return reverse('product:category-list')
+
+class CategoryUpdate(UpdateView):
+    template_name = 'product/category_create.html'
+    form_class = CategoryForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Product, pk=id_)
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('product:category-list')
+
+class BrandList(ListView):
+    template_name = 'product/brand_list.html'
+    model = Brand
+    context_object_name = 'brand'
+
+class BrandCreate(CreateView):
+    model = Brand
+    template_name = 'product/brand_create.html'
+    form_class = BrandForm
+
+    def get_success_url(self):
+        return reverse('product:brand-list')
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+class BrandDelete(DeleteView):
+    template_name = 'product/brand_delete.html'
+    form_class = BrandForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Product, pk=id_)
+    
+    def get_success_url(self):
+        return reverse('product:brand-list')
+
+class BrandUpdate(UpdateView):
+    template_name = 'product/brand_create.html'
+    form_class = BrandForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Product, pk=id_)
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('product:brand-list')
+
+class TypeList(ListView):
+    template_name = 'product/type_list.html'
+    model = Type
+    context_object_name = 'type'
+
+class TypeCreate(CreateView):
+    model = Type
+    template_name = 'product/type_create.html'
+    form_class = TypeForm
+
+    def get_success_url(self):
+        return reverse('product:type-list')
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+class TypeDelete(DeleteView):
+    template_name = 'product/type_delete.html'
+    form_class = TypeForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Product, pk=id_)
+    
+    def get_success_url(self):
+        return reverse('product:type-list')
+
+class TypeUpdate(UpdateView):
+    ctemplate_name = 'product/type_create.html'
+    form_class = TypeForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Product, pk=id_)
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('product:type-list')
+
+class BannerList(ListView):
+    template_name = 'product/banner_list.html'
+    model = BannerImage
+    context_object_name = 'banner'
+
+class BannerCreate(CreateView):
+    model = BannerImage
+    template_name = 'product/banner_create.html'
+    form_class = BannerImageForm
+
+    def get_success_url(self):
+        return reverse('product:banner-list')
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+class BannerDelete(DeleteView):
+    template_name = 'product/banner_delete.html'
+    form_class = BannerImageForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Product, pk=id_)
+    
+    def get_success_url(self):
+        return reverse('product:banner-list')
+
+class BannerUpdate(UpdateView):
+    ctemplate_name = 'product/banner_create.html'
+    form_class = BannerImageForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Product, pk=id_)
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('product:banner-list')
+
