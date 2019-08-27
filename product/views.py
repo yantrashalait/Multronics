@@ -99,6 +99,15 @@ def see_notification(request, *args, **kwargs):
     notification.save()
     return HttpResponse('notification seen')
 
+# def product_detail_view(request):
+
+    # obj = Product.objects.all()
+    # context = {
+    #     'name': obj.name,
+    #     # 'previous_price': obj.previous_price,
+    #     # 'new_price': obj.new_price
+    # }
+    # return render(request, "product/product_detail.html", {'object': obj})
 
 class ProductList(ListView):
     template_name = 'product/product_list.html'
@@ -111,7 +120,7 @@ class ProductList(ListView):
     # def get_context_data(self,**kwargs):
     #     context = super(ProductList,self).get_context_data(**kwargs)
     #     return context
-
+      
 
 class ProductDetail(DetailView):
     model = Product
