@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from .models import Product, Category, Brand, Type, BannerImage
-from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm
+from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm, CartForm, ProductSpecificationFormset, ProductImageFormset, ProductHighlightFormset
 from django.urls import reverse
 
 
@@ -124,8 +124,33 @@ class ProductCreate(CreateView):
     template_name = 'product/product_create.html'
     form_class = ProductForm
 
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductCreate, self).get_context_data(**kwargs)
+        if self.request.method == 'POST':
+            context['productimage_form'] = ProductImageFormset(self.request.POST)
+            context['producthighlight_form'] = ProductHighlightFormset(self.request.POST)
+            context['productspecification_form'] = ProductSpecificationFormset(self.request.POST)
+        
+        else:
+            context['productimage_form'] = ProductImageFormset()
+            context['producthighlight_form'] = ProductHighlightFormset()
+            context['productspecification_form'] = ProductSpecificationFormset()
+        return context
+
     def form_valid(self, form):
-        print(form.cleaned_data)
+        context = self.get_context_data()
+        productimage_form = context['productimage_form']
+        producthighlight_form = context['producthighlight_form']
+        productspecification_form = context['productspecification_form']
+        if productimage_form.is_valid() and producthighlight_form.is_valid() and productspecification_form.is_valid():
+            self.object = form.save()
+            productimage_form.instance = self.object
+            productimage_form.save()
+            producthighlight_form.instance = self.object
+            producthighlight_form.save()
+            productspecification_form.instance = self.object
+            productspecification_form.save()
+            return HttpResponseRedirect('/')
         return super().form_valid(form)
 
 class ProductUpdate(UpdateView):
@@ -309,7 +334,7 @@ class BannerDelete(DeleteView):
         return reverse('product:banner-list')
 
 class BannerUpdate(UpdateView):
-    ctemplate_name = 'product/banner_create.html'
+    template_name = 'product/banner_create.html'
     form_class = BannerImageForm
 
     def get_object(self):
@@ -322,4 +347,12 @@ class BannerUpdate(UpdateView):
 
     def get_success_url(self):
         return reverse('product:banner-list')
+
+
+class AddCart(CreateView):
+    template_name = 'product/add_cart.html'
+    form_class = CartForm
+
+    def get_success_url(self):
+        return 
 

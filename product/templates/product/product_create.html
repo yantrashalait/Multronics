@@ -10,6 +10,25 @@
     <form action="" method="POST">
         {% csrf_token %}
         {{ form.as_p }}
+        <br>
+
+        {{ productimage_form.management_form }}
+
+        {% for form in productimage_form.forms %}
+            {{ form }}
+
+            {% if form.nested %}
+                {{ form.nested.management_form }}
+                {{ form.nested.non_form_errors }}
+
+                {% for nested_form in form.nested.forms %}
+                    {{ nested_form }}
+                {% endfor %}
+
+            {% endif %}
+
+        {% endfor %}
+
         <input type="submit" value="Save"/>
     </form>
 </body>
