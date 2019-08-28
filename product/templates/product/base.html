@@ -280,7 +280,7 @@
                                         <div class="hd_prof shop_itm">
                                             <span class="shop_itm_txt">
                                                 <a href="#">
-                                                    <img src="images/216.jpg" alt="">
+                                                    <img src="{% static 'images/216.jpg' %}" alt="">
                                                 </a>
                                             </span>
                                         </div>
@@ -294,11 +294,12 @@
                                             </div>
                                             <div class="drp_added_itms">
                                                 <ul>
+                                                    {% for item in header_favourites %}
                                                     <li>
                                                         <div class="drp_added_itms_lst">
                                                             <div class="added_itms_img">
                                                                 <a href="#">
-                                                                    <img src="images/ar01.jpg" alt="">
+                                                                    <img src="{% static 'images/ar01.jpg' %}" alt="">
                                                                 </a>
                                                             </div>
                                                             <div class="drp_added_itms_cont_hldr">
@@ -315,48 +316,7 @@
                                                             </div>
                                                         </div>
                                                     </li>
-                                                    <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="#">
-                                                                    <img src="images/ar01.jpg" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus Viverra Urna</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="#">
-                                                                    <img src="images/ar01.jpg" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                    {% endfor %}
                                                 </ul>
                                                 <div class="drp_more_items">
                                                     <div class="drp_vew_mritemsbtn">
@@ -375,11 +335,12 @@
                                             </div>
                                             <div class="drp_added_itms">
                                                 <ul>
+                                                    {% for item in header_cart %}
                                                     <li>
                                                         <div class="drp_added_itms_lst">
                                                             <div class="added_itms_img">
                                                                 <a href="#">
-                                                                    <img src="images/ar01.jpg" alt="">
+                                                                    <img src="{% static 'images/ar01.jpg' %}" alt="">
                                                                 </a>
                                                             </div>
                                                             <div class="drp_added_itms_cont_hldr">
@@ -396,48 +357,7 @@
                                                             </div>
                                                         </div>
                                                     </li>
-                                                    <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="#">
-                                                                    <img src="images/ar01.jpg" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus Viverra Urna</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="#">
-                                                                    <img src="images/ar01.jpg" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                    {% endfor %}
                                                 </ul>
                                                 <div class="drp_more_items">
                                                     <div class="drp_vew_mritemsbtn">
@@ -456,11 +376,12 @@
                                             </div>
                                             <div class="drp_added_itms">
                                                 <ul>
+                                                    {% for item in header_waitlist %}
                                                     <li>
                                                         <div class="drp_added_itms_lst">
                                                             <div class="added_itms_img">
                                                                 <a href="#">
-                                                                    <img src="images/ar01.jpg" alt="">
+                                                                    <img src="{% static 'images/ar01.jpg' %}" alt="">
                                                                 </a>
                                                             </div>
                                                             <div class="drp_added_itms_cont_hldr">
@@ -477,48 +398,7 @@
                                                             </div>
                                                         </div>
                                                     </li>
-                                                    <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="#">
-                                                                    <img src="images/ar01.jpg" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus Viverra Urna</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="#">
-                                                                    <img src="images/ar01.jpg" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
-                                                                    </span>
-
-                                                                </div>
-                                                                <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
+                                                    {% endfor %}
                                                 </ul>
                                                 <div class="drp_more_items">
                                                     <div class="drp_vew_mritemsbtn">
@@ -537,6 +417,7 @@
                                             </div>
                                             <div class="drp_added_itms">
                                                 <ul>
+                                                    {% for item in notifications %}
                                                     <li>
                                                         <div class="drp_added_itms_lst">
                                                             <div class="drp_added_itms_cont_hldr">
@@ -550,6 +431,7 @@
                                                             </div>
                                                         </div>
                                                     </li>
+                                                    {% endfor %}
                                                 </ul>
                                                 <div class="drp_more_items">
                                                     <div class="drp_vew_mritemsbtn">
@@ -582,10 +464,10 @@
                                     <li>
                                         <a href="#">
                                             <span class="menu_icn">
-                                                        <img src="images/7.png" alt="">
-                                                    </span> Health & Fintness
+                                                        <img src="{% static 'images/7.png' %}" alt="">
+                                                    </span> All Laptops
                                         </a>
-                                        <div class="submenu">
+                                        <!-- <div class="submenu">
                                             <ul>
                                                 <li>
                                                     <a href="#">
@@ -616,55 +498,45 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </div>
+                                        </div> -->
                                     </li>
                                     <li>
                                         <a href="#">
                                             <span class="menu_icn">
-                                                        <img src="images/7.png" alt="">
-                                                    </span> Health & Fintness
+                                                        <img src="{% static 'images/7.png' %}" alt="">
+                                                    </span> Laptops By Brands
                                         </a>
                                         <div class="submenu">
                                             <ul>
+                                                {% for item in brands %}
                                                 <li>
                                                     <a href="#">
                                                         <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
+                                                                <img src="{% static 'images/7.png' %}" alt="">
                                                             </span> Two Submenu
                                                     </a>
                                                 </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Two Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Two Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Two Submenu
-                                                    </a>
-                                                </li>
+                                                {% endfor %}
                                             </ul>
                                         </div>
                                     </li>
                                     <li>
                                         <a href="#">
                                             <span class="menu_icn">
-                                                        <img src="images/7.png" alt="">
-                                                    </span> Health & Fintness
+                                                        <img src="{% static 'images/7.png' %}" alt="">
+                                                    </span> Laptops By Type
                                         </a>
                                         <div class="submenu">
                                             <ul>
+                                                {% for item in types %}
+                                                <li>
+                                                    <a href="#">
+                                                        <span class="menu_icn">
+                                                                <img src="images/7.png" alt="">
+                                                            </span> Three Submenu
+                                                    </a>
+                                                </li>
+                                                {% endfor %}
                                                 <li>
                                                     <a href="#">
                                                         <span class="menu_icn">
@@ -684,91 +556,6 @@
                                                         <span class="menu_icn">
                                                                 <img src="images/7.png" alt="">
                                                             </span> Three Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Three Submenu
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="menu_icn">
-                                                        <img src="images/7.png" alt="">
-                                                    </span> Health & Fintness
-                                        </a>
-                                        <div class="submenu">
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Four Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Four Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Four Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Four Submenu
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <span class="menu_icn">
-                                                        <img src="images/7.png" alt="">
-                                                    </span> Health & Fintness
-                                        </a>
-                                        <div class="submenu">
-                                            <ul>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Five Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Five Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Five Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Five Submenu
                                                     </a>
                                                 </li>
                                             </ul>
@@ -779,21 +566,11 @@
                         </div>
                         <div class="main_nav">
                             <ul class="menu-item-wrapper">
+                                {% for item in category %}
                                 <li class="menu-item">
                                     <a href="#" class="">Groceries</a>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="#" class="">Cakes &amp; Gifts</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="$" class="">Home &amp; Living</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="">Automobile</a>
-                                </li>
-                                <li class="menu-item">
-                                    <a href="#" class="">Stationary</a>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </div>
@@ -869,7 +646,7 @@
                         <div class="foot_general">
                             <div class="footlogo">
                                 <a href="#">
-                                    <img src="images/newlogo.png" alt="">
+                                    <img src="{% static 'images/newlogo.png' %}" alt="">
                                 </a>
                             </div>
                             <div class="cont_info">
@@ -910,36 +687,11 @@
                                         <h5>Find It Fast</h5>
                                         <div class="menusitms">
                                             <ul>
+                                                {% for item in category %}
                                                 <li>
                                                     <a href="#">Laptops & Computers</a>
                                                 </li>
-                                                <li>
-                                                    <a href="#">Video Games & Consoles</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Gadgets</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">TV & Audio</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Laptops & Computers</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Laptops & Computers</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Video Games & Consoles</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Gadgets</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">TV & Audio</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">Laptops & Computers</a>
-                                                </li>
+                                                {% endfor %}
                                             </ul>
                                         </div>
                                     </div>
@@ -953,19 +705,13 @@
                                                     <a href="#">My Account</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Track your Order</a>
-                                                </li>
-                                                <li>
                                                     <a href="#">Wishlist</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Customer Service</a>
+                                                    <a href="#">Waitlist</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Returns/Exchange</a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">FAQs</a>
+                                                    <a href="#">Cart</a>
                                                 </li>
                                                 <li>
                                                     <a href="#">Product Support</a>
