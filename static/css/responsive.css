@@ -1,0 +1,126 @@
+@media screen and (max-width: 1024px){
+span.shp_itm_lbl {
+    display: none;
+}
+
+.dprdwn {	
+    width: 250px;
+    right: 0;
+}
+
+.menu-item-wrapper li a {
+    padding: 0 10px;
+}
+
+.ban_ads_sml {
+    margin: 0 0 2rem 0;
+}
+
+.srchfrm_hdr form button {
+    width: 54px;
+}
+
+.pdetails_bg{
+	display: none;
+}
+
+.pdetails_details{
+	height: auto;
+}
+
+}
+
+@media (min-width: 992px){
+
+.mb_slide_meu, .mb_slide_menu_back{
+	display: none !important;
+}
+
+}
+
+@media screen and (max-width: 992px){
+	.new-cn-inf{
+		display: none;
+	}
+	.logo img {
+   		max-width: 100px;
+	}
+
+	.resp_tggl_main_menu{
+		display: flex;
+	}
+	.headerbottom{
+		display: none;
+	}
+	.wrap-function-info ul li {
+	    display: inline-flex;
+	    width: 50%;
+	}
+
+	.wrap-function-info ul li:first-child{
+		margin: 0 0 2rem 0;
+	}
+}
+
+
+
+@media screen and (max-width: 768px){
+	.srchfrm_hdr{
+		display: none;
+	}
+	.resp_srch{
+		display: flex;
+	}
+
+	.shop_itm {
+    	margin: 0 0 0 15px;
+	}
+	.itms_caro .owl-nav {
+    position: inherit;
+    top: inherit;
+    right: inherit;
+    text-align: center;
+    margin: 20px 0 0 0;
+	}
+	.thumimg_for_caro {
+    text-align: center;
+    margin: 0;
+	}
+	.vi_all_prd_caro {
+    padding: 0;
+	}
+	.header_contnt {
+    flex-wrap: wrap;
+	}
+}
+
+
+@media screen and (max-width: 430px){
+	.wrap-function-info ul li {
+		width: 100%;
+	    margin: 0 0 2rem 0;
+	}
+	.wrap-function-info ul li:last-child {
+		margin: 0;
+	}
+	.logo img {
+    max-width: 70px;
+	}
+	.cart_whis_noti .shop_itm .shop_itm_txt .fa {
+    font-size: 16px;
+	}
+	.clk_rsp_srch {
+    font-size: 12px;
+    width: 20px;
+    height: 20px;
+	}
+	.header_logo {
+    margin: 0;
+	}
+}
+
+@media screen and (max-width: 325px){
+
+}
+
+/*# sourceMappingURL=responsive.css.map */
