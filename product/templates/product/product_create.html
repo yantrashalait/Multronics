@@ -11,25 +11,67 @@
         {% csrf_token %}
         {{ form.as_p }}
         <br>
+        
+        {{ imageform.management_form }}
+            <div id = "imageformset">
+                {% for form in imageform.forms %}
+                <div class="form-control">
 
-        {{ productimage_form.management_form }}
-
-        {% for form in productimage_form.forms %}
-            {{ form }}
-
-            {% if form.nested %}
-                {{ form.nested.management_form }}
-                {{ form.nested.non_form_errors }}
-
-                {% for nested_form in form.nested.forms %}
-                    {{ nested_form }}
+                    {% for field in form %}
+                        {{field.label_tag}}<br>
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <p style="color:red">{{error}}</p>
+                        {% endfor %}
+                    {% endfor %}
+                </div><br>
                 {% endfor %}
+            </div>
+            <input type="button" id="imageadd" class="btn btn-info add-item" value="Add More">
+            <div id="imageempty_form" style="display:none">
+                {{ imageform.empty_form }}
+            </div>
+        {{ specificationform.management_form }}
+        <div id = "specificationformset">
+            {% for form in specificationform.forms %}
+            <div class="form-control">
 
-            {% endif %}
+                {% for field in form %}
+                    {{field.label_tag}}<br>
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <p style="color:red">{{error}}</p>
+                    {% endfor %}
+                {% endfor %}
+            </div><br>
+            {% endfor %}
+        </div>
+        <input type="button" id="specificationadd" class="btn btn-info add-item" value="Add More">
+            <div id="specempty_form" style="display:none">
+                {{ specificationform.empty_form }}
+            </div>
+        
+      <button class="btn btn-primary" type="submit">Submit</button>
 
-        {% endfor %}
-
-        <input type="submit" value="Save"/>
     </form>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $('#imageadd').click(function() {
+
+        var form_idx = $('#id_imageform-TOTAL_FORMS').val();
+        console.log(form_idx);
+        $('#imageformset').append($('#imageempty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_imageform-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+
+    $('#specificationadd').click(function() {
+
+        var form_idx = $('#id_specform-TOTAL_FORMS').val();
+        console.log(form_idx);
+        $('#specificationformset').append($('#specempty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_specform-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>
+
 </html>

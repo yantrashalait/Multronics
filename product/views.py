@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
 from .models import Product, Category, Brand, Type, BannerImage
-from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm, CartForm, ProductSpecificationFormset, ProductImageFormset, ProductHighlightFormset
+from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm, CartForm, ProductSpecificationFormset, ProductImageFormset
 from django.urls import reverse
 
 
@@ -136,29 +136,24 @@ class ProductCreate(CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ProductCreate, self).get_context_data(**kwargs)
         if self.request.method == 'POST':
-            context['productimage_form'] = ProductImageFormset(self.request.POST)
-            context['producthighlight_form'] = ProductHighlightFormset(self.request.POST)
-            context['productspecification_form'] = ProductSpecificationFormset(self.request.POST)
+            context['imageform'] = ProductImageFormset(self.request.POST, prefix='imageform')
+            context['specificationform'] = ProductSpecificationFormset(self.request.POST, prefix='specform')
         
         else:
-            context['productimage_form'] = ProductImageFormset()
-            context['producthighlight_form'] = ProductHighlightFormset()
-            context['productspecification_form'] = ProductSpecificationFormset()
+            context['imageform'] = ProductImageFormset(prefix='imageform')
+            context['specificationform'] = ProductSpecificationFormset(prefix='specform')
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
-        productimage_form = context['productimage_form']
-        producthighlight_form = context['producthighlight_form']
-        productspecification_form = context['productspecification_form']
-        if productimage_form.is_valid() and producthighlight_form.is_valid() and productspecification_form.is_valid():
+        imageform = context['imageform']
+        specificationform = context['specificationform']
+        if imageform.is_valid() and specificationform.is_valid():
             self.object = form.save()
-            productimage_form.instance = self.object
-            productimage_form.save()
-            producthighlight_form.instance = self.object
-            producthighlight_form.save()
-            productspecification_form.instance = self.object
-            productspecification_form.save()
+            imageform.product = self.object
+            imageform.save()
+            specificationform.product = self.object
+            specificationform.save()
             return HttpResponseRedirect('/')
         return super().form_valid(form)
 
