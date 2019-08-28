@@ -35,6 +35,7 @@ class Product(models.Model):
     new_price = models.CharField(max_length=100, help_text=('e.g., Rs. 150000'), null=True, blank=True)
     category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.CASCADE, related_name='product_category')
     brand = models.ForeignKey(Brand, verbose_name='Brand', on_delete=models.CASCADE, related_name='product_brand')
+    product_type = models.ForeignKey(Type, verbose_name='Type of laptop', on_delete=models.CASCADE, related_name='product_type', null=True, blank=True)
     views = models.IntegerField(default=0)
     super_deals = models.BooleanField(default=False, verbose_name='Do you want this item to display in super deals section?')
     offer = models.BooleanField(default=False, verbose_name='Does this item have an offer?')

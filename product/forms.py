@@ -6,7 +6,7 @@ from django.forms import formset_factory
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product 
-        fields = ['name', 'previous_price', 'new_price', 'category', 'brand', 'super_deals', 'offer', 'availability']
+        fields = ['name', 'previous_price', 'new_price', 'category', 'brand', 'product_type', 'super_deals', 'offer', 'availability']
 
 class CategoryForm(forms.ModelForm):
     class Meta:
@@ -47,5 +47,5 @@ class ProductImageForm(forms.ModelForm):
         fields = ['image',]
 
 
-ProductImageFormset = formset_factory(ProductImageForm, extra=3, max_num=10)
-ProductSpecificationFormset = formset_factory(ProductSpecificationForm, extra=5, max_num=20)
+ProductImageFormset = formset_factory(ProductImageForm, extra=1, max_num=10)
+ProductSpecificationFormset = formset_factory(ProductSpecificationForm, extra=1, max_num=20)

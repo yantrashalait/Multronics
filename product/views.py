@@ -136,8 +136,8 @@ class ProductCreate(CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ProductCreate, self).get_context_data(**kwargs)
         if self.request.method == 'POST':
-            context['imageform'] = ProductImageFormset(self.request.POST, prefix='imageform')
-            context['specificationform'] = ProductSpecificationFormset(self.request.POST, prefix='specform')
+            context['imageform'] = ProductImageFormset(self.request.POST, self.request.FILES, prefix='imageform')
+            context['specificationform'] = ProductSpecificationFormset(self.request.POST, self.request.FILES, prefix='specform')
         
         else:
             context['imageform'] = ProductImageFormset(prefix='imageform')
@@ -150,10 +150,14 @@ class ProductCreate(CreateView):
         specificationform = context['specificationform']
         if imageform.is_valid() and specificationform.is_valid():
             self.object = form.save()
-            imageform.product = self.object
-            imageform.save()
-            specificationform.product = self.object
-            specificationform.save()
+            for form in imageform:
+                f = form.save(commit=False)
+                f.product = self.object
+                f.save()
+            for form in specificationform:
+                f = form.save(commit=False)
+                f.product = self.object
+                f.save()
             return HttpResponseRedirect('/')
         return super().form_valid(form)
 
