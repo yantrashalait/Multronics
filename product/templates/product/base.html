@@ -24,7 +24,7 @@
         <div class="mb_slide_menu_cntnts">
             <div class="mb_sld_top">
                 <div class="logo_sld_mnu">
-                    <a href="#">
+                    <a href="{% url 'product:index' %}">
                         <img src="{% static 'images/newlogo.png' %}">
                     </a>
                 </div>
@@ -39,7 +39,15 @@
                         <span class="menu_cat_name">
                             <span class="menu_icn">
                             <img src="{% static 'images/7.png' %}" alt="">
-                            </span> Laptops & Computers
+                            </span> All Laptops
+                        </span>
+                    </li>
+                    <li>
+                        <div class="clk_show_dh_catlist">
+                        <span class="menu_cat_name">
+                            <span class="menu_icn">
+                            <img src="{% static 'images/7.png' %}" alt="">
+                            </span> Laptops By Brand
                         </span>
                         <span class="sh_hd_accor_cont">
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -47,18 +55,11 @@
                         </div>
                         <div class="pg_links_cat">
                             <ul class="accor_lowlvl">
+                                {% for item in menu_brands %}
                                 <li>
-                                    <a href="#">Laptops & Computers</a>
+                                    <a href="#">{{ item.name }}</a>
                                 </li>
-                                <li>
-                                    <a href="#">Gadgets</a>
-                                </li>
-                                <li>
-                                    <a href="#">Laptops & Computers</a>
-                                </li>
-                                <li>
-                                    <a href="#">Gadgets</a>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </li>
@@ -67,7 +68,7 @@
                         <span class="menu_cat_name">
                             <span class="menu_icn">
                             <img src="{% static 'images/7.png' %}" alt="">
-                            </span> Laptops & Computers
+                            </span> Laptops By Types
                         </span>
                         <span class="sh_hd_accor_cont">
                             <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -75,80 +76,17 @@
                         </div>
                         <div class="pg_links_cat">
                             <ul class="accor_lowlvl">
+                                {% for item in menu_types %}
                                 <li>
-                                    <a href="#">Laptops & Computers</a>
+                                    <a href="#">{{ item.brand_type }}</a>
                                 </li>
-                                <li>
-                                    <a href="#">Gadgets</a>
-                                </li>
-                                <li>
-                                    <a href="#">Laptops & Computers</a>
-                                </li>
-                                <li>
-                                    <a href="#">Gadgets</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="clk_show_dh_catlist">
-                        <span class="menu_cat_name">
-                            <span class="menu_icn">
-                            <img src="{% static 'images/7.png' %}" alt="">
-                            </span> Laptops & Computers
-                        </span>
-                        <span class="sh_hd_accor_cont">
-                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </span>
-                        </div>
-                        <div class="pg_links_cat">
-                            <ul class="accor_lowlvl">
-                                <li>
-                                    <a href="#">Laptops & Computers</a>
-                                </li>
-                                <li>
-                                    <a href="#">Gadgets</a>
-                                </li>
-                                <li>
-                                    <a href="#">Laptops & Computers</a>
-                                </li>
-                                <li>
-                                    <a href="#">Gadgets</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="clk_show_dh_catlist">
-                        <span class="menu_cat_name">
-                            <span class="menu_icn">
-                            <img src="{% static 'images/7.png' %}" alt="">
-                            </span> Laptops & Computers
-                        </span>
-                        <span class="sh_hd_accor_cont">
-                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </span>
-                        </div>
-                        <div class="pg_links_cat">
-                            <ul class="accor_lowlvl">
-                                <li>
-                                    <a href="#">Laptops & Computers</a>
-                                </li>
-                                <li>
-                                    <a href="#">Gadgets</a>
-                                </li>
-                                <li>
-                                    <a href="#">Laptops & Computers</a>
-                                </li>
-                                <li>
-                                    <a href="#">Gadgets</a>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </div>
                     </li>
                 </ul>
             </div>
-            <div class="mb_btm_menus">
+            <!-- <div class="mb_btm_menus">
                 <ul>
                     <li>
                         <a href="#">Groceries</a>
@@ -169,7 +107,7 @@
                         <a href="#">Home & Living</a>
                     </li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -199,7 +137,7 @@
                     <!-- responsive toggle main menu -->
                     <div class="header_logo">
                         <div class="logo">
-                            <a href="#"><img src="{% static 'images/newlogo.png' %}"></a>
+                            <a href="{% url 'product:index' %}"><img src="{% static 'images/newlogo.png' %}"></a>
                         </div>
                     </div>
                     <div class="header_right">
@@ -212,12 +150,16 @@
                                                <i class="fa fa-phone "> </i> Hotline: +977 9803621548
                                                </span>
                                         <span class="cnt_infs_lst">
-                                               <i class="fa fa-envelope"> </i>Email: info@electronics.com  
+                                               <i class="fa fa-envelope"> </i>Email: info@iteam.com.np  
                                                </span>
                                     </div>
                                     <div class="flt-lft-lr">
-                                        <a href="/login">Login</a> /
-                                        <a href="/register">Register</a>
+                                        {% if request.user.is_authenticated %}
+                                            <a href="{% url 'logout' %}">Logout</a>
+                                        {% else %}
+                                            <a href="{% url 'login' %}">Login</a> /
+                                            <a href="{% url 'users:register' %}">Register</a>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="srchfrm_hdr">
@@ -277,13 +219,15 @@
                                                 </a>
                                             </span>
                                         </div>
-                                        <div class="hd_prof shop_itm">
-                                            <span class="shop_itm_txt">
-                                                <a href="#">
-                                                    <img src="{% static 'images/216.jpg' %}" alt="">
-                                                </a>
-                                            </span>
-                                        </div>
+                                        {% if request.user.is_authenticated %}
+                                            <div class="hd_prof shop_itm">
+                                                <span class="shop_itm_txt">
+                                                    <a href="#">
+                                                        <img src="{% static 'images/216.jpg' %}" alt="">
+                                                    </a>
+                                                </span>
+                                            </div>
+                                        {% endif %}
                                         <!-- drop downs -->
                                         <div class="dprdwn fav_drp">
                                             <span class="drpdwn_cls">close</span>
@@ -293,36 +237,45 @@
                                                         </span>
                                             </div>
                                             <div class="drp_added_itms">
+                                                {% if request.user.is_authenticated %}
                                                 <ul>
-                                                    {% for item in header_favourites %}
-                                                    <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="#">
-                                                                    <img src="{% static 'images/ar01.jpg' %}" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus Viverra Urna Fhasellus Viverra Urna</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
-                                                                    </span>
+                                                        {% for item in header_favourites %}
+                                                        <li>
+                                                            <div class="drp_added_itms_lst">
+                                                                <div class="added_itms_img">
+                                                                    <a href="#">
+                                                                        <img src="{% static 'images/ar01.jpg' %}" alt="">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="drp_added_itms_cont_hldr">
+                                                                    <div class="drp_added_itms_cont">
+                                                                        <span class="drp_added_itms_txt">
+                                                                                    <a href="#">Fhasellus Viverra Urna Fhasellus Viverra Urna</a>
+                                                                                    <span class="drp_added_itms_prc">Rs. 500</span>
+                                                                        </span>
 
-                                                                </div>
-                                                                <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
+                                                                    </div>
+                                                                    <div class="dlt_drp_added_itm">
+                                                                        <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </li>
-                                                    {% endfor %}
+                                                        </li>
+                                                        {% endfor %}
                                                 </ul>
                                                 <div class="drp_more_items">
                                                     <div class="drp_vew_mritemsbtn">
                                                         <a href="#">View All Items</a>
                                                     </div>
-                                                </div>
+                                                </div> 
+                                                {% else %}
+                                                <p>You need to be logged in to view your Favourites.</p>
+                                                <div class="drp_more_items">
+                                                        <div class="drp_vew_mritemsbtn">
+                                                            <a href="{% url 'login' %}">Login</a>
+                                                        </div>
+                                                    </div> 
+                                                {% endif %}                                               
                                             </div>
                                         </div>
 
@@ -334,6 +287,7 @@
                                                         </span>
                                             </div>
                                             <div class="drp_added_itms">
+                                                {% if request.user.is_authenticated %}
                                                 <ul>
                                                     {% for item in header_cart %}
                                                     <li>
@@ -361,9 +315,17 @@
                                                 </ul>
                                                 <div class="drp_more_items">
                                                     <div class="drp_vew_mritemsbtn">
-                                                        <a href="#">View All Items</a>
+                                                        <a href="{% url 'product:cart' request.user.pk %}">View All Items</a>
                                                     </div>
                                                 </div>
+                                                {% else %}
+                                                <p>You need to be logged in to view your Cart.</p>
+                                                <div class="drp_more_items">
+                                                        <div class="drp_vew_mritemsbtn">
+                                                            <a href="{% url 'login' %}">Login</a>
+                                                        </div>
+                                                    </div> 
+                                                {% endif %}
                                             </div>
                                         </div>
 
@@ -375,6 +337,7 @@
                                                         </span>
                                             </div>
                                             <div class="drp_added_itms">
+                                                {% if request.user.is_authenticated %}
                                                 <ul>
                                                     {% for item in header_waitlist %}
                                                     <li>
@@ -405,6 +368,14 @@
                                                         <a href="#">View All Items</a>
                                                     </div>
                                                 </div>
+                                                {% else %}
+                                                <p>You need to be logged in to view your Waitlists.</p>
+                                                <div class="drp_more_items">
+                                                        <div class="drp_vew_mritemsbtn">
+                                                            <a href="{% url 'login' %}">Login</a>
+                                                        </div>
+                                                    </div> 
+                                                {% endif %}
                                             </div>
                                         </div>
 
@@ -416,6 +387,7 @@
                                                         </span>
                                             </div>
                                             <div class="drp_added_itms">
+                                                {% if request.user.is_authenticated %}
                                                 <ul>
                                                     {% for item in notifications %}
                                                     <li>
@@ -438,6 +410,14 @@
                                                         <a href="#">View All</a>
                                                     </div>
                                                 </div>
+                                                {% else %}
+                                                <p>You need to be logged in to view your Notifications.</p>
+                                                <div class="drp_more_items">
+                                                        <div class="drp_vew_mritemsbtn">
+                                                            <a href="{% url 'login' %}">Login</a>
+                                                        </div>
+                                                    </div> 
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <!-- drop downs -->
@@ -508,12 +488,12 @@
                                         </a>
                                         <div class="submenu">
                                             <ul>
-                                                {% for item in brands %}
+                                                {% for item in menu_brands %}
                                                 <li>
                                                     <a href="#">
                                                         <span class="menu_icn">
                                                                 <img src="{% static 'images/7.png' %}" alt="">
-                                                            </span> Two Submenu
+                                                            </span> {{ item.name }}
                                                     </a>
                                                 </li>
                                                 {% endfor %}
@@ -528,36 +508,15 @@
                                         </a>
                                         <div class="submenu">
                                             <ul>
-                                                {% for item in types %}
+                                                {% for item in menu_types %}
                                                 <li>
                                                     <a href="#">
                                                         <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Three Submenu
+                                                                <img src="{% static 'images/7.png' %}" alt="">
+                                                            </span> {{ item.brand_type }}
                                                     </a>
                                                 </li>
                                                 {% endfor %}
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Three Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Three Submenu
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="#">
-                                                        <span class="menu_icn">
-                                                                <img src="images/7.png" alt="">
-                                                            </span> Three Submenu
-                                                    </a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </li>
@@ -687,9 +646,9 @@
                                         <h5>Find It Fast</h5>
                                         <div class="menusitms">
                                             <ul>
-                                                {% for item in category %}
+                                                {% for item in menu_categories %}
                                                 <li>
-                                                    <a href="#">Laptops & Computers</a>
+                                                    <a href="#">{{ item.name }}</a>
                                                 </li>
                                                 {% endfor %}
                                             </ul>
@@ -737,8 +696,11 @@
         </div>
     </footer>
     <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <!-- Plugins script -->
+    <script src="{% static 'js/plugins.js' %}"></script>
     {% block scripts %}
     {% endblock %}
       </body>

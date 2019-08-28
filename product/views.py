@@ -44,14 +44,11 @@ def view_notifications(request, *args, **kwargs):
 
 
 def view_cart(request, *args, **kwargs):
-    if request.user.is_superuser():
+    if request.user.is_superuser:
         cart = Cart.objects.filter(removed=False).order_by('-date')
     else:
         cart = Cart.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('date')
-    if cart:
-        return HttpResponse('cart found')
-    else:
-        return HttpResponse('no cart found')
+    return render(request, 'product/cart.html', {'cart': cart})
 
 
 # class WaitListView(ListView):
@@ -67,7 +64,7 @@ def view_cart(request, *args, **kwargs):
 
 
 def view_waitlist(request, *args, **kwargs):
-    if request.user.is_superuser():
+    if request.user.is_superuser:
         waitlist = WaitList.objects.filter(removed=False).order_by('-date')
     else:
         waitlist = WaitList.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
