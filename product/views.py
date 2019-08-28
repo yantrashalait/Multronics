@@ -9,7 +9,9 @@ from django.urls import reverse
 
 
 def index(request):
-    return render(request, 'product/index.html')
+    context['super_deals'] = Product.objects.filter(super_deals=True)
+    context['most_viewed'] = Product.objects.filter(views__gte=10)
+    return render(request, 'product/index.html', context)
 
 
 # class NotificationList(ListView):
