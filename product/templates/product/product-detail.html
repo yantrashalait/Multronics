@@ -95,10 +95,15 @@
                                     <div class="pdtetails_cnt_holder">
                                         <div class="pdetails_ttl">
                                             <h1>{{ product.name }}</h1>
-                                            <span class="pdetails_cat_ttl">Laptops & Computers</span>
+                                            <span class="pdetails_cat_ttl">{{ product.category }}</span>
                                         </div>
                                         <div class="pdetails_avail_stock">
-                                            <span class="avail_txt">Availablity</span><span class="pd_details_stock">In stock</span>
+                                            <span class="avail_txt">Availablity</span>
+                                            {% if product.availability %}
+                                            <span class="pd_details_stock">In stock</span>
+                                            {% else %}
+                                            <span class="pd_details_stock">Out of stock</span>
+                                            {% endif %}
                                         </div>
                                         <div class="pdetails_prices">
                                             <span class="pd_price_old">{{ product.previous_price }}</span>

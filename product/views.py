@@ -67,7 +67,7 @@ def see_notification(request, *args, **kwargs):
 
 
 class ProductList(ListView):
-    template_name = 'product/product_list.html'
+    template_name = 'product/product-list.html'
     model = Product
     context_object_name = 'product'
 
