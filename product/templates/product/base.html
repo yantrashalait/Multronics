@@ -265,7 +265,7 @@
                                                 </ul>
                                                 <div class="drp_more_items">
                                                     <div class="drp_vew_mritemsbtn">
-                                                        <a href="#">View All Items</a>
+                                                        <a href="{% url 'product:favourite' request.user.pk %}">View All Items</a>
                                                     </div>
                                                 </div> 
                                                 {% else %}
@@ -365,7 +365,7 @@
                                                 </ul>
                                                 <div class="drp_more_items">
                                                     <div class="drp_vew_mritemsbtn">
-                                                        <a href="#">View All Items</a>
+                                                        <a href="{% url 'product:waitlist' request.user.pk %}">View All Items</a>
                                                     </div>
                                                 </div>
                                                 {% else %}
@@ -407,7 +407,7 @@
                                                 </ul>
                                                 <div class="drp_more_items">
                                                     <div class="drp_vew_mritemsbtn">
-                                                        <a href="#">View All</a>
+                                                        <a href="{% url 'product:notification' request.user.pk %}">View All</a>
                                                     </div>
                                                 </div>
                                                 {% else %}
