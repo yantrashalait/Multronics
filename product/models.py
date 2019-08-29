@@ -16,6 +16,7 @@ class Category(models.Model):
 class Brand(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='brands')
     name = models.CharField(max_length=100)
+    brand_image = models.ImageField(upload_to='brands/', null=True, blank=True, help_text="Image size: width=193px height=115px")
 
     def __str__(self):
         return self.category.name + '-' + self.name
@@ -31,6 +32,7 @@ class Type(models.Model):
 
 class Product(models.Model):
     name = models.TextField()
+    description = models.TextField(null=True, blank=True)
     previous_price = models.CharField(max_length=100, help_text=('e.g., Rs. 150000'), null=True, blank=True)
     new_price = models.CharField(max_length=100, help_text=('e.g., Rs. 150000'), null=True, blank=True)
     category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.CASCADE, related_name='product_category')
@@ -40,6 +42,7 @@ class Product(models.Model):
     super_deals = models.BooleanField(default=False, verbose_name='Do you want this item to display in super deals section?')
     offer = models.BooleanField(default=False, verbose_name='Does this item have an offer?')
     availability = models.BooleanField(default=False, verbose_name='Is this product available in stock?')
+    main_image = models.ImageField(upload_to='products/', null=True, blank=True, help_text="Image size: width=265px height=290px")
 
     def __str__(self):
         return self.name 
@@ -50,7 +53,8 @@ class Product(models.Model):
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='products/')
+    big_image = models.ImageField(upload_to='products/big/', null=True, blank=True, help_text="Image size: width=700 px height=700px")
+    thumbnail_image = models.ImageField(upload_to='products/thumbnail/', null=True, blank=True, help_text="Image size: width=100px height=100px")
 
 
 class ProductSpecification(models.Model):
@@ -60,7 +64,7 @@ class ProductSpecification(models.Model):
 
 
 class BannerImage(models.Model):
-    image = models.ImageField(upload_to='banners/')
+    image = models.ImageField(upload_to='banners/', help_text="Image size: width=193px height=115px")
 
 
 class Notification(models.Model):
