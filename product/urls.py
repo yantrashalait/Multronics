@@ -38,13 +38,13 @@ urlpatterns = [
     path('banner/<int:pk>/update/', views.BannerUpdate.as_view(), name='banner-update'),
 
     # view all notifications of user
-    path('notifications/<int:pk>/', views.view_notifications, name='notification'),
+    path('notifications/<int:pk>/', views.NotificationListView.as_view(), name='notification'),
     # view all waitlists of user
-    path('waitlist/<int:pk>/', views.view_waitlist, name='wishlist'),
+    path('waitlist/<int:pk>/', views.WaitListView.as_view(), name='waitlist'),
     # view all cart of user
-    path('cart/<int:pk>/', views.view_cart, name='cart'),
+    path('cart/<int:pk>/', views.CartListView.as_view(), name='cart'),
     # view all favourites of user
-    path('favourite/<int:pk>/', views.view_favourite, name='favourite'),
+    path('favourite/<int:pk>/', views.FavouriteListView.as_view(), name='favourite'),
 
     # mark a notification as seen
     path('notification/view/<int:pk>/', views.see_notification, name='see-notification'),

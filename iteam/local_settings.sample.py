@@ -19,7 +19,11 @@ DATABASES = {
     }
 }
 
+from .settings import INSTALLED_APPS
 
+INSTALLED_APPS += ['users', 'product']
+
+LOGOUT_REDIRECT_URL = '/login/'
 
 SEND_ACTIVATION_EMAIL = True
 ACCOUNT_ACTIVATION_DAYS = 30

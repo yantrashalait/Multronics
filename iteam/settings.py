@@ -60,6 +60,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'product.context_processor.header_processor',
             ],
         },
     },
@@ -100,7 +101,7 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_REDIRECT_URL = '/'
-LOGIN_URL = 'login'
+LOGIN_URL = '/login'
 
 try:
     from .local_settings import *

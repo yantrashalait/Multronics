@@ -6,6 +6,7 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, U
 from .models import Product, Category, Brand, Type, BannerImage
 from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm, CartForm, ProductSpecificationFormset, ProductImageFormset
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 def index(request):
@@ -15,84 +16,46 @@ def index(request):
     return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer})
 
 
-# class NotificationList(ListView):
-#     model = Notification
-#     template_name = 'product/notification_list.html'
-#     context_object_name = 'notifications'
+class NotificationListView(LoginRequiredMixin, ListView):
+    model = Notification
+    template_name = 'product/notifications.html'
+    context_object_name = 'notifications'
 
-#     def get_queryset(self, *args, **kwargs):
-#         return self.queryset.filter(user_id=kwargs.get('pk')).order_by('-date')
-
-def view_notifications(request, *args, **kwargs):
-    notifications = Notification.objects.filter(user_id=kwargs.get('pk')).order_by('-date')
-    if notifications:
-        return HttpResponse('notifications found')
-    else:
-        return HttpResponse('No notifications')
+    def get_queryset(self, *args, **kwargs):
+        return Notification.objects.filter(user_id=kwargs.get('pk')).order_by('-date')
 
 
-# class CartList(ListView):
-#     model = Cart
-#     template_name = 'product/cart_list.html'
-#     context_object_name = 'carts'
+class CartListView(LoginRequiredMixin, ListView):
+    model = Cart
+    template_name = 'product/cart.html'
+    context_object_name = 'carts'
 
-#     def get_queryset(self, *args, **kwargs):
-#     def get_queryset(self, *args, **kwargs):
-#         if self.request.user.is_superuser():
-#             return self.queryset.filter(removed=False).order_by('-date')
-#         else:
-#             return self.queryset.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
-
-
-def view_cart(request, *args, **kwargs):
-    if request.user.is_superuser():
-        cart = Cart.objects.filter(removed=False).order_by('-date')
-    else:
-        cart = Cart.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('date')
-    if cart:
-        return HttpResponse('cart found')
-    else:
-        return HttpResponse('no cart found')
+    def get_queryset(self, *args, **kwargs):
+        if self.request.user.is_superuser:
+            return Cart.objects.filter(removed=False).order_by('-date')
+        else:
+            return Cart.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
 
 
-# class WaitListView(ListView):
-#     model = WaitList
-#     template_name = 'product/wait_list.html'
-#     context_object_name = 'waitlists'
+class WaitListView(LoginRequiredMixin, ListView):
+    model = WaitList
+    template_name = 'product/wait.html'
+    context_object_name = 'waitlists'
 
-#     def get_queryset(self, *args, **kwargs):
-#         if self.request.user.is_superuser():
-#             return self.queryset.filter(removed=False).order_by('-date')
-#         else:
-#             return self.queryset.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
-
-
-def view_waitlist(request, *args, **kwargs):
-    if request.user.is_superuser():
-        waitlist = WaitList.objects.filter(removed=False).order_by('-date')
-    else:
-        waitlist = WaitList.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
-    if wishlist:
-        return HttpResponse('waitlist found')
-    else:
-        return HttpResponse('no waitlist')
+    def get_queryset(self, *args, **kwargs):
+        if self.request.user.is_superuser:
+            return WaitList.objects.filter(removed=False).order_by('-date')
+        else:
+            return WaitList.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
 
 
-# class FavouriteList(ListView):
-#     model = Favourite
-#     template_name = 'product/favourite_list.html'
-#     context_object_name = 'favourites'
+class FavouriteListView(LoginRequiredMixin, ListView):
+    model = Favourite
+    template_name = 'product/fav.html'
+    context_object_name = 'favourites'
 
-#     def get_queryset(self, *args, **kwargs):
-#         return self.queryset.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
-
-
-def view_favourite(request, *args, **kwargs):
-    favourite = Favourite.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
-    if favourite:
-        return HttpResponse('favourite found')
-    else:
-        return HttpResponse('favourite not found')
+    def get_queryset(self, *args, **kwargs):
+        return Favourite.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
 
 
 # mark a notification as seen
@@ -102,15 +65,6 @@ def see_notification(request, *args, **kwargs):
     notification.save()
     return HttpResponse('notification seen')
 
-# def product_detail_view(request):
-
-    # obj = Product.objects.all()
-    # context = {
-    #     'name': obj.name,
-    #     # 'previous_price': obj.previous_price,
-    #     # 'new_price': obj.new_price
-    # }
-    # return render(request, "product/product_detail.html", {'object': obj})
 
 class ProductList(ListView):
     template_name = 'product/product_list.html'
@@ -131,7 +85,8 @@ class ProductDetail(DetailView):
     context_object_name = 'product'
 
 
-class ProductCreate(CreateView):
+class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ('add_product')
     model = Product
     template_name = 'product/product_create.html'
     form_class = ProductForm
@@ -164,7 +119,8 @@ class ProductCreate(CreateView):
             return HttpResponseRedirect('/')
         return super().form_valid(form)
 
-class ProductUpdate(UpdateView):
+class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'change_product'
     template_name = 'product/product_create.html'
     form_class = ProductForm
 
@@ -176,7 +132,8 @@ class ProductUpdate(UpdateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
-class ProductDelete(DeleteView):
+class ProductDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = 'delete_product'
     template_name = 'product/product_delete.html'
     form_class = ProductForm
 
@@ -192,7 +149,8 @@ class CategoryList(ListView):
     model = Category
     context_object_name = 'category'
 
-class CategoryCreate(CreateView):
+class CategoryCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'add_category'
     model = Category
     template_name = 'product/category_create.html'
     form_class = CategoryForm
@@ -204,7 +162,8 @@ class CategoryCreate(CreateView):
         print(form.cleaned_data)
         return super().form_valid(form)
     
-class CategoryDelete(DeleteView):
+class CategoryDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = 'delete_category'
     template_name = 'product/category_delete.html'
     form_class = CategoryForm
 
@@ -215,7 +174,8 @@ class CategoryDelete(DeleteView):
     def get_success_url(self):
         return reverse('product:category-list')
 
-class CategoryUpdate(UpdateView):
+class CategoryUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'change_category'
     template_name = 'product/category_create.html'
     form_class = CategoryForm
 
@@ -235,7 +195,8 @@ class BrandList(ListView):
     model = Brand
     context_object_name = 'brand'
 
-class BrandCreate(CreateView):
+class BrandCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'add_brand'
     model = Brand
     template_name = 'product/brand_create.html'
     form_class = BrandForm
@@ -247,7 +208,8 @@ class BrandCreate(CreateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
-class BrandDelete(DeleteView):
+class BrandDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = 'delete_brand'
     template_name = 'product/brand_delete.html'
     form_class = BrandForm
 
@@ -258,7 +220,8 @@ class BrandDelete(DeleteView):
     def get_success_url(self):
         return reverse('product:brand-list')
 
-class BrandUpdate(UpdateView):
+class BrandUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'change_brand'
     template_name = 'product/brand_create.html'
     form_class = BrandForm
 
@@ -278,7 +241,8 @@ class TypeList(ListView):
     model = Type
     context_object_name = 'type'
 
-class TypeCreate(CreateView):
+class TypeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'add_type'
     model = Type
     template_name = 'product/type_create.html'
     form_class = TypeForm
@@ -290,7 +254,8 @@ class TypeCreate(CreateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
-class TypeDelete(DeleteView):
+class TypeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = 'delete_type'
     template_name = 'product/type_delete.html'
     form_class = TypeForm
 
@@ -301,7 +266,8 @@ class TypeDelete(DeleteView):
     def get_success_url(self):
         return reverse('product:type-list')
 
-class TypeUpdate(UpdateView):
+class TypeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'change_type'
     ctemplate_name = 'product/type_create.html'
     form_class = TypeForm
 
@@ -321,7 +287,8 @@ class BannerList(ListView):
     model = BannerImage
     context_object_name = 'banner'
 
-class BannerCreate(CreateView):
+class BannerCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'add_bannerimage'
     model = BannerImage
     template_name = 'product/banner_create.html'
     form_class = BannerImageForm
@@ -333,7 +300,8 @@ class BannerCreate(CreateView):
         print(form.cleaned_data)
         return super().form_valid(form)
 
-class BannerDelete(DeleteView):
+class BannerDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = 'delete_bannerimage'
     template_name = 'product/banner_delete.html'
     form_class = BannerImageForm
 
@@ -344,7 +312,8 @@ class BannerDelete(DeleteView):
     def get_success_url(self):
         return reverse('product:banner-list')
 
-class BannerUpdate(UpdateView):
+class BannerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'change_bannerimage'
     template_name = 'product/banner_create.html'
     form_class = BannerImageForm
 
@@ -360,7 +329,7 @@ class BannerUpdate(UpdateView):
         return reverse('product:banner-list')
 
 
-class AddCart(CreateView):
+class AddCart(LoginRequiredMixin, CreateView):
     template_name = 'product/add_cart.html'
     form_class = CartForm
 
