@@ -81,10 +81,10 @@
                         <div class="item">
                             <div class="list_prd_itm text-center">
                                 <div class="prd_img">
-                                    <a href="#"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
+                                    <a href="{% url 'product:product-detail' item.pk %}"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
                                 </div>
                                 <div class="prd_infos">
-                                    <h3> <a href="#">{{ item.name }}</a></h3>
+                                    <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
                                     <span class="price">{{ item.new_price }}</span>
                                 </div>
                                 <div class="prd_actions">
@@ -129,10 +129,10 @@
                                     <div class="item">
                                         <div class="list_prd_itm text-center">
                                             <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
+                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
                                             </div>
                                             <div class="prd_infos">
-                                                <h3> <a href="#">{{ item.name }}</a></h3>
+                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
                                                 <span class="price">{{ item.new_price }}</span>
                                             </div>
                                             <div class="prd_actions">
@@ -183,10 +183,10 @@
                                     <div class="item">
                                         <div class="list_prd_itm text-center">
                                             <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
+                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
                                             </div>
                                             <div class="prd_infos">
-                                                <h3> <a href="#">{{ item.name }}</a></h3>
+                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
                                                 <span class="price">{{ item.new_price }}</span>
                                             </div>
                                             <div class="prd_actions">
