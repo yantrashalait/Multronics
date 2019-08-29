@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .models import Product, Category, Brand, Type, BannerImage
+from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification
 from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm, CartForm, ProductSpecificationFormset, ProductImageFormset
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -119,18 +119,45 @@ class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
             return HttpResponseRedirect('/')
         return super().form_valid(form)
 
+
 class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_product'
     template_name = 'product/product_create.html'
     form_class = ProductForm
+    is_update_view = True
 
     def get_object(self):
         id_ = self.kwargs.get("pk")
         return get_object_or_404(Product, pk=id_)
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductUpdate, self).get_context_data(**kwargs)
+        if self.request.method == 'POST':
+            context['imageform'] = ProductImageFormset(self.request.POST, self.request.FILES, prefix='imageform', instance=self.object)
+            context['specificationform'] = ProductSpecificationFormset(self.request.POST, self.request.FILES, prefix='specform', instance=self.object)
+        
+        else:
+            context['imageform'] = ProductImageFormset(instance=self.object, prefix='imageform')
+            context['specificationform'] = ProductSpecificationFormset(instance=self.object, prefix='specform')
+        return context
 
     def form_valid(self, form):
-        print(form.cleaned_data)
+        context = self.get_context_data()
+        imageform = context['imageform']
+        specificationform = context['specificationform']
+        self.object = form.save()
+        if imageform.is_valid() and specificationform.is_valid():
+            for form in imageform:
+                f = form.save(commit=False)
+                f.product = self.object
+                f.save()
+            for form in specificationform:
+                f = form.save(commit=False)
+                f.product = self.object
+                f.save()
+            return HttpResponseRedirect('/')
         return super().form_valid(form)
+
 
 class ProductDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'delete_product'

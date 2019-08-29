@@ -11,81 +11,22 @@
                             <div class="col-lg-6">
                                 <div class="pdetails-images">
                                     <div class="pdetails-largeimages pdetails-imagezoom">
-                                        <div class="pdetails-singleimage" data-src="{% static 'images/product/lg/product-image-1.jpg' %}">
-                                            <img src="{% static 'images/product/lg/product-image-1.jpg' %}" alt="product image">
+                                        {% for image in product.images.all %}
+                                        <div class="pdetails-singleimage" data-src="{{ image.big_image.url }}">
+                                            <img src="{{ image.big_image.url }}" alt="product image">
                                             <div class="pd_zoom_icn">
                                                 <i class="fa fa-arrows-alt" aria-hidden="true"></i>
                                             </div>
                                         </div>
-                                        <div class="pdetails-singleimage" data-src="{% static 'images/product/lg/product-image-2.jpg' %}">
-                                            <img src="{% static 'images/product/lg/product-image-2.jpg' %}" alt="product image">
-                                            <div class="pd_zoom_icn">
-                                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="pdetails-singleimage" data-src="{% static 'images/product/lg/product-image-3.jpg' %}">
-                                            <img src="{% static 'images/product/lg/product-image-3.jpg' %}" alt="product image">
-                                            <div class="pd_zoom_icn">
-                                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="pdetails-singleimage" data-src="{% static 'images/product/lg/product-image-4.jpg' %}">
-                                            <img src="{% static 'images/product/lg/product-image-4.jpg' %}" alt="product image">
-                                            <div class="pd_zoom_icn">
-                                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="pdetails-singleimage" data-src="{% static 'images/product/lg/product-image-1.jpg' %}">
-                                            <img src="{% static 'images/product/lg/product-image-1.jpg' %}" alt="product image">
-                                            <div class="pd_zoom_icn">
-                                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="pdetails-singleimage" data-src="{% static 'images/product/lg/product-image-2.jpg' %}">
-                                            <img src="{% static 'images/product/lg/product-image-2.jpg' %}" alt="product image">
-                                            <div class="pd_zoom_icn">
-                                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="pdetails-singleimage" data-src="{% static 'images/product/lg/product-image-3.jpg' %}">
-                                            <img src="{% static 'images/product/lg/product-image-3.jpg' %}" alt="product image">
-                                            <div class="pd_zoom_icn">
-                                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
-                                        <div class="pdetails-singleimage" data-src="{% static 'images/product/lg/product-image-4.jpg' %}">
-                                            <img src="{% static 'images/product/lg/product-image-4.jpg' %}" alt="product image">
-                                            <div class="pd_zoom_icn">
-                                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                     </div>
 
                                     <div class="pdetails-thumbs">
+                                        {% for image in product.images.all %}
                                         <div class="pdetails-singlethumb">
-                                            <img src="{% static 'images/product/thumbnail/product-image-1.jpg' %}" alt="product thumb">
+                                            <img src="{{ image.thumbnail_image.url }}" alt="product thumb">
                                         </div>
-                                        <div class="pdetails-singlethumb">
-                                            <img src="{% static 'images/product/thumbnail/product-image-2.jpg' %}" alt="product thumb">
-                                        </div>
-                                        <div class="pdetails-singlethumb">
-                                            <img src="{% static 'images/product/thumbnail/product-image-3.jpg' %}" alt="product thumb">
-                                        </div>
-                                        <div class="pdetails-singlethumb">
-                                            <img src="{% static 'images/product/thumbnail/product-image-4.jpg' %}" alt="product thumb">
-                                        </div>
-                                        <div class="pdetails-singlethumb">
-                                            <img src="{% static 'images/product/thumbnail/product-image-1.jpg' %}" alt="product thumb">
-                                        </div>
-                                        <div class="pdetails-singlethumb">
-                                            <img src="{% static 'images/product/thumbnail/product-image-2.jpg' %}" alt="product thumb">
-                                        </div>
-                                        <div class="pdetails-singlethumb">
-                                            <img src="{% static 'images/product/thumbnail/product-image-3.jpg' %}" alt="product thumb">
-                                        </div>
-                                        <div class="pdetails-singlethumb">
-                                            <img src="{% static 'images/product/thumbnail/product-image-4.jpg' %}" alt="product thumb">
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div><!-- col 6 -->
@@ -100,9 +41,9 @@
                                         <div class="pdetails_avail_stock">
                                             <span class="avail_txt">Availablity</span>
                                             {% if product.availability %}
-                                            <span class="pd_details_stock">In stock</span>
+                                                <span class="pd_details_stock">In stock</span>
                                             {% else %}
-                                            <span class="pd_details_stock">Out of stock</span>
+                                                <span class="pd_details_out_stock">Out of stock</span>
                                             {% endif %}
                                         </div>
                                         <div class="pdetails_prices">
@@ -110,10 +51,7 @@
                                             <span class="pd_price_new">{{ product.new_price }}</span>
                                         </div>
                                         <div class="pdetails_short_des">
-                                            <p>Vivamus in tempor eros. Phasellus rhoncus in nunc sit amet mattis. Integer in ipsum vestibulum, molestie arcu ac, efficitur tellus. Phasellus id vulputate erat.</p>
-                                            <span class="sku_num">
-                                                <strong>SKU</strong>:FW511948218
-                                            </span>
+                                            <p>{{ product.description }}</p>
                                         </div>
                                         <div class="pdetails_clr_qty">
                                             <div class="colors">

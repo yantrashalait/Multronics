@@ -1373,6 +1373,14 @@ span.drpdwn_hdingtxt {
     display: inline-block;
     border-radius: 5px;
 }
+.pdetails_avail_stock .pd_details_out_stock{
+    margin: 0 0 0 20px;
+    background: #f70034;
+    color: #fff;
+    padding: 2px 15px;
+    display: inline-block;
+    border-radius: 5px;
+}
 .pdetails_prices .pd_price_old {
     color: #c5c5c5;
     font-size: 14px;

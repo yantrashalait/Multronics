@@ -1,6 +1,6 @@
 from django import forms
 from .models import Product, Category, Brand, Type, BannerImage, Cart, ProductSpecification, ProductImage
-from django.forms import formset_factory
+from django.forms.models import inlineformset_factory
 
 
 class ProductForm(forms.ModelForm):
@@ -47,5 +47,5 @@ class ProductImageForm(forms.ModelForm):
         fields = ['big_image', 'thumbnail_image']
 
 
-ProductImageFormset = formset_factory(ProductImageForm, extra=1, max_num=10)
-ProductSpecificationFormset = formset_factory(ProductSpecificationForm, extra=1, max_num=20)
+ProductImageFormset = inlineformset_factory(Product, ProductImage, form=ProductImageForm, extra=1, max_num=10)
+ProductSpecificationFormset = inlineformset_factory(Product, ProductSpecification, form=ProductSpecificationForm, extra=1, max_num=20)
