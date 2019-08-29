@@ -6,28 +6,6 @@
         <div class="mainslider2_caro owl-carousel owl-theme">
             <div class="item">
                 <img src="{% static 'images/Hp.png' %}" alt="">
-                <!-- 
-                            <div class="mainslider_itm_lst">
-                                <div class="container">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="slider_img">
-                                            <img src="images/slider1.png" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="slider_content">
-                                            <div class="sldr_cnt_hldrdpx">
-                                                <span class="prd_ttl">Microsoft Surface 2019</span>
-                                                <h1>Best Selling Product</h1>
-                                                <span class="prd_shrt_desc">Get the latest promotion updates PLUS a free Coupon</span>
-                                                <span class="viewmore"><a href="#">View Details</a></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div> -->
             </div>
             <!--item -->
             <div class="item">
@@ -99,14 +77,15 @@
                         </div>
                     </div>
                     <div class="featured_caro itms_caro owl-carousel owl-theme">
+                        {% for item in most_viewed %}
                         <div class="item">
                             <div class="list_prd_itm text-center">
                                 <div class="prd_img">
                                     <a href="#"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
                                 </div>
                                 <div class="prd_infos">
-                                    <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                    <span class="price">Rs.190,000.00</span>
+                                    <h3> <a href="#">{{ item.name }}</a></h3>
+                                    <span class="price">{{ item.new_price }}</span>
                                 </div>
                                 <div class="prd_actions">
                                     <button class="addtocart">Add To Cart</button>
@@ -114,126 +93,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="list_prd_itm text-center">
-                                <div class="prd_img">
-                                    <a href="#"><img src="{% static 'images/im02.jpg' %}" alt=""></a>
-                                </div>
-                                <div class="prd_infos">
-                                    <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                    <span class="price">Rs.190,000.00</span>
-                                </div>
-                                <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="list_prd_itm text-center">
-                                <div class="prd_img">
-                                    <a href="#"><img src="{% static 'images/im03.jpg' %}" alt=""></a>
-                                </div>
-                                <div class="prd_infos">
-                                    <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                    <span class="price">Rs.190,000.00</span>
-                                </div>
-                                <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="list_prd_itm text-center">
-                                <div class="prd_img">
-                                    <a href="#"><img src="{% static 'images/im04.jpg' %}" alt=""></a>
-                                </div>
-                                <div class="prd_infos">
-                                    <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                    <span class="price">Rs.190,000.00</span>
-                                </div>
-                                <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="list_prd_itm text-center">
-                                <div class="prd_img">
-                                    <a href="#"><img src="{% static 'images/im05.jpg' %}" alt=""></a>
-                                </div>
-                                <div class="prd_infos">
-                                    <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                    <span class="price">Rs.190,000.00</span>
-                                </div>
-                                <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="list_prd_itm text-center">
-                                <div class="prd_img">
-                                    <a href="#"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
-                                </div>
-                                <div class="prd_infos">
-                                    <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                    <span class="price">Rs.190,000.00</span>
-                                </div>
-                                <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="list_prd_itm text-center">
-                                <div class="prd_img">
-                                    <a href="#"><img src="{% static 'images/im02.jpg' %}" alt=""></a>
-                                </div>
-                                <div class="prd_infos">
-                                    <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                    <span class="price">Rs.190,000.00</span>
-                                </div>
-                                <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="list_prd_itm text-center">
-                                <div class="prd_img">
-                                    <a href="#"><img src="{% static 'images/im03.jpg' %}" alt=""></a>
-                                </div>
-                                <div class="prd_infos">
-                                    <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                    <span class="price">Rs.190,000.00</span>
-                                </div>
-                                <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="list_prd_itm text-center">
-                                <div class="prd_img">
-                                    <a href="#"><img src="{% static 'images/im04.jpg' %}" alt=""></a>
-                                </div>
-                                <div class="prd_infos">
-                                    <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                    <span class="price">Rs.190,000.00</span>
-                                </div>
-                                <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
@@ -265,14 +125,15 @@
 
                             <div class="col-md-8">
                                 <div class="thumimg_caro itms_caro owl-carousel owl-theme">
+                                    {% for item in super_deals %}
                                     <div class="item">
                                         <div class="list_prd_itm text-center">
                                             <div class="prd_img">
                                                 <a href="#"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
                                             </div>
                                             <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
+                                                <h3> <a href="#">{{ item.name }}</a></h3>
+                                                <span class="price">{{ item.new_price }}</span>
                                             </div>
                                             <div class="prd_actions">
                                                 <button class="addtocart">Add To Cart</button>
@@ -280,126 +141,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im02.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im03.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im04.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im05.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im02.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im03.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im04.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -437,14 +179,15 @@
 
                             <div class="col-md-8">
                                 <div class="thumimg_caro itms_caro owl-carousel owl-theme">
+                                    {% for item in offer %}
                                     <div class="item">
                                         <div class="list_prd_itm text-center">
                                             <div class="prd_img">
                                                 <a href="#"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
                                             </div>
                                             <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
+                                                <h3> <a href="#">{{ item.name }}</a></h3>
+                                                <span class="price">{{ item.new_price }}</span>
                                             </div>
                                             <div class="prd_actions">
                                                 <button class="addtocart">Add To Cart</button>
@@ -452,126 +195,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im02.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im03.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im04.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im05.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im01.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im02.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im03.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="item">
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="#"><img src="{% static 'images/im04.jpg' %}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                                <span class="price">Rs.190,000.00</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endfor %} 
                                 </div>
                             </div>
                         </div>
