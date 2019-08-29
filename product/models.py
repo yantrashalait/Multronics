@@ -31,6 +31,7 @@ class Type(models.Model):
 
 class Product(models.Model):
     name = models.TextField()
+    description = models.TextField(null=True, blank=True)
     previous_price = models.CharField(max_length=100, help_text=('e.g., Rs. 150000'), null=True, blank=True)
     new_price = models.CharField(max_length=100, help_text=('e.g., Rs. 150000'), null=True, blank=True)
     category = models.ForeignKey(Category, verbose_name='Category', on_delete=models.CASCADE, related_name='product_category')
@@ -40,6 +41,7 @@ class Product(models.Model):
     super_deals = models.BooleanField(default=False, verbose_name='Do you want this item to display in super deals section?')
     offer = models.BooleanField(default=False, verbose_name='Does this item have an offer?')
     availability = models.BooleanField(default=False, verbose_name='Is this product available in stock?')
+    main_image = models.ImageField(upload_to='products/', null=True, blank=True)
 
     def __str__(self):
         return self.name 
