@@ -30,6 +30,11 @@ urlpatterns = [
     path('product/detail/<int:pk>/', views.ProductDetail.as_view(), name='product-detail'),
     path('product/<int:pk>/delete/', views.ProductDelete.as_view(), name='product-delete'),
     path('product/<int:pk>/update/', views.ProductUpdate.as_view(), name='product-update'),
+    path('product/list/brand/<int:pk>/', views.brand_list, name='product-brand-list'),
+    path('product/list/type/<int:pk>/', views.type_list, name='product-type-list'),
+    path('product/list/super-deals/', views.super_deals_list, name='product-super-deals-list'),
+    path('product/list/offer/', views.offer_list, name='product-offer-list'),
+    path('product/list/most-viewed/', views.most_viewed_list, name='product-most-viewed-list'),
 
     # crud for banner images
     path('banner/list/', views.BannerList.as_view(), name='banner-list'),

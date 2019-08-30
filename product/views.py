@@ -7,6 +7,7 @@ from .models import Product, Category, Brand, Type, BannerImage, ProductImage, P
 from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm, CartForm, ProductSpecificationFormset, ProductImageFormset
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -370,16 +371,41 @@ class AddCart(LoginRequiredMixin, CreateView):
         return 
 
 
+@login_required(login_url='/login/')
 def add_to_favourite(request, *args, **kwargs):
-    if request.is_ajax():
-        _id = request.GET.get('pk')
-        product = Product.objects.get(id=_id)
-        fav, created = Favourite.objects.get_or_create(product=product, user=request.user)
-        if not created:
-            if fav.removed == True:
-                fav.removed = False
-                fav.save()
-        data = {'pk': _id}
-        return HttpResponse(data)
+    if request.user.is_authenticated:
+        if request.is_ajax():
+            _id = request.GET.get('pk')
+            product = Product.objects.get(id=_id)
+            fav, created = Favourite.objects.get_or_create(product=product, user=request.user)
+            if not created:
+                if fav.removed == True:
+                    fav.removed = False
+                    fav.save()
+            data = {'pk': _id}
+            return HttpResponse(data)
+        else:
+            return HttpResponse({'message': 'Added Failed'})
     else:
-        return HttpResponse({'message': 'Added Failed'})
+        return HttpResponseRedirect('login')
+
+
+def brand_list(request, *args, **kwargs):
+    brand = Product.objects.filter(brand_id=kwargs.get('pk'))
+    return render(request, 'product/product-list.html', {'product':brand})
+
+def type_list(request, *args, **kwargs):
+    type = Product.objects.filter(product_type_id=kwargs.get('pk'))
+    return render(request, 'product/product-list.html', {'product':type})
+
+def super_deals_list(request, *args, **kwargs):
+    super_deals = Product.objects.filter(super_deals=True)
+    return render(request, 'product/product-list.html', {'product':super_deals})
+
+def offer_list(request, *args, **kwargs):
+    offer = Product.objects.filter(offer=True)
+    return render(request, 'product/product-list.html', {'product':offer})
+
+def most_viewed_list(request, *args, **kwargs):
+    most_viewed = Product.objects.filter(views__gte=10)
+    return render(request, 'product/product-list.html', {'product':most_viewed})

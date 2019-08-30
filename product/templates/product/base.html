@@ -59,7 +59,7 @@
                             <ul class="accor_lowlvl">
                                 {% for item in menu_brands %}
                                 <li>
-                                    <a href="#">{{ item.name }}</a>
+                                    <a href="{% url 'product:product-list' %}">{{ item.name }}</a>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -80,7 +80,7 @@
                             <ul class="accor_lowlvl">
                                 {% for item in menu_types %}
                                 <li>
-                                    <a href="#">{{ item.brand_type }}</a>
+                                    <a href="{% url 'product:product-list' %}">{{ item.brand_type }}</a>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -483,16 +483,15 @@
                                         </div> -->
                                     </li>
                                     <li>
-                                        <a href="#">
                                             <span class="menu_icn">
                                                         <img src="{% static 'images/7.png' %}" alt="">
                                                     </span> Laptops By Brands
-                                        </a>
+                                        
                                         <div class="submenu">
                                             <ul>
                                                 {% for item in menu_brands %}
                                                 <li>
-                                                    <a href="#">
+                                                    <a href="{% url 'product:product-brand-list' item.pk %}">
                                                         <span class="menu_icn">
                                                                 <img src="{% static 'images/7.png' %}" alt="">
                                                             </span> {{ item.name }}
@@ -503,16 +502,16 @@
                                         </div>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        
                                             <span class="menu_icn">
                                                         <img src="{% static 'images/7.png' %}" alt="">
                                                     </span> Laptops By Type
-                                        </a>
+                                       
                                         <div class="submenu">
                                             <ul>
                                                 {% for item in menu_types %}
                                                 <li>
-                                                    <a href="#">
+                                                    <a href="{% url 'product:product-type-list' item.pk %}">
                                                         <span class="menu_icn">
                                                                 <img src="{% static 'images/7.png' %}" alt="">
                                                             </span> {{ item.brand_type }}

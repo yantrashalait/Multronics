@@ -19,7 +19,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-6 col-12">
                             <div class="list_prd_itm text-center">
                                 <div class="prd_img">
-                                    <a href="{% url 'product:product-detail' item.pk %}"><img src="{% static 'images/im03.jpg' %}" alt=""></a>
+                                    <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
                                 </div>
                                 <div class="prd_infos">
                                     <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>

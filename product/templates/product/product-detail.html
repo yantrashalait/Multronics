@@ -88,18 +88,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                         <a class="nav-link active" id="tb_description" data-toggle="tab" href="#desc" role="tab" aria-controls="desc" aria-selected="true">Description</a>
-                      </li>
+                      </li> -->
                       <li class="nav-item">
-                        <a class="nav-link" id="tb_specifications" data-toggle="tab" href="#specific" role="tab" aria-controls="specific" aria-selected="false">Specifications</a>
+                        <a class="nav-link active" id="tb_specifications" data-toggle="tab" href="#specific" role="tab" aria-controls="specific" aria-selected="false">Specifications</a>
                       </li>
-                      <li class="nav-item">
+                      <!-- <li class="nav-item">
                         <a class="nav-link" id="tb_reviews" data-toggle="tab" href="#reviewstb" role="tab" aria-controls="reviewstb" aria-selected="false">Reviews</a>
-                      </li>
+                      </li> -->
                     </ul>
-                    <div class="tab-content" id="myTabContent">
-                      <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="tb_description">
+                    <!-- <div class="tab-content" id="myTabContent"> -->
+                      <!-- <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="tb_description">
                           <div class="tabcontent">  
                           <div class="description_texts">
                               <div class="desc_bx">
@@ -116,49 +116,24 @@
                               </div>
                           </div>
                           </div>
-                      </div>
-                      <div class="tab-pane fade" id="specific" role="tabpanel" aria-labelledby="tb_specifications">
+                      </div> -->
+                      <div class="tab-pane fade show active" id="specific" role="tabpanel" aria-labelledby="tb_specifications">
                         <div class="tabcontent">
                             <div class="tecnical-specs">
-                                <h4 class="name">
-                                    Warch 42 mm Smart Watches
-                                </h4>
                                   <table>
                                     <tbody>
+                                        {% for spec in product.specifications.all %}
                                         <tr>
-                                            <td>Height</td>
-                                            <td>38.6mm</td>
+                                            <td>{{ spec.title }}</td>
+                                            <td>{{ spec.content }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>Meterial</td>
-                                            <td>Stainless Stee</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Case</td>
-                                            <td>40g</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Color</td>
-                                            <td>blue, gray, green, light blue, lime, purple, red, yellow</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Depth</td>
-                                            <td>10.5mm</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Width</td>
-                                            <td>33.3mm</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Size</td>
-                                            <td>Large, Medium, Small</td>
-                                        </tr>
+                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                       </div>
-                      <div class="tab-pane fade" id="reviewstb" role="tabpanel" aria-labelledby="tb_reviews">
+                      <!-- <div class="tab-pane fade" id="reviewstb" role="tabpanel" aria-labelledby="tb_reviews">
                         <div class="tabcontent">
                             <div class="form-review style1">
                             <div class="title">
@@ -186,44 +161,44 @@
                                             Ali Tufan : <span>April 3, 2016</span>
                                         </div>
                                     </div>
-                                    <!-- /.review-metadata -->
-                                    <div class="review-content">
+                                    <!- /.review-metadata -->
+                                    <!-- <div class="review-content">
                                         <p>
                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                                         </p>
-                                    </div>
+                                    </div> -->
                                     <!-- /.review-content -->
-                                </li>
-                                <li>
+                                <!-- </li> -->
+                                <!-- <li>
                                     <div class="review-metadata">
                                         <div class="name">
                                             Ali Tufan : <span>April 3, 2016</span>
                                         </div>
                                     </div>
-                                    <!-- /.review-metadata -->
-                                    <div class="review-content">
-                                        <p>
+                                    <!-/.review-metadata -->
+                                    <!-- <div class="review-content"> -->
+                                        <!-- <p>
                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                                        </p>
-                                    </div>
+                                        </p> -->
+                                    <!-- </div> -->
                                     <!-- /.review-content -->
-                                </li>
-                                <li>
-                                    <div class="review-metadata">
+                                <!-- </li> --> 
+                                <!-- <li> -->
+                                    <!-- <div class="review-metadata">
                                         <div class="name">
                                             Ali Tufan : <span>April 3, 2016</span>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- /.review-metadata -->
-                                    <div class="review-content">
+                                    <!-- <div class="review-content">
                                         <p>
                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
                                         </p>
-                                    </div>
+                                    </div> -->
                                     <!-- /.review-content -->
-                                </li>
-                            </ul>
-                        </div>
+                                <!-- </li> -->
+                            <!-- </ul> -->
+                        </div> 
                       </div>
                     </div>
                 </div>
