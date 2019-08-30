@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification
+from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart
 from .forms import ProductForm, CategoryForm, BrandForm, TypeForm, BannerImageForm, CartForm, ProductSpecificationFormset, ProductImageFormset
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -368,7 +368,7 @@ class AddCart(LoginRequiredMixin, CreateView):
     form_class = CartForm
 
     def get_success_url(self):
-        return 
+        return reverse('product:cart-list', kwargs={'pk':self.request.user.pk})
 
 
 @login_required(login_url='/login/')
@@ -409,3 +409,4 @@ def offer_list(request, *args, **kwargs):
 def most_viewed_list(request, *args, **kwargs):
     most_viewed = Product.objects.filter(views__gte=10)
     return render(request, 'product/product-list.html', {'product':most_viewed})
+

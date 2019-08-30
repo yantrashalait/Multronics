@@ -32,7 +32,7 @@ class BannerImageForm(forms.ModelForm):
 class CartForm(forms.ModelForm):
     class Meta:
         model = Cart
-        fields = ['product', 'amount', 'color']
+        fields = ['user', 'product', 'amount', 'color']
 
 
 class ProductSpecificationForm(forms.ModelForm):

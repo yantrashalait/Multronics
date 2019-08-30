@@ -46,8 +46,11 @@ urlpatterns = [
     path('notifications/<int:pk>/', views.NotificationListView.as_view(), name='notification'),
     # view all waitlists of user
     path('waitlist/<int:pk>/', views.WaitListView.as_view(), name='waitlist'),
+
     # view all cart of user
-    path('cart/<int:pk>/', views.CartListView.as_view(), name='cart'),
+    path('cart/<int:pk>/', views.CartListView.as_view(), name='cart-list'),
+    path('cart/add/', views.AddCart.as_view(), name='add-cart'),
+    
     # view all favourites of user
     path('favourite/<int:pk>/', views.FavouriteListView.as_view(), name='favourite'),
 
