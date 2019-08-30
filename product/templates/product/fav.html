@@ -8,8 +8,6 @@
                     <div class="crt_heading">
                         <h1>Shopping Cart</h1>
                     </div>
-                    <form method="POST" action=".">
-                        {% csrf_token %}
                         <table class="table prd_calc_tbl">
                           <thead>
                             <tr>
@@ -35,9 +33,11 @@
                                   </div>
                               </td>
                               <td>
-                                <button class="crt_ad">Add To Cart</button>
+                                <a href="{% url 'product:product-detail' item.product.pk %}"><button class="crt_ad">Add To Cart</button></a>
                               </td>
                               <td>
+                                <form method="POST" action=".">
+                                  {% csrf_token %}
                                   <button type="submit" name="delete" value="{{ item.pk }}" class="crt_dlt"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                 </form>
                               </td>

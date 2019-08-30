@@ -45,16 +45,18 @@
                         </a>
                     </li>
                     <li>
-                        <div class="clk_show_dh_catlist">
-                        <span class="menu_cat_name">
-                            <span class="menu_icn">
-                            <img src="{% static 'images/7.png' %}" alt="">
-                            </span> Laptops By Brand
-                        </span>
-                        <span class="sh_hd_accor_cont">
-                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </span>
-                        </div>
+                        <a href="#">
+                            <div class="clk_show_dh_catlist">
+                            <span class="menu_cat_name">
+                                <span class="menu_icn">
+                                <img src="{% static 'images/7.png' %}" alt="">
+                                </span> Laptops By Brand
+                            </span>
+                            <span class="sh_hd_accor_cont">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </span>
+                            </div>
+                        </a>
                         <div class="pg_links_cat">
                             <ul class="accor_lowlvl">
                                 {% for item in menu_brands %}
@@ -66,16 +68,18 @@
                         </div>
                     </li>
                     <li>
-                        <div class="clk_show_dh_catlist">
-                        <span class="menu_cat_name">
-                            <span class="menu_icn">
-                            <img src="{% static 'images/7.png' %}" alt="">
-                            </span> Laptops By Types
-                        </span>
-                        <span class="sh_hd_accor_cont">
-                            <i class="fa fa-caret-down" aria-hidden="true"></i>
-                        </span>
-                        </div>
+                        <a href="#">
+                            <div class="clk_show_dh_catlist">
+                            <span class="menu_cat_name">
+                                <span class="menu_icn">
+                                <img src="{% static 'images/7.png' %}" alt="">
+                                </span> Laptops By Types
+                            </span>
+                            <span class="sh_hd_accor_cont">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </span>
+                            </div>
+                        </a>
                         <div class="pg_links_cat">
                             <ul class="accor_lowlvl">
                                 {% for item in menu_types %}
@@ -483,18 +487,19 @@
                                         </div> -->
                                     </li>
                                     <li>
+                                        <a href="#">
                                             <span class="menu_icn">
-                                                        <img src="{% static 'images/7.png' %}" alt="">
-                                                    </span> Laptops By Brands
-                                        
+                                                <img src="{% static 'images/7.png' %}" alt="">
+                                            </span> Laptops By Brands
+                                        </a>
                                         <div class="submenu">
                                             <ul>
                                                 {% for item in menu_brands %}
                                                 <li>
                                                     <a href="{% url 'product:product-brand-list' item.pk %}">
                                                         <span class="menu_icn">
-                                                                <img src="{% static 'images/7.png' %}" alt="">
-                                                            </span> {{ item.name }}
+                                                            <img src="{% static 'images/7.png' %}" alt="">
+                                                        </span> {{ item.name }}
                                                     </a>
                                                 </li>
                                                 {% endfor %}
@@ -502,11 +507,11 @@
                                         </div>
                                     </li>
                                     <li>
-                                        
+                                        <a href="#">
                                             <span class="menu_icn">
-                                                        <img src="{% static 'images/7.png' %}" alt="">
-                                                    </span> Laptops By Type
-                                       
+                                                <img src="{% static 'images/7.png' %}" alt="">
+                                            </span> Laptops By Type
+                                        </a>
                                         <div class="submenu">
                                             <ul>
                                                 {% for item in menu_types %}
