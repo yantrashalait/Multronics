@@ -72,7 +72,7 @@
                                 <h2>Most Viewed</h2>
                             </div>
                             <div class="vi_all_prd_caro">
-                                <a href="#">View All</a>
+                                <a href="{% url 'product:product-most-viewed-list'  %}">View All</a>
                             </div>
                         </div>
                     </div>
@@ -88,7 +88,7 @@
                                     <span class="price">{{ item.new_price }}</span>
                                 </div>
                                 <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
+                                    <button class="addtocart"><a href="{% url 'product:product-detail' item.pk %}">Add To Cart</button></a>
                                     <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
                                 </div>
                             </div>
@@ -110,9 +110,11 @@
                             <div class="sectionttl">
                                 <h2>Super Deals</h2>
                             </div>
+                            
                             <div class="vi_all_prd_caro">
-                                <a href="#">View All</a>
+                                <a href="{% url 'product:product-super-deals-list'  %}">View All</a>
                             </div>
+                           
                         </div>
                     </div>
                     <div class="thumimg_caro_itms">
@@ -136,7 +138,7 @@
                                                 <span class="price">{{ item.new_price }}</span>
                                             </div>
                                             <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
+                                                <button class="addtocart"><a href="{% url 'product:product-detail' item.pk %}">Add To Cart</button></a>
                                                 <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
                                             </div>
                                         </div>
@@ -165,7 +167,7 @@
                                 <h2>Special Offers</h2>
                             </div>
                             <div class="vi_all_prd_caro">
-                                <a href="#">View All</a>
+                                <a href="{% url 'product:product-offer-list'  %}">View All</a>
                             </div>
                         </div>
                     </div>
@@ -190,7 +192,7 @@
                                                 <span class="price">{{ item.new_price }}</span>
                                             </div>
                                             <div class="prd_actions">
-                                                <button class="addtocart">Add To Cart</button>
+                                                <button class="addtocart"><a href="{% url 'product:product-detail' item.pk %}">Add To Cart</button></a>
                                                 <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
                                             </div>
                                         </div>

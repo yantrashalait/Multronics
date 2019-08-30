@@ -363,3 +363,22 @@ class AddCart(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return 
 
+def brand_list(request, *args, **kwargs):
+    brand = Product.objects.filter(brand_id=kwargs.get('pk'))
+    return render(request, 'product/product-list.html', {'product':brand})
+
+def type_list(request, *args, **kwargs):
+    type = Product.objects.filter(product_type_id=kwargs.get('pk'))
+    return render(request, 'product/product-list.html', {'product':type})
+
+def super_deals_list(request, *args, **kwargs):
+    super_deals = Product.objects.filter(super_deals=True)
+    return render(request, 'product/product-list.html', {'product':super_deals})
+
+def offer_list(request, *args, **kwargs):
+    offer = Product.objects.filter(offer=True)
+    return render(request, 'product/product-list.html', {'product':offer})
+
+def most_viewed_list(request, *args, **kwargs):
+    most_viewed = Product.objects.filter(views__gte=10)
+    return render(request, 'product/product-list.html', {'product':most_viewed})
