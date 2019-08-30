@@ -18,17 +18,18 @@
                         </tr>
                       </thead>
                       <tbody>
+                          {% for item in carts %}
                         <tr>
                           <td>
                               <div class="td_cont_hldr">
                                   <div class="tbl_prd_img">  
-                                    <img src="images/im04.jpg" alt="">
+                                    <img src="{% static 'images/im04.jpg' %}" alt="">
                                   </div>
                                   <div class="tbl_prd_ttl">
-                                      Dell Alienware 15R4
+                                      {{ item.name }}
                                   </div>
                                   <div class="tbl_prd_prc">
-                                      Rs.190,000.00
+                                      {{ item.new_price }}
                                   </div>
                               </div>
                           </td>
@@ -48,96 +49,7 @@
                             <button class="crt_dlt"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                           </td>
                         </tr><!-- tr -->
-                        <tr>
-                          <td>
-                              <div class="td_cont_hldr">
-                                  <div class="tbl_prd_img">  
-                                    <img src="images/im01.jpg" alt="">
-                                  </div>
-                                  <div class="tbl_prd_ttl">
-                                      Dell Alienware 15R4
-                                  </div>
-                                  <div class="tbl_prd_prc">
-                                      Rs.190,000.00
-                                  </div>
-                              </div>
-                          </td>
-                          <td>
-                              <div class="tbl_prd_qty">
-                                <form>
-                                    <input type="number" name="number">
-                                </form>
-                              </div>
-                          </td>
-                          <td>
-                              <div class="tbl_total">
-                                  Rs.190,000.00
-                              </div>
-                          </td>
-                          <td>
-                            <button class="crt_dlt"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                          </td>
-                        </tr><!-- tr -->
-                        <tr>
-                          <td>
-                              <div class="td_cont_hldr">
-                                  <div class="tbl_prd_img">  
-                                    <img src="images/im02.jpg" alt="">
-                                  </div>
-                                  <div class="tbl_prd_ttl">
-                                      Dell Alienware 15R4
-                                  </div>
-                                  <div class="tbl_prd_prc">
-                                      Rs.190,000.00
-                                  </div>
-                              </div>
-                          </td>
-                          <td>
-                              <div class="tbl_prd_qty">
-                                <form>
-                                    <input type="number" name="number">
-                                </form>
-                              </div>
-                          </td>
-                          <td>
-                              <div class="tbl_total">
-                                  Rs.190,000.00
-                              </div>
-                          </td>
-                          <td>
-                            <button class="crt_dlt"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                          </td>
-                        </tr><!-- tr -->
-                        <tr>
-                          <td>
-                              <div class="td_cont_hldr">
-                                  <div class="tbl_prd_img">  
-                                    <img src="images/im03.jpg" alt="">
-                                  </div>
-                                  <div class="tbl_prd_ttl">
-                                      Dell Alienware 15R4
-                                  </div>
-                                  <div class="tbl_prd_prc">
-                                      Rs.190,000.00
-                                  </div>
-                              </div>
-                          </td>
-                          <td>
-                              <div class="tbl_prd_qty">
-                                <form>
-                                    <input type="number" name="number">
-                                </form>
-                              </div>
-                          </td>
-                          <td>
-                              <div class="tbl_total">
-                                  Rs.190,000.00
-                              </div>
-                          </td>
-                          <td>
-                            <button class="crt_dlt"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                          </td>
-                        </tr><!-- tr -->
+                        {% endfor %}
                       </tbody>
                     </table>
                 </div>
