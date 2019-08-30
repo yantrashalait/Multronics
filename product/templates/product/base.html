@@ -245,15 +245,15 @@
                                                         <li>
                                                             <div class="drp_added_itms_lst">
                                                                 <div class="added_itms_img">
-                                                                    <a href="#">
-                                                                        <img src="{% static 'images/ar01.jpg' %}" alt="">
+                                                                    <a href="{% url 'product:product-detail' item.product.pk %}">
+                                                                        <img src="{{ item.product.main_image.url }}" alt="">
                                                                     </a>
                                                                 </div>
                                                                 <div class="drp_added_itms_cont_hldr">
                                                                     <div class="drp_added_itms_cont">
                                                                         <span class="drp_added_itms_txt">
-                                                                                    <a href="#">Fhasellus Viverra Urna Fhasellus Viverra Urna</a>
-                                                                                    <span class="drp_added_itms_prc">Rs. 500</span>
+                                                                                    <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.product.name }}</a>
+                                                                                    <span class="drp_added_itms_prc">{{ item.product.new_price }}</span>
                                                                         </span>
 
                                                                     </div>
@@ -295,15 +295,15 @@
                                                     <li>
                                                         <div class="drp_added_itms_lst">
                                                             <div class="added_itms_img">
-                                                                <a href="#">
-                                                                    <img src="{% static 'images/ar01.jpg' %}" alt="">
+                                                                <a href="{% url 'product:product-detail' item.product.pk %}">
+                                                                    <img src="{{ item.product.main_image.url }}" alt="">
                                                                 </a>
                                                             </div>
                                                             <div class="drp_added_itms_cont_hldr">
                                                                 <div class="drp_added_itms_cont">
                                                                     <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus Viverra Urna Fhasellus Viverra Urna</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
+                                                                                <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.product.name }}</a>
+                                                                                <span class="drp_added_itms_prc">{{ item.product.new_price }}</span>
                                                                     </span>
 
                                                                 </div>
@@ -345,15 +345,15 @@
                                                     <li>
                                                         <div class="drp_added_itms_lst">
                                                             <div class="added_itms_img">
-                                                                <a href="#">
-                                                                    <img src="{% static 'images/ar01.jpg' %}" alt="">
+                                                                <a href="{% url 'product:product-detail' item.product.pk %}">
+                                                                    <img src="{{ item.product.main_image.url }}" alt="">
                                                                 </a>
                                                             </div>
                                                             <div class="drp_added_itms_cont_hldr">
                                                                 <div class="drp_added_itms_cont">
                                                                     <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus Viverra Urna Fhasellus Viverra Urna</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
+                                                                                <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.product.name }}</a>
+                                                                                <span class="drp_added_itms_prc">{{ item.product.new_price }}</span>
                                                                     </span>
 
                                                                 </div>

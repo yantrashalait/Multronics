@@ -21,8 +21,8 @@ class NotificationListView(LoginRequiredMixin, ListView):
     template_name = 'product/notifications.html'
     context_object_name = 'notifications'
 
-    def get_queryset(self, *args, **kwargs):
-        return Notification.objects.filter(user_id=kwargs.get('pk')).order_by('-date')
+    def get_queryset(self):
+        return Notification.objects.filter(user_id=self.kwargs.get('pk')).order_by('-date')
 
 
 class CartListView(LoginRequiredMixin, ListView):
@@ -30,11 +30,11 @@ class CartListView(LoginRequiredMixin, ListView):
     template_name = 'product/cart.html'
     context_object_name = 'carts'
 
-    def get_queryset(self, *args, **kwargs):
+    def get_queryset(self):
         if self.request.user.is_superuser:
             return Cart.objects.filter(removed=False).order_by('-date')
         else:
-            return Cart.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
+            return Cart.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
 
 
 class WaitListView(LoginRequiredMixin, ListView):
@@ -42,11 +42,11 @@ class WaitListView(LoginRequiredMixin, ListView):
     template_name = 'product/wait.html'
     context_object_name = 'waitlists'
 
-    def get_queryset(self, *args, **kwargs):
+    def get_queryset(self):
         if self.request.user.is_superuser:
             return WaitList.objects.filter(removed=False).order_by('-date')
         else:
-            return WaitList.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
+            return WaitList.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
 
 
 class FavouriteListView(LoginRequiredMixin, ListView):
@@ -54,9 +54,15 @@ class FavouriteListView(LoginRequiredMixin, ListView):
     template_name = 'product/fav.html'
     context_object_name = 'favourites'
 
-    def get_queryset(self, *args, **kwargs):
-        return Favourite.objects.filter(user_id=kwargs.get('pk'), removed=False).order_by('-date')
+    def get_queryset(self):
+        return Favourite.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
 
+    def post(self, request, *args, **kwargs):
+        _id = self.request.POST.get('delete')
+        fav = Favourite.objects.get(pk=_id)
+        fav.removed=True
+        fav.save()
+        return render(request, self.template_name, {'favourites': self.get_queryset()})
 
 # mark a notification as seen
 def see_notification(request, *args, **kwargs):
@@ -363,3 +369,17 @@ class AddCart(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return 
 
+
+def add_to_favourite(request, *args, **kwargs):
+    if request.is_ajax():
+        _id = request.GET.get('pk')
+        product = Product.objects.get(id=_id)
+        fav, created = Favourite.objects.get_or_create(product=product, user=request.user)
+        if not created:
+            if fav.removed == True:
+                fav.removed = False
+                fav.save()
+        data = {'pk': _id}
+        return HttpResponse(data)
+    else:
+        return HttpResponse({'message': 'Added Failed'})

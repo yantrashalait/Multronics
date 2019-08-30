@@ -48,4 +48,7 @@ urlpatterns = [
 
     # mark a notification as seen
     path('notification/view/<int:pk>/', views.see_notification, name='see-notification'),
+
+    # add to favourite
+    path('favourite/add/', views.add_to_favourite, name='add_favourite'),
 ]

@@ -1,5 +1,6 @@
 {% extends 'product/base.html' %}
 {% load static %}
+{% load filters %}
 {% block content %}
 <section class="slider_and_newariv opt2_sldr">
     <div class="mainslider_holder">
@@ -89,7 +90,11 @@
                                 </div>
                                 <div class="prd_actions">
                                     <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                    {% if item|check_favourite:request.user.pk %}
+                                        <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                    {% else %}
+                                        <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
@@ -137,7 +142,11 @@
                                             </div>
                                             <div class="prd_actions">
                                                 <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% if item|check_favourite:request.user.pk %}
+                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% else %}
+                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -191,7 +200,11 @@
                                             </div>
                                             <div class="prd_actions">
                                                 <button class="addtocart">Add To Cart</button>
-                                                <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% if item|check_favourite:request.user.pk %}
+                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% else %}
+                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -279,4 +292,28 @@
         </div>
     </div>
 </section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(".addwhislist").click(function(){
+        var product_id = $(this).attr('p_id');
+        var fav_item = $(this);
+
+        $.ajax({
+            url: '/favourite/add',
+            data: {
+                'pk': product_id,
+            },
+
+            success: function(data){
+                fav_item.css("background", "#ff8202");
+            },
+
+            error: function(data){
+                console.log('not added');
+            }
+        });
+    });
+</script>
 {% endblock %}

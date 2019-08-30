@@ -8,33 +8,41 @@
                     <div class="crt_heading">
                         <h1>Shopping Cart</h1>
                     </div>
-                    <form>
+                    <form method="POST" action=".">
+                        {% csrf_token %}
                         <table class="table prd_calc_tbl">
                           <thead>
                             <tr>
                               <th scope="col">Product</th>
                               <th scope="col">Add To Cart</th>
+                              <th scope="col">Delete</th>
                             </tr>
                           </thead>
                           <tbody>
+                            {% for item in favourites %}
                             <tr>
                               <td>
                                   <div class="td_cont_hldr">
                                       <div class="tbl_prd_img">  
-                                        <img src="{% static 'images/im04.jpg' %}" alt="">
+                                        <img src="{{ item.product.main_image.url }}" alt="">
                                       </div>
                                       <div class="tbl_prd_ttl">
-                                          Dell Alienware 15R4
+                                          {{ item.product.name }}
                                       </div>
                                       <div class="tbl_prd_prc">
-                                          Rs.190,000.00
+                                          {{ item.product.new_price }}
                                       </div>
                                   </div>
                               </td>
                               <td>
                                 <button class="crt_ad">Add To Cart</button>
                               </td>
+                              <td>
+                                  <button type="submit" name="delete" value="{{ item.pk }}" class="crt_dlt"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                </form>
+                              </td>
                             </tr><!-- tr -->
+                            {% endfor %}
                           </tbody>
                         </table>
                     </form>
