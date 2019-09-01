@@ -46,7 +46,10 @@
                               </div>
                           </td>
                           <td>
-                            <button class="crt_dlt"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            <form method="POST" action=".">
+                                {% csrf_token %}
+                            <button type="submit" class="crt_dlt" value="{{ item.pk }}" name="delete"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                            </form>
                           </td>
                         </tr><!-- tr -->
                         {% endfor %}

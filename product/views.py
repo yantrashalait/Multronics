@@ -36,6 +36,13 @@ class CartListView(LoginRequiredMixin, ListView):
             return Cart.objects.filter(removed=False).order_by('-date')
         else:
             return Cart.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
+    
+    def post(self, request, *args, **kwargs):
+        _id = self.request.POST.get('delete')
+        cart = Cart.objects.get(pk=_id)
+        cart.removed=True 
+        cart.save()
+        return render(request, self.template_name, {'carts': self.get_queryset()})
 
 
 class WaitListView(LoginRequiredMixin, ListView):
