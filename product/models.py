@@ -138,6 +138,21 @@ class UserRequestProduct(models.Model):
         return self.user.username + ' ' + self.product_name
 
 
+class SuperImage(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True, help_text="Insert name to avoid confusion")
+    super_image = models.ImageField(upload_to='super/', help_text="Image size: width: 401px height: 424px")
+
+    def __str__(self):
+        return self.name
+
+
+class OfferImage(models.Model):
+    name = models.CharField(max_length=100, null=True, blank=True, help_text="Insert name to avoid confusion")
+    offer_image = models.ImageField(upload_to='offers/', help_text="Image size: width: 401px height: 424px")
+
+    def __str__(self):
+        return self.name
+
 
 @receiver(post_save, sender=Product)
 def product_notify(sender, instance, created, **kwargs):

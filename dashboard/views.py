@@ -9,11 +9,13 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.decorators import login_required
 
 
-class DashboardView(TemplateView):
+class DashboardView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
+    permission_required = 'add_product'
     template_name = 'dashboard/dashboard.html'
 
 
-class ProductList(ListView):
+class ProductList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_product'
     template_name = 'dashboard/product_list.html'
     model = Product
     context_object_name = 'product'
@@ -99,7 +101,8 @@ class ProductDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'dashboard/product_confirm_delete.html'
     success_url = "/dashboard/product/list"
 
-class CategoryList(ListView):
+class CategoryList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_category'
     template_name = 'dashboard/category_list.html'
     model = Category
     context_object_name = 'category'
@@ -176,7 +179,8 @@ class BrandUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('dashboard:brand-list')
 
-class TypeList(ListView):
+class TypeList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_type'
     template_name = 'dashboard/type_list.html'
     model = Type
     context_object_name = 'type'
@@ -216,7 +220,8 @@ class TypeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('dashboard:type-list')
 
-class BannerList(ListView):
+class BannerList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_bannerimage'
     template_name = 'dashboard/banner_list.html'
     model = BannerImage
     context_object_name = 'banner'

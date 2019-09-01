@@ -1447,6 +1447,16 @@ font-size: 35px;
     color: #333;
 }
 
+.pdetails_btns button{
+    border: 0px;
+    background-color: #f92400;
+    padding: 15px 38px;
+    border-radius: 50px;
+    color: #fff;
+    margin: 0 30px 0 0;
+    display: block;
+}
+
 .add_to_crt_pdetails a {
     background-color: #f92400;
     padding: 15px 38px;
