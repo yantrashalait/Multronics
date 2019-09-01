@@ -2022,6 +2022,10 @@ button.crt_dlt:hover{
     padding-right:15px;
 }
 
+.fields-content .field-row .field-one-third {
+    padding-right:5px;
+}
+
 .fields-content .field-row .field-one-half:nth-child(2) {
     padding-left:15px;
 }
@@ -2114,6 +2118,11 @@ button.crt_dlt:hover{
 }
 .fields-content .field-row .field-one-half {
     width: 50%;
+    float: left;
+}
+
+.fields-content .field-row .field-one-third {
+    width: 33.33%;
     float: left;
 }
 /* Cart Total Style 2 */
@@ -2314,3 +2323,28 @@ table.product thead tr th:last-child {
 }
 /* add product */
 
+/* added at last */
+.formset_wrap{
+    padding: 25px;
+}
+
+.image-form-single{
+    padding: 10px;
+    border-bottom: solid 1px;
+    border-color: lightgrey;
+}
+
+.spec-form-single{
+    padding: 10px;
+    border-bottom: solid 1px;
+    border-color: lightgrey;
+}
+
+button.item-action{
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: none;
+    font-size: 16px;
+    color: #989898;
+}

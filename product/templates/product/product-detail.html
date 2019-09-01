@@ -12,20 +12,24 @@
                                 <div class="pdetails-images">
                                     <div class="pdetails-largeimages pdetails-imagezoom">
                                         {% for image in product.images.all %}
+                                        {% if image.big_image %}
                                         <div class="pdetails-singleimage" data-src="{{ image.big_image.url }}">
                                             <img src="{{ image.big_image.url }}" alt="product image">
                                             <div class="pd_zoom_icn">
                                                 <i class="fa fa-arrows-alt" aria-hidden="true"></i>
                                             </div>
                                         </div>
+                                        {% endif %}
                                         {% endfor %}
                                     </div>
 
                                     <div class="pdetails-thumbs">
                                         {% for image in product.images.all %}
+                                        {% if image.thumbnail_image %}
                                         <div class="pdetails-singlethumb">
                                             <img src="{{ image.thumbnail_image.url }}" alt="product thumb">
                                         </div>
+                                        {% endif %}
                                         {% endfor %}
                                     </div>
                                 </div>
