@@ -70,8 +70,16 @@
                             </div>
                             <div class="field-row">
                                 <div class="field-full">
-                                <label for="id_main_image">Main image of product *</label>
-                                {{ form.main_image }}
+                                    <label for="id_main_image">Main image of product *</label>
+                                    {{ form.main_image.help_text }}
+                                    {{ form.main_image }}
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="field-full">
+                                    <label for="id_color">Choose the colors *</label>
+                                    {{ form.color.help_text }}
+                                    {{ form.color }}
                                 </div>
                             </div>
                             <di class="box-checkout">

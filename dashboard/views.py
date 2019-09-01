@@ -13,6 +13,12 @@ class DashboardView(TemplateView):
     template_name = 'dashboard/dashboard.html'
 
 
+class ProductList(ListView):
+    template_name = 'dashboard/product_list.html'
+    model = Product
+    context_object_name = 'product'
+
+
 class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ('add_product')
     model = Product
@@ -89,15 +95,9 @@ class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class ProductDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'delete_product'
-    template_name = 'dashboard/product_delete.html'
-    form_class = ProductForm
-
-    def get_object(self):
-        id_ = self.kwargs.get("pk")
-        return get_object_or_404(Product, pk=id_)
-    
-    def get_success_url(self):
-        return reverse('product:product-list')
+    model = Product
+    template_name = 'dashboard/product_confirm_delete.html'
+    success_url = "/dashboard/product/list"
 
 class CategoryList(ListView):
     template_name = 'dashboard/category_list.html'

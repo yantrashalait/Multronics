@@ -30,6 +30,7 @@ urlpatterns = [
     path('banner/<int:pk>/delete/', views.BannerDelete.as_view(), name='banner-delete'),
     path('banner/<int:pk>/update/', views.BannerUpdate.as_view(), name='banner-update'),
 
+    path('product/list/', views.ProductList.as_view(), name="product-list"),
     path('product/create/', views.ProductCreate.as_view(), name='product-create'),
     path('product/<int:pk>/delete/', views.ProductDelete.as_view(), name='product-delete'),
     path('product/<int:pk>/update/', views.ProductUpdate.as_view(), name='product-update'),

@@ -30,6 +30,13 @@ class Type(models.Model):
         return self.brand.name + '-' + self.brand_type
 
 
+class Color(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Product(models.Model):
     name = models.TextField()
     description = models.TextField(null=True, blank=True)
@@ -43,6 +50,7 @@ class Product(models.Model):
     offer = models.BooleanField(default=False, verbose_name='Does this item have an offer?')
     availability = models.BooleanField(default=False, verbose_name='Is this product available in stock?')
     main_image = models.ImageField(upload_to='products/', null=True, blank=True, help_text="Image size: width=265px height=290px")
+    color = models.ManyToManyField(Color, related_name='product', help_text='To select multiple colors, press CTRL and select.')
 
     def __str__(self):
         return self.name 

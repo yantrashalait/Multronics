@@ -19,6 +19,11 @@
     <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
 </head>
 	<body>
+        <section class="cartpg">
+                <div class="container">
+                    <a href="{% url 'dashboard:dashboard' %}"><button class="btn btn-info">Return to home</button></a>
+                    </div>
+                    </section>
         {% block content %}
         {% endblock %}
         <script src="{% static 'js/jquery.min.js' %}"></script>

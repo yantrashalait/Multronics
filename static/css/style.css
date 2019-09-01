@@ -2317,7 +2317,6 @@ table.product thead tr th:last-child {
     background: #4b4b4b;
 }
 
-
 .prd_add input[type="file"] {
     height: 53px;
 }
@@ -2347,4 +2346,10 @@ button.item-action{
     background: none;
     font-size: 16px;
     color: #989898;
+}
+
+select.multi-select{
+    border:2px solid #e5e5e5;
+    height:60px;
+    margin-bottom:0px;
 }
