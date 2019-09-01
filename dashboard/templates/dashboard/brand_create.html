@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html' %}
+{% block content %}
     <section class="cartpg">
         <div class="container">
             <div class="row">
@@ -6,7 +7,7 @@
                     <di class="box-checkout">
                         <div class="checkout-login adprd_heading">
                             <div class="crt_heading">
-                                <h1>Add Category</h1>
+                                <h1>Add Brand</h1>
                             </div>
                         </div>
                     </di>
@@ -15,12 +16,24 @@
                             {% csrf_token %}
                             <div class="field-row">
                                 <div class="field-full">
-                                    <label for="id_name">Category Name</label>
+                                    <label for="id_name">Brand Name</label>
                                     {{ form.name }}
                                 </div>
                             </div>
+                            <div class="field-row">
+                                <div class="field-full">
+                                    <label for="id_category">Category</label>
+                                    {{ form.category }}
+                                </div>
+                            </div>
+                            <div class='field-row'>
+                                <div class="field-full">
+                                    <label for="id_brand_image">Image</label>
+                                    {{ form.brand_image }}
+                                </div>
+                            </div>
                             <div class="sbtprd">
-                                <button>Submit</button>
+                                <button type="submit">Submit</button>
                             </div>
                         </form>
                     </div>
