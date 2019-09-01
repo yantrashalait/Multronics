@@ -7,7 +7,7 @@
                     <di class="box-checkout">
                         <div class="checkout-login adprd_heading">
                             <div class="crt_heading">
-                                <h1>Add Category</h1>
+                                <h1>Add Banner Image</h1>
                             </div>
                         </div>
                     </di>
@@ -16,12 +16,13 @@
                             {% csrf_token %}
                             <div class="field-row">
                                 <div class="field-full">
-                                    <label for="id_name">Category Name</label>
-                                    {{ form.name }}
+                                    <label for="id_name">Image</label>
+                                    {{ form.image.help_text }}
+                                    {{ form.image }}
                                 </div>
                             </div>
                             <div class="sbtprd">
-                                <button>Submit</button>
+                                <button type="submit">Submit</button>
                             </div>
                         </form>
                     </div>

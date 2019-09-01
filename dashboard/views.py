@@ -196,19 +196,13 @@ class TypeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class TypeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'delete_type'
-    template_name = 'dashboard/type_delete.html'
-    form_class = TypeForm
-
-    def get_object(self):
-        id_ = self.kwargs.get("pk")
-        return get_object_or_404(Type, pk=id_)
-    
-    def get_success_url(self):
-        return reverse('dashboard:type-list')
+    model = Type
+    template_name = 'dashboard/type_confirm_delete.html'
+    success_url = "/dashboard/type/list"
 
 class TypeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_type'
-    ctemplate_name = 'dashboard/type_create.html'
+    template_name = 'dashboard/type_create.html'
     form_class = TypeForm
 
     def get_object(self):
@@ -241,16 +235,10 @@ class BannerCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return super().form_valid(form)
 
 class BannerDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = 'delete_bannerimage'
-    template_name = 'dashboard/banner_delete.html'
-    form_class = BannerImageForm
-
-    def get_object(self):
-        id_ = self.kwargs.get("pk")
-        return get_object_or_404(BannerImage, pk=id_)
-    
-    def get_success_url(self):
-        return reverse('dashboard:banner-list')
+    permission_required = 'delete_banner'
+    model = BannerImage
+    template_name = 'dashboard/banner_confirm_delete.html'
+    success_url = "/dashboard/banner/list"
 
 class BannerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_bannerimage'
