@@ -1,0 +1,155 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+    <section class="cartpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <di class="box-checkout">
+                        <div class="checkout-login adprd_heading">
+                            <div class="crt_heading">
+                                <h1>Add Products</h1>
+                            </div>
+                        </div>
+                    </di>
+                    <div class="prd_add fields-content">
+                        <form action='.' method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="field-row">
+                                <div class="field-full">
+                                    <label for="id_name">Product name *</label>
+                                    {{ form.name }}
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="field-full">
+                                <label for="id_description">Description *</label>
+                                {{ form.description }}
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="field-one-half">
+                                    <label for="id_previous_price">Old Price</label>
+                                    {{ form.previous_price }}
+                                </div>
+                                <div class="field-one-half">
+                                    <label for="id_new_price">New Price *</label>
+                                    {{ form.new_price }}
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="field-one-third">
+                                    <label for="id_category">Category *</label>
+                                    {{ form.category }}
+                                </div>
+                                <div class="field-one-third">
+                                    <label for="id_brand">Brand *</label>
+                                    {{ form.brand }}
+                                </div>
+                                <div class="field-one-third">
+                                    <label for="id_product_type">Product Type *</label>
+                                    {{ form.product_type }}
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="radio_hlf">
+                                    <label for="id_super_deals">{{ form.super_deals.label }}</span></label>
+                                    {{ form.super_deals }}
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="radio_hlf">
+                                    <label for="id_offer">{{ form.offer.label }}</span></label>
+                                    {{ form.offer }}
+                                </div> 
+                            </div>
+                            <div class="field-row">
+                                <div class="radio_hlf">
+                                    <label for="id_availability">{{ form.availability.label }}</span></label>
+                                    {{ form.availability }}
+                                </div> 
+                            </div>
+                            <div class="field-row">
+                                <div class="field-full">
+                                <label for="id_main_image">Main image of product *</label>
+                                {{ form.main_image }}
+                                </div>
+                            </div>
+                            <di class="box-checkout">
+                                <div class="checkout-login adprd_heading">
+                                    <div class="crt_heading">
+                                        <h1>Add Extra Images of Product</h1>
+                                    </div>
+                                </div>
+                            </di>
+                            
+                            {{ imageform.management_form }}
+                            <div id="imageformset" class="formset_wrap">
+                            {% for form in imageform.forms %}
+                                <div class="image-form-single">
+                                    {{form}}
+                                </div>
+                            {% endfor %}
+                            </div>
+                            <input type="button" id="imageadd" class="btn btn-info add-item" value="Add More Images">
+                            <div id="imageempty_form" style="display:none">
+                                {{ imageform.empty_form }}
+                            </div>
+
+                            <di class="box-checkout">
+                                <div class="checkout-login adprd_heading">
+                                    <div class="crt_heading">
+                                        <h1>Add Specifications of Product</h1>
+                                    </div>
+                                </div>
+                            </di>
+
+                            {{ specificationform.management_form }}
+                            <div id = "specificationformset" class="formset_wrap">
+                                {% for form in specificationform.forms %}
+                                <div class="spec-form-single">
+                                    <div class="field-row">
+                                        <div class="field-full">
+                                            {{ form.title.label }}
+                                            {{ form.title }}
+                                        </div>
+                                    </div>
+                                    <div class="field-row">
+                                        <div class="field-full">
+                                            {{ form.content.label }}
+                                            {{ form.content }}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <input type="button" id="specificationadd" class="btn btn-info add-item" value="Add More Images">
+                            <div id="specempty_form" style="display:none">
+                                {{ specificationform.empty_form }}
+                            </div>
+                            <div class="sbtprd">
+                                <button type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+	{% block scripts %}
+    <script>
+        $('#imageadd').click(function() {
+
+            var form_idx = $('#id_imageform-TOTAL_FORMS').val();
+            $('#imageformset').append($('#imageempty_form').html().replace(/__prefix__/g, form_idx));
+            $('#id_imageform-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        });
+
+        $('#specificationadd').click(function() {
+
+            var form_idx = $('#id_specform-TOTAL_FORMS').val();
+            $('#specificationformset').append($('#specempty_form').html().replace(/__prefix__/g, form_idx));
+            $('#id_specform-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        });
+    </script>
+    {% endblock %}
