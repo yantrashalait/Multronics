@@ -116,7 +116,8 @@ class CategoryCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 class CategoryDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'delete_category'
     model = Category
-    success_url = "/category/list"
+    template_name = 'dashboard/category_confirm_delete.html'
+    success_url = "/dashboard/category/list"
 
 
 class CategoryUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
@@ -155,15 +156,9 @@ class BrandCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class BrandDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'delete_brand'
-    template_name = 'dashboard/brand_delete.html'
-    form_class = BrandForm
-
-    def get_object(self):
-        id_ = self.kwargs.get("pk")
-        return get_object_or_404(Brand, pk=id_)
-    
-    def get_success_url(self):
-        return reverse('dashboard:brand-list')
+    template_name = 'dashboard/brand_confirm_delete.html'
+    model = Brand
+    success_url = '/dashboard/brand/list'
 
 class BrandUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_brand'

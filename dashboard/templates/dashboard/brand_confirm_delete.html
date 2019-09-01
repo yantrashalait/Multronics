@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html' %}
+{% block content %}
     <section class="cartpg">
         <div class="container">
             <div class="row">
@@ -6,21 +7,16 @@
                     <di class="box-checkout">
                         <div class="checkout-login adprd_heading">
                             <div class="crt_heading">
-                                <h1>Add Category</h1>
+                                <h1>Delete Brand</h1>
                             </div>
                         </div>
                     </di>
                     <div class="prd_add fields-content">
-                        <form action='.' method="POST" enctype="multipart/form-data">
+                        <form method="POST">
                             {% csrf_token %}
-                            <div class="field-row">
-                                <div class="field-full">
-                                    <label for="id_name">Category Name</label>
-                                    {{ form.name }}
-                                </div>
-                            </div>
+                            <p>Do you really want to delete "{{ object }}"</p>
                             <div class="sbtprd">
-                                <button>Submit</button>
+                                <button type="submit">Confirm</button>
                             </div>
                         </form>
                     </div>
