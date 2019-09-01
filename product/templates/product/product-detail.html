@@ -53,6 +53,8 @@
                                         <div class="pdetails_short_des">
                                             <p>{{ product.description }}</p>
                                         </div>
+                                        <form method="POST" action="{% url 'product:add-cart' %}">
+                                            {% csrf_token %}
                                         <div class="pdetails_clr_qty">
                                             <div class="colors">
                                                 <select name="color">
@@ -63,17 +65,21 @@
                                                 </select>
                                             </div>
                                             <div class="quanlity">
-                                                <input type="number" name="number" value="" min="1" max="100" placeholder="Quanlity">
+                                                <input type="number" name="number" value="" min="1" max="100" placeholder="Quanlity" required>
+                                                <input type="hidden" name="product" value="{{product.pk}}">
                                             </div>
                                         </div>
                                         <div class="pdetails_btns">
+                                
                                             <div class="add_to_crt_pdetails">
-                                                <a href="#"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</a>
+                                                <button typ="submit"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</a>
                                             </div>
+                                            
                                             <div class="add_to_whislist_pdetails">
                                                 <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> Add To Whislist</a>
                                             </div>
                                         </div>
+                                    </form>
                                     </div>
                                 </div>
                             </div>

@@ -371,8 +371,20 @@ class BannerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 
 class AddCart(LoginRequiredMixin, CreateView):
-    template_name = 'product/add_cart.html'
     form_class = CartForm
+
+    def post(self, request, *args, **kwargs):
+        color = request.POST.get("color")
+        quantity = request.POST.get("quantity")
+        product_id = request.POST.get("product")
+        product = Product.objects.get(id=int(product_id))
+        cart = Cart()
+        cart.color=color
+        cart.amount=quantity
+        cart.user=request.user
+        cart.product=product
+        cart.save()
+        return HttpResponseRedirect(reverse('product:cart-list', kwargs={'pk': request.user.pk}))
 
     def get_success_url(self):
         return reverse('product:cart-list', kwargs={'pk':self.request.user.pk})
