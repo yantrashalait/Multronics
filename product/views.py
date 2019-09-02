@@ -215,6 +215,6 @@ def search_product(request):
 def subscription(request):
     if request.method=='POST':
         subscribe = request.POST.get('subs')
-        Subscription.objects.create(email=subscribe)
+        Subscription.objects.get_or_create(email=subscribe)
     return HttpResponseRedirect('/')
     
