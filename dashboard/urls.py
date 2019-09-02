@@ -35,5 +35,15 @@ urlpatterns = [
     path('product/<int:pk>/delete/', views.ProductDelete.as_view(), name='product-delete'),
     path('product/<int:pk>/update/', views.ProductUpdate.as_view(), name='product-update'),
 
+    path('superimage/list/', views.SuperImageList.as_view(), name='superimage-list'),
+    path('superimage/create/', views.SuperImageAdd.as_view(), name='superimage-create'),
+    path('superimage/<int:pk>/update/', views.SuperImageUpdate.as_view(), name='superimage-update'),
+    path('superimage/<int:pk>/delete/', views.SuperImageDelete.as_view(), name='superimage-delete'),
+
+    path('offerimage/list/', views.OfferImageList.as_view(), name='offerimage-list'),
+    path('offerimage/create/', views.OfferImageAdd.as_view(), name='offerimage-create'),
+    path('offerimage/<int:pk>/update/', views.OfferImageUpdate.as_view(), name='offerimage-update'),
+    path('offerimage/<int:pk>/delete/', views.OfferImageDelete.as_view(), name='offerimage-delete'),
+
     
 ]
