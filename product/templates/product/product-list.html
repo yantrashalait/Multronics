@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
+                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
                                     <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
                                 </div>
                             </div>

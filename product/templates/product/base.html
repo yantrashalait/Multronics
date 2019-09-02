@@ -61,7 +61,7 @@
                             <ul class="accor_lowlvl">
                                 {% for item in menu_brands %}
                                 <li>
-                                    <a href="{% url 'product:product-list' %}">{{ item.name }}</a>
+                                    <a href="{% url 'product:product-brand-list' item.pk %}">{{ item.name }}</a>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -84,7 +84,7 @@
                             <ul class="accor_lowlvl">
                                 {% for item in menu_types %}
                                 <li>
-                                    <a href="{% url 'product:product-list' %}">{{ item.brand_type }}</a>
+                                    <a href="{% url 'product:product-type-list' item.pk %}">{{ item.brand_type }}</a>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -124,9 +124,10 @@
     <header class="main_header">
         <div class="rsp_srch_bx_hldr">
             <span class="rsp_srch_close">x</span>
-            <form action="">
+            <form method="POST" action="{% url 'product:search-product' %}">
+                {% csrf_token %}
                 <div class="input-groups ">
-                    <input type="text" class="form-control" name="name" placeholder="Search here">
+                    <input type="text" class="form-control" name="srh" placeholder="Search here">
                     <div class="input-group-append">
                         <button type="submit" class="submit "><i class="fa fa-search "></i></button>
                     </div>
@@ -169,14 +170,17 @@
                                     </div>
                                 </div>
                                 <div class="srchfrm_hdr">
-                                    <form action="">
+                                    
+                                        <form method="POST" action="{% url 'product:search-product' %}">
+                                            {% csrf_token %}
                                         <div class="input-groups ">
-                                            <input type="text" class="form-control" name="name" placeholder="Search here">
+                                            <input type="text" class="form-control" name="srh" placeholder="Search here">
                                             <div class="input-group-append">
                                                 <button type="submit" class="submit "><i class="fa fa-search "></i></button>
                                             </div>
                                         </div>
-                                    </form>
+                                        </form>
+                                    
                                 </div>
                             </div>
                         </div>                    
@@ -596,7 +600,7 @@
                             <form>
                                 <div class="input-groups ">
                                     <input type="text" class="form-control" name="name" placeholder="Email Address...">
-                                    <button type="submit" class="nwl_btn">Sign Up</button>
+                                    <button type="submit" class="nwl_btn">Subscribe</button>
                                 </div>
                             </form>
                         </div>

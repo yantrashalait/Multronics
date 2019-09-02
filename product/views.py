@@ -7,13 +7,16 @@ from .forms import CartForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.db.models import Q
 
 
 def index(request):
     super_deals = Product.objects.filter(super_deals=True)
     most_viewed = Product.objects.filter(views__gte=10)
     offer = Product.objects.filter(offer=True)
-    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer})
+    brand = Brand.objects.all()
+    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand})
 
 
 class NotificationListView(LoginRequiredMixin, ListView):
@@ -157,3 +160,18 @@ def most_viewed_list(request, *args, **kwargs):
     most_viewed = Product.objects.filter(views__gte=10)
     return render(request, 'product/product-list.html', {'product':most_viewed})
 
+def search_product(request):
+    if request.method=='POST':
+        search = request.POST.get('srh')
+
+        if search:
+            match = Product.objects.filter(Q(name__icontains=search) | Q(product_type__brand_type__icontains=search) | Q(category__name__icontains=search) | Q(brand__name__icontains=search))
+                
+            if match:
+                return render(request, 'product/product-list.html', {'product':match})
+            else:
+                messages.error(request, 'no result found')
+        else:
+            return HttpResponseRedirect('/')
+    
+    return render (request, 'product/product-list.html')
