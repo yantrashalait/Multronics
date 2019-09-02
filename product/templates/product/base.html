@@ -502,7 +502,7 @@
                                                 <li>
                                                     <a href="{% url 'product:product-brand-list' item.pk %}">
                                                         <span class="menu_icn">
-                                                            <img src="{% static 'images/7.png' %}" alt="">
+                                                            <img src="{{ item.brand_small_image.url }}" alt="">
                                                         </span> {{ item.name }}
                                                     </a>
                                                 </li>
@@ -522,7 +522,7 @@
                                                 <li>
                                                     <a href="{% url 'product:product-type-list' item.pk %}">
                                                         <span class="menu_icn">
-                                                                <img src="{% static 'images/7.png' %}" alt="">
+                                                                <img src="{{ item.type_image.url }}" alt="">
                                                             </span> {{ item.brand_type }}
                                                     </a>
                                                 </li>

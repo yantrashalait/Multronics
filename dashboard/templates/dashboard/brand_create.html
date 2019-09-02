@@ -30,8 +30,16 @@
                                 <div class="field-full">
                                     <label for="id_brand_image">Image</label>
                                     {{ form.brand_image }}
+                                    {{ form.brand_image.help_text }}
                                 </div>
                             </div>
+                            <div class='field-row'>
+                                    <div class="field-full">
+                                        <label for="id_brand_image">Icon Image</label>
+                                        {{ form.brand_small_image }}
+                                        {{ form.brand_small_image.help_text }}
+                                    </div>
+                                </div>
                             <div class="sbtprd">
                                 <button type="submit">Submit</button>
                             </div>

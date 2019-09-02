@@ -8,6 +8,7 @@ from django.urls import reverse
 
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    category_image = models.ImageField(upload_to='category/', null=True, blank=True, help_text='Image Size: width=410px, height=281px')
 
     def __str__(self):
         return self.name
@@ -17,6 +18,7 @@ class Brand(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='brands')
     name = models.CharField(max_length=100)
     brand_image = models.ImageField(upload_to='brands/', null=True, blank=True, help_text="Image size: width=193px height=115px")
+    brand_small_image = models.ImageField(upload_to='brands/small/', null=True, blank=True, help_text="Image size: width=150px, height=150px")
 
     def __str__(self):
         return self.category.name + '-' + self.name
@@ -25,6 +27,7 @@ class Brand(models.Model):
 class Type(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     brand_type = models.CharField(max_length=100)
+    type_image = models.ImageField(upload_to='type/small/', null=True, blank=True, help_text="Image size: width=150px, height=150px")
 
     def __str__(self):
         return self.brand.name + '-' + self.brand_type

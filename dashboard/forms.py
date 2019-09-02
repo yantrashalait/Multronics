@@ -16,19 +16,19 @@ class ProductForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ['name']
+        fields = ['name', 'category_image']
 
 
 class BrandForm(forms.ModelForm):
     class Meta:
         model = Brand
-        fields = ['category', 'name', 'brand_image']
+        fields = ['category', 'name', 'brand_image', 'brand_small_image']
 
 
 class TypeForm(forms.ModelForm):
     class Meta:
         model = Type
-        fields = ['brand', 'brand_type']
+        fields = ['brand', 'brand_type', 'type_image']
 
 
 class BannerImageForm(forms.ModelForm):
