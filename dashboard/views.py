@@ -349,3 +349,9 @@ class OfferImageDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     template_name = 'dashboard/offerimage_confirm_delete.html'
     success_url = "/dashboard/offerimage/list"
 
+
+class FavouriteView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_product'
+    model = Favourite
+    template_name = 'dashboard/favourite_list.html'
+    context_object_name = 'favourite'

@@ -17,21 +17,25 @@
 <section class="offers_ads">
     <div class="container">
         <div class="row">
+            {% for item in category %}
             <div class="col-lg-4">
-                {% for item in offer %}
                 <div class="ban_ads_sml">
                     <div class="sml_ad_img">
-                        <img src="{% static 'images/cameras.jpg' %}" alt="">
+                        {% if item.category_image %}
+                            <img src="{% static 'images/cameras.jpg' %}" alt="">
+                        {% else %}
+                            <img src="{% static 'images/cameras.jpg' %}" alt="">
+                        {% endif %}
                     </div>
                     <div class="sml_ad_txt_hldr">
                         <div class="sml_ad_txt">
-                            <span class="sml_adt_ttl">Big Deals On the Laptops</span>
+                            <span class="sml_adt_ttl">Big Deals On the {{ item.name }}s</span>
                             <a href="{% url 'product:product-offer-list'  %}">Shop Now <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
     </div>
 </section>
