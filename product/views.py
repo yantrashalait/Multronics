@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart
+from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Subscription
 from .forms import CartForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -178,3 +178,10 @@ def search_product(request):
             return HttpResponseRedirect('/')
     
     return render (request, 'product/product-list.html')
+
+def subscription(request):
+    if request.method=='POST':
+        subscribe = request.POST.get('subs')
+        Subscription.objects.create(email=subscribe)
+    return HttpResponseRedirect('/')
+    

@@ -597,9 +597,11 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="newsltter_from">
-                            <form>
+                            <form action="{% url 'product:subscribe' %}" method="POST" enctype="multipart/form-data">
+                                {% csrf_token %}
+                            
                                 <div class="input-groups ">
-                                    <input type="text" class="form-control" name="name" placeholder="Email Address...">
+                                    <input type="text" class="form-control" name="subs" placeholder="Email Address...">
                                     <button type="submit" class="nwl_btn">Subscribe</button>
                                 </div>
                             </form>

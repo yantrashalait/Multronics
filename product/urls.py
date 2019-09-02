@@ -33,4 +33,7 @@ urlpatterns = [
 
     # add to favourite
     path('favourite/add/', views.add_to_favourite, name='add_favourite'),
+
+    #subscription
+    path('subscription/', views.subscription, name='subscribe')
 ]
