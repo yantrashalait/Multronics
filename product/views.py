@@ -16,7 +16,10 @@ def index(request):
     most_viewed = Product.objects.filter(views__gte=10)
     offer = Product.objects.filter(offer=True)
     brand = Brand.objects.all()
-    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand})
+    superimages = SuperImage.objects.last()
+    offerimages = OfferImage.objects.last()
+    banner = BannerImage.objects.all()
+    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand, 'superimage': superimages, 'offerimage': offerimages, 'banner': banner})
 
 
 class NotificationListView(LoginRequiredMixin, ListView):

@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
-from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage
+from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, SuperImage, OfferImage
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, CategoryForm, BannerImageForm, BrandForm, TypeForm
+from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -260,3 +260,91 @@ class BannerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('dashboard:banner-list')
+
+
+class SuperImageList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_superimage'
+    template_name = 'dashboard/superimage_list.html'
+    model = SuperImage
+    context_object_name = 'superimage'
+
+
+class SuperImageAdd(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'add_superimage'
+    template_name = 'dashboard/superimage_create.html'
+    form_class = SuperImageForm
+
+    def get_success_url(self):
+        return reverse('dashboard:superimage-list')
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+
+class SuperImageUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'change_superimage'
+    template_name = 'dashboard/superimage_create.html'
+    form_class = SuperImageForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(SuperImage, pk=id_)
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('dashboard:superimage-list')
+
+
+class SuperImageDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = 'delete_offerimage'
+    model = SuperImage
+    template_name = 'dashboard/superimage_confirm_delete.html'
+    success_url = "/dashboard/superimage/list"
+
+
+class OfferImageList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_offerimage'
+    template_name = 'dashboard/offerimage_list.html'
+    model = OfferImage
+    context_object_name = 'offerimage'
+
+
+class OfferImageAdd(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'add_offerimage'
+    template_name = 'dashboard/offerimage_create.html'
+    form_class = OfferImageForm
+
+    def get_success_url(self):
+        return reverse('dashboard:offerimage-list')
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+
+class OfferImageUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'change_offerimage'
+    template_name = 'dashboard/offerimage_create.html'
+    form_class = OfferImageForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(OfferImage, pk=id_)
+
+    def form_valid(self, form):
+        print(form.cleaned_data)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('dashboard:offerimage-list')
+
+
+class OfferImageDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = 'delete_offerimage'
+    model = OfferImage
+    template_name = 'dashboard/offerimage_confirm_delete.html'
+    success_url = "/dashboard/offerimage/list"

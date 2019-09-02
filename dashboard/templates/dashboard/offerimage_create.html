@@ -1,0 +1,40 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+    <section class="cartpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <di class="box-checkout">
+                        <div class="checkout-login adprd_heading">
+                            <div class="crt_heading">
+                                <h1>Add Offer Image</h1>
+                            </div>
+                        </div>
+                    </di>
+                    <div class="prd_add fields-content">
+                        <form action='.' method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="field-row">
+                                <div class="field-full">
+                                    <label for="id_name">Image Name</label>
+                                    {{ form.name }}
+                                </div>
+                            </div>
+                            <div class="field-row">
+                                <div class="field-full">
+                                    <label for="id_name">Image</label>
+                                    {{ form.offer_image.help_text }}
+                                    {{ form.offer_image }}
+                                </div>
+                            </div>
+                            <div class="sbtprd">
+                                <button>Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
