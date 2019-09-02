@@ -29,20 +29,20 @@
                                       {{ item.product.name }}
                                   </div>
                                   <div class="tbl_prd_prc">
-                                      {{ item.product.new_price }}
+                                      Rs. {{ item.product.new_price }}
                                   </div>
                               </div>
                           </td>
                           <td>
                               <div class="tbl_prd_qty">
                                 <form>
-                                    <input type="number" name="number" value="{{ item.amount }}">
+                                    {{ item.amount }}
                                 </form>
                               </div>
                           </td>
                           <td>
                               <div class="tbl_total">
-                                  Rs.190,000.00
+                                  Rs. {{ item.total_price }}
                               </div>
                           </td>
                           <td>

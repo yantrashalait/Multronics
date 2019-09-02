@@ -1,5 +1,6 @@
 {% extends 'product/base.html' %}
 {% load static %}
+{% load filters %}
 {% block content %}
    <section class="product_listing">
         <div class="container">
@@ -28,8 +29,12 @@
                                     </div>
                                 </div>
                                 <div class="prd_actions">
-                                    <button class="addtocart">Add To Cart</button>
-                                    <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
+                                    {% if item|check_favourite:request.user.pk %}
+                                        <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                    {% else %}
+                                        <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                    {% endif %}
                                 </div>
                             </div>
                             
@@ -76,5 +81,29 @@
             </div>
         </div>
     </section>
+{% endblock %}
+{% block scripts %}
+<script>
+    $(".addwhislist").click(function(){
+        var base_url = "http://localhost:8000/"
+        var product_id = $(this).attr('p_id');
+        var fav_item = $(this);
+
+        $.ajax({
+            url: '/favourite/add',
+            data: {
+                'pk': product_id,
+            },
+
+            success: function(data){
+                fav_item.css("background", "#ff8202");
+            },
+
+            error: function(data){
+                window.location.replace(base_url + "login/");
+            }
+        });
+    });
+</script>
 {% endblock %}
  

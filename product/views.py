@@ -2,11 +2,12 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart
+from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Color
 from .forms import CartForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 
 
 def index(request):
@@ -57,7 +58,7 @@ class WaitListView(LoginRequiredMixin, ListView):
             return WaitList.objects.filter(removed=False).order_by('-date')
         else:
             return WaitList.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
-
+    
 
 class FavouriteListView(LoginRequiredMixin, ListView):
     model = Favourite
@@ -100,18 +101,32 @@ class ProductDetail(DetailView):
     template_name = 'product/product-detail.html'
     context_object_name = 'product'
 
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(Product, pk=id_)
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(ProductDetail, self).get_context_data(**kwargs)
+        self.object.views += 1
+        self.object.save()
+        context['brands'] = Brand.objects.all()
+        context['related'] = Product.objects.filter( ~Q(id=self.object.id), category=self.object.category, brand=self.object.brand, product_type=self.object.product_type)[:10]
+        return context
+
 
 class AddCart(LoginRequiredMixin, CreateView):
     form_class = CartForm
 
     def post(self, request, *args, **kwargs):
         color = request.POST.get("color")
-        quantity = request.POST.get("quantity")
+        quantity = int(request.POST.get("quantity"))
         product_id = request.POST.get("product")
         product = Product.objects.get(id=int(product_id))
+        color = Color.objects.get(id=int(color))
         cart = Cart()
         cart.color=color
         cart.amount=quantity
+        cart.total_price = int(product.new_price)*quantity
         cart.user=request.user
         cart.product=product
         cart.save()
@@ -126,12 +141,31 @@ def add_to_favourite(request, *args, **kwargs):
     if request.user.is_authenticated:
         if request.is_ajax():
             _id = request.GET.get('pk')
-            product = Product.objects.get(id=_id)
+            product = Product.objects.get(id=int(_id))
             fav, created = Favourite.objects.get_or_create(product=product, user=request.user)
             if not created:
                 if fav.removed == True:
                     fav.removed = False
                     fav.save()
+            data = {'pk': _id}
+            return HttpResponse(data)
+        else:
+            return HttpResponse({'message': 'Added Failed'})
+    else:
+        return HttpResponseRedirect('login')
+
+
+@login_required(login_url='/login/')
+def add_to_waitlist(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        if request.is_ajax():
+            _id = request.GET.get('pk')
+            product = Product.objects.get(id=int(_id))
+            wait, created = WaitList.objects.get_or_create(product=product, user=request.user)
+            if not created:
+                if wait.removed == True:
+                    wait.removed = False
+                    wait.save()
             data = {'pk': _id}
             return HttpResponse(data)
         else:

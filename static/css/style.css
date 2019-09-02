@@ -1447,7 +1447,7 @@ font-size: 35px;
     color: #333;
 }
 
-.pdetails_btns button{
+.add_to_crt_pdetails button{
     border: 0px;
     background-color: #f92400;
     padding: 15px 38px;
@@ -2362,4 +2362,20 @@ select.multi-select{
     border:2px solid #e5e5e5;
     height:60px;
     margin-bottom:0px;
+}
+
+
+.add_to_waitlist button{
+    border: 0px;
+    background-color: #ea802d;
+    padding: 15px 38px;
+    border-radius: 50px;
+    color: #fff;
+    margin: 0 30px 0 0;
+    display: block;
+}
+
+.add_to_whislist_pdetails button{
+    border: 0px;
+    background: #fff;
 }

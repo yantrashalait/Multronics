@@ -261,9 +261,9 @@
                                                                         </span>
 
                                                                     </div>
-                                                                    <div class="dlt_drp_added_itm">
+                                                                    <!-- <div class="dlt_drp_added_itm">
                                                                         <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                    </div>
+                                                                    </div> -->
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -311,9 +311,9 @@
                                                                     </span>
 
                                                                 </div>
-                                                                <div class="dlt_drp_added_itm">
+                                                                <!-- <div class="dlt_drp_added_itm">
                                                                     <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </li>
@@ -361,9 +361,9 @@
                                                                     </span>
 
                                                                 </div>
-                                                                <div class="dlt_drp_added_itm">
+                                                                <!-- <div class="dlt_drp_added_itm">
                                                                     <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                         </div>
                                                     </li>
@@ -401,8 +401,8 @@
                                                             <div class="drp_added_itms_cont_hldr">
                                                                 <div class="drp_added_itms_cont">
                                                                     <span class="drp_added_itms_txt">
-                                                                                <a href="#">Fhasellus Viverra Urna Fhasellus Viverra Urna</a>
-                                                                                <span class="drp_added_itms_prc">Rs. 500</span>
+                                                                        <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.title }}</a>
+                                                                        <span class="drp_added_itms_prc">{{ item.description }}</span>
                                                                     </span>
 
                                                                 </div>

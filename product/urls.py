@@ -19,6 +19,7 @@ urlpatterns = [
     path('notifications/<int:pk>/', views.NotificationListView.as_view(), name='notification'),
     # view all waitlists of user
     path('waitlist/<int:pk>/', views.WaitListView.as_view(), name='waitlist'),
+    path('waitlist/add', views.add_to_waitlist, name='waitlist-add'),
 
     # view all cart of user
     path('cart/<int:pk>/', views.CartListView.as_view(), name='cart-list'),

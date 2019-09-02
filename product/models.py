@@ -56,7 +56,7 @@ class Product(models.Model):
         return self.name 
 
     def get_absolute_url(self):
-        return reverse("product:product-list")
+        return reverse("dashboard:product-list")
 
 
 class ProductImage(models.Model):
@@ -78,6 +78,7 @@ class BannerImage(models.Model):
 class Notification(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='notification', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
+    product = models.ForeignKey(Product, null=True, blank=True, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     is_seen = models.BooleanField(default=False)
@@ -108,7 +109,8 @@ class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='cart', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='cart', on_delete=models.CASCADE)
     amount = models.IntegerField(null=True, blank=True)
-    color = models.CharField(max_length=255, null=True, blank=True)
+    total_price = models.FloatField(null=True, blank=True)
+    color = models.ForeignKey(Color, null=True, blank=True, on_delete=models.SET_NULL, related_name='cart')
     date = models.DateTimeField(auto_now_add=True)
     removed = models.BooleanField(default=False)
     removed_date = models.DateTimeField(default=datetime.now)
@@ -164,6 +166,7 @@ def product_notify(sender, instance, created, **kwargs):
                 Notification.objects.create(
                     user=item.user, 
                     date=datetime.now(), 
+                    product = item.product,
                     title='Product Available',
                     description='Product ' + item.product.name + ' is available on stock now.')
 
@@ -175,5 +178,6 @@ def product_notify(sender, instance, created, **kwargs):
                 Notification.objects.create(
                         user=item.user, 
                         date=datetime.now(), 
+                        product = item.product,
                         title='Price Drop',
                         description='Product ' + item.product.name + ' is now available at ' + instance.new_price)

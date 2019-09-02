@@ -1,5 +1,6 @@
 {% extends 'product/base.html' %}
 {% load static %}
+{% load filters %}
 {% block content %}
     <!-- <div class="contentspacer"></div> 	 -->
 	<section class="product_details_top">
@@ -51,37 +52,66 @@
                                             {% endif %}
                                         </div>
                                         <div class="pdetails_prices">
-                                            <span class="pd_price_old">{{ product.previous_price }}</span>
-                                            <span class="pd_price_new">{{ product.new_price }}</span>
+                                            <span class="pd_price_old">Rs. {{ product.previous_price }}</span>
+                                            <span class="pd_price_new">Rs. {{ product.new_price }}</span>
                                         </div>
+                                        {% if product.description %}
                                         <div class="pdetails_short_des">
                                             <p>{{ product.description }}</p>
                                         </div>
+                                        {% endif %}
+                                        {% if product.availability %}
                                         <form method="POST" action="{% url 'product:add-cart' %}">
                                             {% csrf_token %}
-                                        <div class="pdetails_clr_qty">
-                                            <div class="colors">
-                                                <select name="color">
-                                                    <option value="">Select Color</option>
-                                                    <option value="">Black</option>
-                                                    <option value="">Red</option>
-                                                    <option value="">White</option>
-                                                </select>
+                                            <div class="pdetails_clr_qty">
+                                                <div class="colors">
+                                                    <select name="color">
+                                                        <option value="">Select Color</option>
+                                                        {% for item in product.color.all %}
+                                                        <option value="{{ item.id }}">{{ item }}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                                <div class="quanlity">
+                                                    <input type="number" name="quantity" min="1" max="100" placeholder="Quantity" required>
+                                                    <input type="hidden" name="product" value="{{product.pk}}">
+                                                </div>
                                             </div>
-                                            <div class="quanlity">
-                                                <input type="number" name="number" value="" min="1" max="100" placeholder="Quantity" required>
-                                                <input type="hidden" name="product" value="{{product.pk}}">
-                                            </div>
-                                        </div>
+                                            <div class="pdetails_btns">
+                                                <div class="add_to_crt_pdetails">
+                                                    <button type="submit"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
+                                                </div>   
+                                                <div class="add_to_whislist_pdetails">
+                                                        {% if product|check_favourite:request.user.pk %}
+                                                            <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Favourite</button>
+                                                        {% else %}
+                                                            <button class="addwhislist" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Add To Favourite</button>
+                                                        {% endif %}
+                                                        
+                                                    </div>
+                                                </div>                                     
+                                        </form>
+                                        {% else %}
                                         <div class="pdetails_btns">
-                                            <div class="add_to_crt_pdetails">
-                                                <button type="submit"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
+                                            <div class="add_to_waitlist">
+                                                <p>Wait for availability of this product?</p>
+                                                {% if product|check_waitlist:request.user.pk %}
+                                                    <button><i class="fa fa-hourglass-end" aria-hidden="true"></i>Added To Waitlist</button>
+                                                {% else %}
+                                                    <button class="addwaitlist" p_id={{ product.pk }}><i class="fa fa-hourglass-end" aria-hidden="true"></i>Add To Waitlist</button>
+                                                {% endif %}
                                             </div>
                                             <div class="add_to_whislist_pdetails">
-                                                <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> Add To Favourite</button>
+                                                    {% if product|check_favourite:request.user.pk %}
+                                                        <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Favourite</button>
+                                                    {% else %}
+                                                        <button class="addwhislist" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Add To Favourite</button>
+                                                    {% endif %}
+                                                    
+                                                </div>
                                             </div>
                                         </div>
-                                    </form>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -96,35 +126,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
-                      <!-- <li class="nav-item">
-                        <a class="nav-link active" id="tb_description" data-toggle="tab" href="#desc" role="tab" aria-controls="desc" aria-selected="true">Description</a>
-                      </li> -->
                       <li class="nav-item">
                         <a class="nav-link active" id="tb_specifications" data-toggle="tab" href="#specific" role="tab" aria-controls="specific" aria-selected="false">Specifications</a>
                       </li>
-                      <!-- <li class="nav-item">
-                        <a class="nav-link" id="tb_reviews" data-toggle="tab" href="#reviewstb" role="tab" aria-controls="reviewstb" aria-selected="false">Reviews</a>
-                      </li> -->
                     </ul>
-                    <!-- <div class="tab-content" id="myTabContent"> -->
-                      <!-- <div class="tab-pane fade show active" id="desc" role="tabpanel" aria-labelledby="tb_description">
-                          <div class="tabcontent">  
-                          <div class="description_texts">
-                              <div class="desc_bx">
-                                  <h2>Nuqqam Et Massa</h2>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident similique ratione labore ducimus sunt omnis impedit officia excepturi quis, at deserunt, perferendis beatae earum quam laborum debitis dolorem facere quia explicabo harum eligendi molestias, delectus soluta placeat ipsa. Nesciunt nihil temporibus adipisci, ullam quae, hic dolor ab libero ad autem quaerat quos debitis expedita praesentium molestias. Doloribus dolore,.</p>
-                              </div>
-                              <div class="desc_bx">
-                                  <h2>Wireless</h2>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi sit magni voluptatem consectetur sequi dolore ducimus eaque nulla quo, modi autem exercitationem omnis saepe accusantium laboriosam deserunt eius illo! Necessitatibus fugit tenetur odit. Soluta porro, autem in id vitae consequatur laudantium, necessitatibus inventore dolor voluptates veniam quae accusantium placeat nostrum, eaque voluptate. Dicta perferendis, ab quo voluptates minus atque impedit.</p>
-                              </div>
-                              <div class="desc_bx">
-                                  <h2>Fabolous Sound</h2>
-                                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque ipsum libero voluptate repudiandae odio totam corrupti nobis beatae nostrum repellat similique temporibus quas ex eligendi veritatis, consequuntur distinctio nulla eveniet molestias fuga quae illo rem nisi! Quos facilis libero, delectus amet rerum repellat nostrum. Totam harum, quidem repudiandae quam eligendi voluptates corporis magni nesciunt, similique voluptatum delectus omnis iure aliquam expedita eius hic beatae error modi dolor fugit eos natus temporibus enim. ?</p>
-                              </div>
-                          </div>
-                          </div>
-                      </div> -->
                       <div class="tab-pane fade show active" id="specific" role="tabpanel" aria-labelledby="tb_specifications">
                         <div class="tabcontent">
                             <div class="tecnical-specs">
@@ -141,74 +146,6 @@
                             </div>
                         </div>
                       </div>
-                      <!-- <div class="tab-pane fade" id="reviewstb" role="tabpanel" aria-labelledby="tb_reviews">
-                        <div class="tabcontent">
-                            <div class="form-review style1">
-                            <div class="title">
-                                Add a review 
-                            </div>
-                            <form action="#" method="get" accept-charset="utf-8">
-                                <div class="review-form-name rv_input">
-                                    <input type="text" name="name-author" value="" placeholder="Name">
-                                </div>
-                                <div class="review-form-email rv_input">
-                                    <input type="text" name="email-author" value="" placeholder="Email">
-                                </div>
-                                <div class="review-form-comment">
-                                    <textarea name="review-text" placeholder="Your Name"></textarea>
-                                </div>
-                                <div class="btn-submit">
-                                    <button type="submit">Add Review</button>
-                                </div>
-                            </form>
-                        </div>
-                            <ul class="review-list">
-                                <li>
-                                    <div class="review-metadata">
-                                        <div class="name">
-                                            Ali Tufan : <span>April 3, 2016</span>
-                                        </div>
-                                    </div>
-                                    <!- /.review-metadata -->
-                                    <!-- <div class="review-content">
-                                        <p>
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                                        </p>
-                                    </div> -->
-                                    <!-- /.review-content -->
-                                <!-- </li> -->
-                                <!-- <li>
-                                    <div class="review-metadata">
-                                        <div class="name">
-                                            Ali Tufan : <span>April 3, 2016</span>
-                                        </div>
-                                    </div>
-                                    <!-/.review-metadata -->
-                                    <!-- <div class="review-content"> -->
-                                        <!-- <p>
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                                        </p> -->
-                                    <!-- </div> -->
-                                    <!-- /.review-content -->
-                                <!-- </li> --> 
-                                <!-- <li> -->
-                                    <!-- <div class="review-metadata">
-                                        <div class="name">
-                                            Ali Tufan : <span>April 3, 2016</span>
-                                        </div>
-                                    </div> -->
-                                    <!-- /.review-metadata -->
-                                    <!-- <div class="review-content">
-                                        <p>
-                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
-                                        </p>
-                                    </div> -->
-                                    <!-- /.review-content -->
-                                <!-- </li> -->
-                            <!-- </ul> -->
-                        </div> 
-                      </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -223,147 +160,30 @@
                                 <div class="sectionttl">
                                     <h2>Related Products</h2>
                                 </div>
-                                <div class="vi_all_prd_caro">
-                                    <a href="#">View All</a>
-                                </div>
                             </div>
                         </div>
                         <div class="featured_caro itms_caro owl-carousel owl-theme">
+                            {% for item in related %}
                             <div class="item">
                                 <div class="list_prd_itm text-center">
                                     <div class="prd_img">
-                                        <a href="#"><img src="images/im01.jpg" alt=""></a>
+                                        <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
                                     </div>
                                     <div class="prd_infos">
-                                        <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                        <span class="price">Rs.190,000.00</span>
+                                        <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
+                                        <span class="price">Rs. {{ item.new_price }}</span>
                                     </div>
                                     <div class="prd_actions">
-                                        <button class="addtocart">Add To Cart</button>
-                                        <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                        <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
+                                        {% if item|check_favourite:request.user.pk %}
+                                            <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                        {% else %}
+                                            <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
-                            <div class="item">
-                                <div class="list_prd_itm text-center">
-                                    <div class="prd_img">
-                                        <a href="#"><img src="images/im02.jpg" alt=""></a>
-                                    </div>
-                                    <div class="prd_infos">
-                                        <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                        <span class="price">Rs.190,000.00</span>
-                                    </div>
-                                    <div class="prd_actions">
-                                        <button class="addtocart">Add To Cart</button>
-                                        <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="list_prd_itm text-center">
-                                    <div class="prd_img">
-                                        <a href="#"><img src="images/im03.jpg" alt=""></a>
-                                    </div>
-                                    <div class="prd_infos">
-                                        <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                        <span class="price">Rs.190,000.00</span>
-                                    </div>
-                                    <div class="prd_actions">
-                                        <button class="addtocart">Add To Cart</button>
-                                        <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="list_prd_itm text-center">
-                                    <div class="prd_img">
-                                        <a href="#"><img src="images/im04.jpg" alt=""></a>
-                                    </div>
-                                    <div class="prd_infos">
-                                        <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                        <span class="price">Rs.190,000.00</span>
-                                    </div>
-                                    <div class="prd_actions">
-                                        <button class="addtocart">Add To Cart</button>
-                                        <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="list_prd_itm text-center">
-                                    <div class="prd_img">
-                                        <a href="#"><img src="images/im05.jpg" alt=""></a>
-                                    </div>
-                                    <div class="prd_infos">
-                                        <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                        <span class="price">Rs.190,000.00</span>
-                                    </div>
-                                    <div class="prd_actions">
-                                        <button class="addtocart">Add To Cart</button>
-                                        <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="list_prd_itm text-center">
-                                    <div class="prd_img">
-                                        <a href="#"><img src="images/im01.jpg" alt=""></a>
-                                    </div>
-                                    <div class="prd_infos">
-                                        <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                        <span class="price">Rs.190,000.00</span>
-                                    </div>
-                                    <div class="prd_actions">
-                                        <button class="addtocart">Add To Cart</button>
-                                        <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="list_prd_itm text-center">
-                                    <div class="prd_img">
-                                        <a href="#"><img src="images/im02.jpg" alt=""></a>
-                                    </div>
-                                    <div class="prd_infos">
-                                        <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                        <span class="price">Rs.190,000.00</span>
-                                    </div>
-                                    <div class="prd_actions">
-                                        <button class="addtocart">Add To Cart</button>
-                                        <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="list_prd_itm text-center">
-                                    <div class="prd_img">
-                                        <a href="#"><img src="images/im03.jpg" alt=""></a>
-                                    </div>
-                                    <div class="prd_infos">
-                                        <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                        <span class="price">Rs.190,000.00</span>
-                                    </div>
-                                    <div class="prd_actions">
-                                        <button class="addtocart">Add To Cart</button>
-                                        <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="list_prd_itm text-center">
-                                    <div class="prd_img">
-                                        <a href="#"><img src="images/im04.jpg" alt=""></a>
-                                    </div>
-                                    <div class="prd_infos">
-                                        <h3> <a href="#">Dell Alienware 15R4, i7/16...</a></h3>
-                                        <span class="price">Rs.190,000.00</span>
-                                    </div>
-                                    <div class="prd_actions">
-                                        <button class="addtocart">Add To Cart</button>
-                                        <button class="addwhislist"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -380,66 +200,65 @@
                             <div class="sectionttl">
                                 <h2>Available Brands</h2>
                             </div>
-                            <div class="vi_all_prd_caro">
-                                <a href="#">View All</a>
-                            </div>
                         </div>
                     </div>
                     <div class="brand_caro itms_caro owl-carousel owl-theme">
+                        {% for item in brands %}
                         <div class="item">
                             <a href="#">
-                                <img src="{% static 'images/asus.png' %}" alt="">
+                                <img src="{{ item.brand_image.url }}" alt="">
                             </a>
                         </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/dell.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/lenovo_2.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/msi.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/razer.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/toshiba.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/lenovo_2.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/msi.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/razer.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/toshiba.png' %}" alt="">
-                            </a>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     </section>
+{% endblock %}
+{% block scripts %}
+<script>
+    var base_url = "http://localhost:8000/"
+
+    $(".addwhislist").click(function(){
+        var product_id = $(this).attr('p_id');
+        var fav_item = $(this);
+
+        $.ajax({
+            url: '/favourite/add',
+            data: {
+                'pk': product_id,
+            },
+
+            success: function(data){
+                fav_item.css("background", "#ff8202");
+            },
+
+            error: function(data){
+                window.location.replace(base_url + "login/");
+            }
+        });
+    });
+
+    $(".addwaitlist").click(function(){
+        var product_id = $(this).attr('p_id');
+        var wait_item = $(this);
+
+        $.ajax({
+            url: '/waitlist/add',
+            data: {
+                'pk': product_id,
+            },
+
+            success: function(data){
+                wait_item.attr("value", "Added To Waitlist");
+            },
+
+            error: function(data){
+                window.location.replace(base_url + "login/");
+            }
+        });
+    });
+</script>
 {% endblock %}
