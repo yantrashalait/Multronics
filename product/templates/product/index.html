@@ -18,43 +18,19 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
+                {% for item in offer %}
                 <div class="ban_ads_sml">
                     <div class="sml_ad_img">
                         <img src="{% static 'images/cameras.jpg' %}" alt="">
                     </div>
                     <div class="sml_ad_txt_hldr">
                         <div class="sml_ad_txt">
-                            <span class="sml_adt_ttl">Big Deals On the Camears</span>
-                            <a href="#">Shop Now <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                            <span class="sml_adt_ttl">Big Deals On the Laptops</span>
+                            <a href="{% url 'product:product-offer-list'  %}">Shop Now <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="ban_ads_sml">
-                    <div class="sml_ad_img">
-                        <img src="{% static 'images/DesktopPC.jpg' %}" alt="">
-                    </div>
-                    <div class="sml_ad_txt_hldr">
-                        <div class="sml_ad_txt">
-                            <span class="sml_adt_ttl">Big Deals On the Camears</span>
-                            <a href="#">Shop Now <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="ban_ads_sml">
-                    <div class="sml_ad_img">
-                        <img src="{% static 'images/MobileDevicesv2-2.jpg' %}" alt="">
-                    </div>
-                    <div class="sml_ad_txt_hldr">
-                        <div class="sml_ad_txt">
-                            <span class="sml_adt_ttl">Big Deals On the Camears</span>
-                            <a href="#">Shop Now <i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
