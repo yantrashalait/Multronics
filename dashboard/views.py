@@ -348,3 +348,4 @@ class OfferImageDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = OfferImage
     template_name = 'dashboard/offerimage_confirm_delete.html'
     success_url = "/dashboard/offerimage/list"
+

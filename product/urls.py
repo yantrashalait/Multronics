@@ -14,6 +14,7 @@ urlpatterns = [
     path('product/list/super-deals/', views.super_deals_list, name='product-super-deals-list'),
     path('product/list/offer/', views.offer_list, name='product-offer-list'),
     path('product/list/most-viewed/', views.most_viewed_list, name='product-most-viewed-list'),
+    path('search/', views.search_product, name='search-product'),
 
     # view all notifications of user
     path('notifications/<int:pk>/', views.NotificationListView.as_view(), name='notification'),
@@ -33,4 +34,7 @@ urlpatterns = [
 
     # add to favourite
     path('favourite/add/', views.add_to_favourite, name='add_favourite'),
+
+    #subscription
+    path('subscription/', views.subscription, name='subscribe')
 ]

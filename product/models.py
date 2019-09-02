@@ -155,6 +155,11 @@ class OfferImage(models.Model):
     def __str__(self):
         return self.name
 
+class Subscription(models.Model):
+    email = models.EmailField(max_length=70, null=True, blank=True, unique=True)
+
+    def __str__(self):
+        return self.email
 
 @receiver(post_save, sender=Product)
 def product_notify(sender, instance, created, **kwargs):

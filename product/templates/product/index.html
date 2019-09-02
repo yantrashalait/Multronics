@@ -230,63 +230,27 @@
                             <div class="sectionttl">
                                 <h2>Available Brands</h2>
                             </div>
-                            <div class="vi_all_prd_caro">
+                            <!-- <div class="vi_all_prd_caro">
                                 <a href="#">View All</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
+                    
                     <div class="brand_caro itms_caro owl-carousel owl-theme">
+                            {% for item in brand %}
                         <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/asus.png' %}" alt="">
+                            
+                            <a href="{% url 'product:product-brand-list' item.pk %}">
+                                {% if item.brand_image %}
+                                
+                                <img src="{{ item.brand_image.url }}" alt="">
+                                {% endif %}
                             </a>
+                            
                         </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/dell.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/lenovo_2.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/msi.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/razer.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/toshiba.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/lenovo_2.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/msi.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/razer.png' %}" alt="">
-                            </a>
-                        </div>
-                        <div class="item">
-                            <a href="#">
-                                <img src="{% static 'images/toshiba.png' %}" alt="">
-                            </a>
-                        </div>
+                        {% endfor %}
                     </div>
+                  
                 </div>
             </div>
         </div>
