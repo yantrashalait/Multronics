@@ -13,7 +13,7 @@ def header_processor(request):
         # favourite = Favourite.objects.filter(user=request.user, removed=False).count()
         # cart_count = Cart.objects.filter(user=request.user, removed=False).count()
         context = {
-            'notifications': notifications,
+            'menu_notifications': notifications,
             'menu_brands': brands,
             'header_waitlist': waitlist,
             'header_cart': cart,

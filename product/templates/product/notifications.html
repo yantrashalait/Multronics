@@ -2,146 +2,30 @@
 {% load static %}
 {% block content %}
     <section class="cartpg">
+        
         <div class="container">
             <div class="row">
+              
                 <div class="col-lg-12">
                     <div class="crt_heading">
                         <h1>Notifications</h1>
                     </div>
+                    {% for item in notifications %}
                     <form>
                         <table class="table prd_calc_tbl">
                           <thead>
                             <tr>
-                              <th scope="col">Product</th>
-                              <th scope="col">Add To Cart</th>
+                              <th scope="col"><a href="{% url 'product:product-detail' item.product.pk %}">{{ item.description }}</a></th>
                             </tr>
                           </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                  <div class="td_cont_hldr">
-                                      <div class="tbl_prd_img">  
-                                        <img src="images/im04.jpg" alt="">
-                                      </div>
-                                      <div class="tbl_prd_ttl">
-                                          Dell Alienware 15R4
-                                      </div>
-                                      <div class="tbl_prd_prc">
-                                          Rs.190,000.00
-                                      </div>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="tbl_prd_qty">
-                                    <form>
-                                        <input class="tblqqty" type="number" name="number">
-                                    </form>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="tbl_total">
-                                      Rs.190,000.00
-                                  </div>
-                              </td>
-                              <td>
-                                <button class="crt_ad">Add To Cart</button>
-                              </td>
-                            </tr><!-- tr -->
-                            <tr>
-                              <td>
-                                  <div class="td_cont_hldr">
-                                      <div class="tbl_prd_img">  
-                                        <img src="images/im01.jpg" alt="">
-                                      </div>
-                                      <div class="tbl_prd_ttl">
-                                          Dell Alienware 15R4
-                                      </div>
-                                      <div class="tbl_prd_prc">
-                                          Rs.190,000.00
-                                      </div>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="tbl_prd_qty">
-                                    <form>
-                                        <input class="tblqqty" type="number" name="number">
-                                    </form>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="tbl_total">
-                                      Rs.190,000.00
-                                  </div>
-                              </td>
-                              <td>
-                                <button class="crt_ad">Add To Cart</button>
-                              </td>
-                            </tr><!-- tr -->
-                            <tr>
-                              <td>
-                                  <div class="td_cont_hldr">
-                                      <div class="tbl_prd_img">  
-                                        <img src="images/im02.jpg" alt="">
-                                      </div>
-                                      <div class="tbl_prd_ttl">
-                                          Dell Alienware 15R4
-                                      </div>
-                                      <div class="tbl_prd_prc">
-                                          Rs.190,000.00
-                                      </div>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="tbl_prd_qty">
-                                    <form>
-                                        <input class="tblqqty" type="number" name="number">
-                                    </form>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="tbl_total">
-                                      Rs.190,000.00
-                                  </div>
-                              </td>
-                              <td>
-                                <button class="crt_ad">Add To Cart</button>
-                              </td>
-                            </tr><!-- tr -->
-                            <tr>
-                              <td>
-                                  <div class="td_cont_hldr">
-                                      <div class="tbl_prd_img">  
-                                        <img src="images/im03.jpg" alt="">
-                                      </div>
-                                      <div class="tbl_prd_ttl">
-                                          Dell Alienware 15R4
-                                      </div>
-                                      <div class="tbl_prd_prc">
-                                          Rs.190,000.00
-                                      </div>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="tbl_prd_qty">
-                                    <form>
-                                        <input class="tblqqty" type="number" name="number">
-                                    </form>
-                                  </div>
-                              </td>
-                              <td>
-                                  <div class="tbl_total">
-                                      Rs.190,000.00
-                                  </div>
-                              </td>
-                              <td>
-                                <button class="crt_ad">Add To Cart</button>
-                              </td>
-                            </tr><!-- tr -->
-                          </tbody>
+                        
                         </table>
                     </form>
+                    {% endfor %}
                 </div>
+                
             </div>
         </div>
+        
     </section>
 {% endblock %}
