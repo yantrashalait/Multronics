@@ -1,0 +1,43 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+        <section class="cartpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="crt_heading">
+                                <h1>Bargain Lists</h1>
+                            </div>
+                            <table class="table prd_calc_tbl">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Username</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in bargain %}
+                                    <tr>
+                                        <td>
+                                            <div class="td_cont_hldr">
+                                                <div class="tbl_prd_ttl">
+                                                    {{ item.product.name }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="td_cont_hldr">
+                                                <div class="tbl_prd_ttl">
+                                                    {{ item.user.username }}
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr><!-- tr -->
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}
+

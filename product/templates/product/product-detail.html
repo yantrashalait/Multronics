@@ -52,7 +52,11 @@
                                             {% endif %}
                                         </div>
                                         <div class="pdetails_prices">
+                                            {% if product.previous_price %}
                                             <span class="pd_price_old">Rs. {{ product.previous_price }}</span>
+                                            {% endif %}
+                                            
+
                                             <span class="pd_price_new">Rs. {{ product.new_price }}</span>
                                         </div>
                                         {% if product.description %}
@@ -89,6 +93,14 @@
                                                         {% endif %}
                                                         
                                                     </div>
+                                                <div class="add_to_bargain_pdetails">
+                                                        {% if product|check_bargain:request.user.pk %}
+                                                            <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Bargain</button>
+                                                        {% else %}
+                                                            <button class="addbargain" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Bargain</button>
+                                                        {% endif %}
+                                                        
+                                                    </div>
                                                 </div>                                     
                                         </form>
                                         {% else %}
@@ -108,7 +120,15 @@
                                                         <button class="addwhislist" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Add To Favourite</button>
                                                     {% endif %}
                                                     
-                                                </div>
+                                            </div>
+                                            <div class="add_to_bargain_pdetails">
+                                                    {% if product|check_bargain:request.user.pk %}
+                                                        <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Bargain</button>
+                                                    {% else %}
+                                                        <button class="addbargain" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i>Bargain</button>
+                                                    {% endif %}
+                                                    
+                                            </div>
                                             </div>
                                         </div>
                                         {% endif %}
@@ -253,6 +273,26 @@
 
             success: function(data){
                 wait_item.attr("value", "Added To Waitlist");
+            },
+
+            error: function(data){
+                window.location.replace(base_url + "login/");
+            }
+        });
+    });
+
+    $(".addbargain").click(function(){
+        var product_id = $(this).attr('p_id');
+        var wait_item = $(this);
+
+        $.ajax({
+            url: '/bargain/add',
+            data: {
+                'pk': product_id,
+            },
+
+            success: function(data){
+                wait_item.attr("value", "Added To Bargain");
             },
 
             error: function(data){

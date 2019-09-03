@@ -176,6 +176,22 @@ def add_to_waitlist(request, *args, **kwargs):
     else:
         return HttpResponseRedirect('login')
 
+@login_required(login_url='/login/')
+def add_to_bargain(request, *args, **kwargs):
+    if request.user.is_authenticated:
+        if request.is_ajax():
+            _id = request.GET.get('pk')
+            product = Product.objects.get(id=int(_id))
+            UserBargain.objects.get_or_create(product=product, user=request.user)
+            data = {'pk': _id}
+            return HttpResponse(data)
+        else:
+            return HttpResponse({'message': 'Added Failed'})
+    else:
+        return HttpResponseRedirect('login')
+
+
+
 
 def brand_list(request, *args, **kwargs):
     brand = Product.objects.filter(brand_id=kwargs.get('pk'))
