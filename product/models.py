@@ -54,6 +54,7 @@ class Product(models.Model):
     availability = models.BooleanField(default=False, verbose_name='Is this product available in stock?')
     main_image = models.ImageField(upload_to='products/', null=True, blank=True, help_text="Image size: width=265px height=290px")
     color = models.ManyToManyField(Color, related_name='product', help_text='To select multiple colors, press CTRL and select.')
+    offer_percent = models.CharField(max_length=100, null=True, blank=True )
 
     def __str__(self):
         return self.name 

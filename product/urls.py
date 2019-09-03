@@ -22,6 +22,8 @@ urlpatterns = [
     path('waitlist/<int:pk>/', views.WaitListView.as_view(), name='waitlist'),
     path('waitlist/add', views.add_to_waitlist, name='waitlist-add'),
 
+    path('bargain/add', views.add_to_bargain, name='bargain-add'),
+
     # view all cart of user
     path('cart/<int:pk>/', views.CartListView.as_view(), name='cart-list'),
     path('cart/add/', views.AddCart.as_view(), name='add-cart'),
@@ -36,5 +38,6 @@ urlpatterns = [
     path('favourite/add/', views.add_to_favourite, name='add_favourite'),
 
     #subscription
-    path('subscription/', views.subscription, name='subscribe')
+    path('subscription/', views.subscription, name='subscribe'),
+
 ]

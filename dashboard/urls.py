@@ -45,6 +45,8 @@ urlpatterns = [
     path('offerimage/<int:pk>/update/', views.OfferImageUpdate.as_view(), name='offerimage-update'),
     path('offerimage/<int:pk>/delete/', views.OfferImageDelete.as_view(), name='offerimage-delete'),
 
-    path('favurite/list/', views.FavouriteView.as_view(), name='favourite-list'),
+    path('favourite/list/', views.FavouriteView.as_view(), name='favourite-list'),
+    path('waitlist/list/', views.WaitListView.as_view(), name='wait-list'),
+    path('bargain/list/', views.BargainView.as_view(), name='bargain-list'),
         
 ]
