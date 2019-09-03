@@ -12,7 +12,10 @@ from django.conf import settings
 from django.contrib.auth.models import User 
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login, authenticate
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.views.generic import CreateView
+from .forms import UserProfileForm
+from django.contrib.auth.decorators import login_required
 
 
 def register(request):
@@ -64,6 +67,36 @@ def activate(request, uidb64, token):
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(request, user)
 
-        return redirect(reverse_lazy('login'))
+        return redirect(reverse_lazy('users:profile-create'))
     else:
         return HttpResponse('Activation link is invalid!')
+
+
+@login_required(login_url='/login')
+def profile(request, *args, **kwargs):
+    profile = UserProfile.objects.get(user_id=kwargs.get('pk'))
+    return render(request, 'users/profile.html', {'profile': profile})
+
+
+@login_required(login_url='/login/')
+def profile_create(request, *args, **kwargs):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+
+            user = request.user
+            user.first_name = request.POST.get('first_name')
+            user.last_name = request.POST.get('last_name')
+            user.save()
+
+            form.save()
+            return HttpResponseRedirect('/')
+        else:
+            form = UserProfileForm()
+            return render(request, 'users/userprofile_create.html', {'form': form})
+    else:
+        form = UserProfileForm()
+        return render(request, 'users/userprofile_create.html', {'form': form})
+

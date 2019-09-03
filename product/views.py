@@ -29,6 +29,7 @@ class NotificationListView(LoginRequiredMixin, ListView):
     context_object_name = 'notifications'
 
     def get_queryset(self):
+        Notification.objects.filter(is_seen=False).update(is_seen=True)
         return Notification.objects.filter(user_id=self.kwargs.get('pk')).order_by('-date')
 
 

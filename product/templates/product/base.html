@@ -232,8 +232,12 @@
                                         {% if request.user.is_authenticated %}
                                             <div class="hd_prof shop_itm">
                                                 <span class="shop_itm_txt">
-                                                    <a href="#">
-                                                        <img src="{% static 'images/216.jpg' %}" alt="">
+                                                    <a href="{% url 'users:profile' request.user.pk %}">
+                                                        {% if request.user.profile.image %}
+                                                            <img src="{{ request.user.profile.image.url }}" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'images/216.jpg' %}" alt="">
+                                                        {% endif %}
                                                     </a>
                                                 </span>
                                             </div>
