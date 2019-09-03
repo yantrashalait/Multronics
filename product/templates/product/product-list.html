@@ -25,7 +25,7 @@
                                 <div class="prd_infos">
                                     <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
                                     <div class="prd_infos_prcs">
-                                        <span class="price_old">{{ item.previous_price }}</span><span class="price_new">{{ item.new_price }}</span>
+                                        {% if item.previous_price %}<span class="price_old">Rs.{{ item.previous_price }}</span>{% endif %}<span class="price_new">Rs.{{ item.new_price }}</span>
                                     </div>
                                 </div>
                                 <div class="prd_actions">

@@ -535,9 +535,9 @@
                         </div>
                         <div class="main_nav">
                             <ul class="menu-item-wrapper">
-                                {% for item in category %}
+                                {% for item in menu_categories %}
                                 <li class="menu-item">
-                                    <a href="#" class="">Groceries</a>
+                                    <a href="{% url 'product:product-list' %}" class="">{{ item.name }}</a>
                                 </li>
                                 {% endfor %}
                             </ul>

@@ -179,13 +179,14 @@ def product_notify(sender, instance, created, **kwargs):
                     description='Product ' + item.product.name + ' is available on stock now.')
 
     # check if price has reduced
-    if instance.new_price < instance.previous_price:
-        if UserBargain.objects.filter(product=instance).exists():
-            users = UserBargain.objects.filter(product=instance)
-            for item in users:
-                Notification.objects.create(
-                        user=item.user, 
-                        date=datetime.now(), 
-                        product = item.product,
-                        title='Price Drop',
-                        description='Product ' + item.product.name + ' is now available at ' + instance.new_price)
+    if instance.previous_price:
+        if instance.new_price < instance.previous_price:
+            if UserBargain.objects.filter(product=instance).exists():
+                users = UserBargain.objects.filter(product=instance)
+                for item in users:
+                    Notification.objects.create(
+                            user=item.user, 
+                            date=datetime.now(), 
+                            product = item.product,
+                            title='Price Drop',
+                            description='Product ' + item.product.name + ' is now available at ' + instance.new_price)
