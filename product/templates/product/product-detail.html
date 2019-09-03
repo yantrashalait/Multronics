@@ -55,10 +55,14 @@
                                             {% if product.previous_price %}
                                             <span class="pd_price_old">Rs. {{ product.previous_price }}</span>
                                             {% endif %}
-                                            
+
 
                                             <span class="pd_price_new">Rs. {{ product.new_price }}</span>
+                                            {% if product.offer_percent %}
+                                            <span class="pd_details_stock">{{ product.offer_percent }}% off</span>
+                                            {% endif %}
                                         </div>
+                                     
                                         {% if product.description %}
                                         <div class="pdetails_short_des">
                                             <p>{{ product.description }}</p>

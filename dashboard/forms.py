@@ -6,7 +6,7 @@ from django.forms.models import inlineformset_factory
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Product 
-        fields = ['name', 'description', 'previous_price', 'new_price', 'category', 'brand', 'product_type', 'super_deals', 'offer', 'availability', 'main_image', 'color']
+        fields = ['name', 'description', 'previous_price', 'new_price', 'category', 'brand', 'product_type', 'super_deals', 'offer', 'availability', 'main_image', 'color', 'offer_percent']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
