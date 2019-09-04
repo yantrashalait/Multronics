@@ -114,6 +114,3 @@ class ProfileUpdate(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('users:profile', kwargs={'pk': self.request.user.pk})
-
-
-

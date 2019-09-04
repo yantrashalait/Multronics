@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
-from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, SuperImage, OfferImage, UserBargain, UserOrder
+from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, SuperImage, OfferImage, UserBargain, UserRequestProduct, UserOrder
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm
 from django.urls import reverse
@@ -374,3 +374,10 @@ class OrderList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = UserOrder
     template_name = 'dashboard/order_list.html'
     context_object_name = 'order'
+
+    
+class RequestView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_request'
+    model = UserRequestProduct
+    template_name = 'dashboard/request_list.html'
+    context_object_name = 'request'

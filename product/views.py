@@ -2,8 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
-from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Subscription, Color, Notification, UserOrder
-from .forms import CartForm, UserOrderForm
+from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Subscription, Color, Notification, UserRequestProduct, UserOrder
+from .forms import CartForm, UserRequestProductForm, UserOrderForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -236,6 +236,20 @@ def subscription(request):
         Subscription.objects.get_or_create(email=subscribe)
     return HttpResponseRedirect('/')
     
+class RequestProduct(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'request_product'
+    model = UserRequestProduct
+    template_name = 'product/request_product.html'
+    form_class = UserRequestProductForm
+
+    def form_valid(self, form):
+        product_request = form.save(commit=False)
+        product_request.user = self.request.user
+        product_request.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('product:index')
 
 class OrderView(LoginRequiredMixin, CreateView):
     template_name = 'product/order.html'

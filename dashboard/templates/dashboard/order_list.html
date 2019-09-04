@@ -1,0 +1,105 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+        <section class="cartpg">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="crt_heading">
+                                <h1>Requested Lists</h1>
+                            </div>
+                            <table class="table prd_calc_tbl">
+                                <thead>
+                                <tr>
+                                    <th scope="col" rowspan="5">Cart</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Contact</th>
+                                    <th scope="col">Total Price</th>
+                                    <th scope="col">Date Ordered</th>
+                                    <th scope="col">Country</th>
+                                    <th scope="col">City</th>
+                                    <th scope="col">Street</th>
+                                    <th scope="col">Note</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in order %}
+                                <tr>
+                                    <td>
+                                        <div class="td_cont_hldr">
+                                                <div class="tbl_prd_img">  
+                                                        <img src="{{ item.product.main_image.url }}" alt="">
+                                                      </div>
+                                                      <div class="tbl_prd_ttl">
+                                                          {{ item.product.name }}
+                                                      </div>
+                                                      <div class="tbl_prd_prc">
+                                                          Rs. {{ item.product.new_price }}
+                                                      </div>
+                                            {% for obj in item.cart.all %}
+                                                <div class="tbl_prd_img">
+                                                        <img src="{{ {{ obj.product.main_image.url }} }}" alt="">
+                                                </div>
+                                                <div class="tbl_prd_ttl">
+                                                    {{ obj.product.name }}
+                                                </div>
+                                                <div class="tbl_prd_prc">
+                                                    {{ obj.product.new_price }}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td_cont_hldr">
+                                            <div class="tbl_prd_ttl">
+                                                {{ item.product_type }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td_cont_hldr">
+                                            <div class="tbl_prd_ttl">
+                                                {{ item.specification }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td_cont_hldr">
+                                            <div class="tbl_prd_ttl">
+                                                {{ item.name }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td_cont_hldr">
+                                            <div class="tbl_prd_ttl">
+                                                {{ item.contact_number }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td_cont_hldr">
+                                            <div class="tbl_prd_ttl">
+                                                {{ item.email }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="td_cont_hldr">
+                                            <div class="tbl_prd_ttl">
+                                                {{ item.amount }}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+{% endblock %}
+
