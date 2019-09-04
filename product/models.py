@@ -136,7 +136,11 @@ class UserRequestProduct(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='product_request', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     product_name = models.CharField(max_length=255)
+    type = models.CharField(max_length=100, help_text=('e.g., Laptop, Desktop')) 
     specification = models.TextField()
+    contact_number = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
+    name = models.CharField(max_length=100)
     active = models.BooleanField(default=False)
     amount = models.IntegerField(null=True, blank=True)
 

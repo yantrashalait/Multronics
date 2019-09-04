@@ -40,4 +40,6 @@ urlpatterns = [
     #subscription
     path('subscription/', views.subscription, name='subscribe'),
 
+    path('request/', views.RequestProduct.as_view(), name='request-product'),
+
 ]
