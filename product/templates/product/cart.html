@@ -66,7 +66,7 @@
                                         <td>Subtotal</td>
                                         <td class="subtotal">Rs.190,000.00</td>
                                     </tr>
-                                    <tr>
+                                    <!-- <tr>
                                         <td>Shipping</td>
                                         <td class="btn-radio">
                                             <div class="radio-info">
@@ -77,9 +77,9 @@
                                                 <input type="radio" id="free-shipping" name="radio-flat-rate">
                                                 <label for="free-shipping">Free Shipping</label>
                                             </div>
-                                        </td>
+                                        </td> -->
                                         <!-- /.btn-radio -->
-                                    </tr>
+                                    <!-- </tr> -->
                                     <tr>
                                         <td>Total</td>
                                         <td class="price-total">Rs.190,000.00</td>
@@ -98,4 +98,16 @@
             </div>
         </div>
     </section>
+{% endblock %}
+{% block scripts %}
+<script>
+    var total = 0;
+    $(".tbl_total").each(function(){
+        total += parseInt($(this).html().replace("Rs. ", ""));
+    })
+    total = "Rs. " + total;
+
+    $(".subtotal").text(total);
+    $(".price-total").text(total);
+</script>
 {% endblock %}

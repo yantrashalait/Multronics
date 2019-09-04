@@ -8,16 +8,8 @@
 				    <h1>Complete your profile.</h1>
 
 				    <div class="formContainer p-4">
-				        <form method="post" action=".">
+				        <form method="post" action="." enctype="multipart/form-data">
                             {% csrf_token %}
-				            <div class="form-group">
-				                <label>First Name</label>
-								<input type="text" name="first_name" class="form-control" required>
-				            </div>
-				            <div class="form-group">
-				                <label>Last Name</label>
-								<input type="text" name="last_name" class="form-control" required>
-				            </div>
 				            <div class="form-group">
                                 <label>Address</label>
                                 {{ form.address }}
@@ -38,6 +30,9 @@
                             <div class="form-group">
                                 <label>Profile Picture</label>
                                 {{ form.image }}
+                                {% if form.image.errors %}
+                                {{ form.image.errors }}
+                                {% endif %}
                             </div>
                             {% for errors in form.errors %}
                             {{ errors }}

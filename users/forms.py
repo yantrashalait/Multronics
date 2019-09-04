@@ -50,7 +50,7 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserProfileForm(forms.ModelForm):
-    contact = forms.CharField(min_length=10)
+    contact = forms.CharField()
 
     class Meta:
         model = UserProfile
@@ -58,8 +58,9 @@ class UserProfileForm(forms.ModelForm):
 
     def clean_contact(self):
         contact = self.cleaned_data.get('contact')
-        pattern = re.compile(r'^[0-9]{10}$')
-        if not bool(pattern.search(contact)):
+        pattern = re.compile(r'^\d{10}$')
+        match = pattern.search(contact)
+        if not pattern.search(contact):
             raise ValidationError('Enter a valid mobile number.')
         else:
             return contact

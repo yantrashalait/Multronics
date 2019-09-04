@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
-from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Subscription, Color, Notification
-from .forms import CartForm
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
+from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Subscription, Color, Notification, UserOrder
+from .forms import CartForm, UserOrderForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -236,3 +236,15 @@ def subscription(request):
         Subscription.objects.get_or_create(email=subscribe)
     return HttpResponseRedirect('/')
     
+
+class OrderView(LoginRequiredMixin, CreateView):
+    template_name = 'product/order.html'
+    form_class = UserOrderForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(OrderView, self).get_context_data(**kwargs)
+        context['cart'] = Cart.objects.filter(user_id=kwargs.get('pk'))
+        return context
+
+    def form_valid(self):
+        pass

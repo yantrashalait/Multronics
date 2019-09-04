@@ -64,6 +64,13 @@
                             </div>
                             <div class="field-row">
                                 <div class="radio_hlf">
+                                    <label for="id_offer">{{ form.offer_tag.label }}</span></label>
+                                    {{ form.offer_tag }}
+                                    {{ form.offer_tag.help_text }}
+                                </div> 
+                                </div>
+                            <div class="field-row">
+                                <div class="radio_hlf">
                                     <label for="id_availability">{{ form.availability.label }}</span></label>
                                     {{ form.availability }}
                                 </div> 
@@ -82,13 +89,6 @@
                                     {{ form.color }}
                                 </div>
                             </div>
-                            <div class="field-row">
-                                    <div class="field-full">
-                                        <label for="id_offer_percent">Offer Percent</label>
-                                        {{ form.offer_percent }}
-                                       
-                                    </div>
-                                </div>
                             <di class="box-checkout">
                                 <div class="checkout-login adprd_heading">
                                     <div class="crt_heading">

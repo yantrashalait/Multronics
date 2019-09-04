@@ -13,9 +13,10 @@ from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView
 from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 def register(request):
@@ -72,31 +73,47 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
+class ProfileView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    model = UserProfile
+    template_name = 'users/profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self):
+        return UserProfile.objects.get(user_id=self.kwargs.get('pk'))
+
+
 @login_required(login_url='/login')
 def profile(request, *args, **kwargs):
-    profile = UserProfile.objects.get(user_id=kwargs.get('pk'))
-    return render(request, 'users/profile.html', {'profile': profile})
+    try:
+        profile = UserProfile.objects.get(user_id=kwargs.get('pk'))
+        return render(request, 'users/profile.html', {'profile': profile})
+    except:
+        return redirect(reverse_lazy('users:profile-create'))
 
 
-@login_required(login_url='/login/')
-def profile_create(request, *args, **kwargs):
-    if request.method == 'POST':
-        form = UserProfileForm(request.POST)
-        if form.is_valid():
-            form = form.save(commit=False)
-            form.user = request.user
+class ProfileCreate(LoginRequiredMixin, CreateView):
+    template_name = 'users/userprofile_create.html'
+    form_class = UserProfileForm
 
-            user = request.user
-            user.first_name = request.POST.get('first_name')
-            user.last_name = request.POST.get('last_name')
-            user.save()
+    def form_valid(self, form):
+        profile = form.save(commit=False)
+        profile.user = self.request.user
+        profile.save()
+        return super().form_valid(form)
 
-            form.save()
-            return HttpResponseRedirect('/')
-        else:
-            form = UserProfileForm()
-            return render(request, 'users/userprofile_create.html', {'form': form})
-    else:
-        form = UserProfileForm()
-        return render(request, 'users/userprofile_create.html', {'form': form})
+    def get_success_url(self):
+        return reverse('users:profile', kwargs={'pk': self.request.user.pk})
+
+
+class ProfileUpdate(LoginRequiredMixin, CreateView):
+    template_name = 'users/userprofile_create.html'
+    form_class = UserProfileForm
+
+    def get_object(self):
+        return UserProfile.objects.get(id=self.kwargs.get('pk'))
+
+    def get_success_url(self):
+        return reverse('users:profile', kwargs={'pk': self.request.user.pk})
+
+
 

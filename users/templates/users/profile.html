@@ -1,0 +1,54 @@
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+    <section class="cartpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="crt_heading">
+                        <h1>Shopping Cart</h1>
+                    </div>
+                    <table class="table prd_calc_tbl">
+                      <thead>
+                        <tr>
+                          <th scope="col">Username</th>
+                          <th scope="col">Address</th>
+                          <th scope="col">Contact</th>
+                          <th scope="col">Edit</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                              <div class="td_cont_hldr">
+                                  <div class="tbl_prd_img">  
+                                    {% if profile.image %}
+                                        <img src="{{ profile.image.url }}" alt="">
+                                    {% endif %}
+                                  </div>
+                                  <div class="tbl_prd_ttl">
+                                      {{ profile.user.username }}
+                                  </div>
+                              </div>
+                          </td>
+                          <td>
+                              <div class="tbl_prd_qty">
+                                {{ profile.address }}
+                              </div>
+                          </td>
+                          <td>
+                              <div class="tbl_total">
+                                  {{ profile.contact }}
+                              </div>
+                          </td>
+                          <td>
+                                <a href="{% url 'users:profile-update' profile.pk %}"><button class="item-action"><i class="fa fa-edit" aria-hidden="true"></i></button></a>
+                          </td>
+                        </tr><!-- tr -->
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

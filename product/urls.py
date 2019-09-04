@@ -40,4 +40,6 @@ urlpatterns = [
     #subscription
     path('subscription/', views.subscription, name='subscribe'),
 
+    path('order/<int:pk>', views.OrderView.as_view(), name='order'),
+
 ]
