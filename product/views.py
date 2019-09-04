@@ -243,8 +243,25 @@ class OrderView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super(OrderView, self).get_context_data(**kwargs)
-        context['cart'] = Cart.objects.filter(user_id=kwargs.get('pk'))
+        context['cart'] = Cart.objects.filter(user_id=self.kwargs.get('pk'), removed=False)
+        print(context)
         return context
 
-    def form_valid(self):
-        pass
+    def post(self, request, *args, **kwargs):
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email', request.user.email)
+        contact = request.POST.get('phone', request.user.profile.contact)
+        country = request.POST.get('country')
+        city = request.POST.get('city')
+        street = request.POST.get('street')
+        note = request.POST.get('note')
+        total_price = request.POST.get('total_price')
+
+        order = UserOrder.objects.create(first_name=first_name, last_name=last_name, email=email, contact=contact, user=request.user,total_price=total_price,country=country,city=city,street=street,note=note)
+        c = Cart.objects.filter(user_id=self.request.user.pk, removed=False)
+        for item in c:
+            order.cart.add(item)
+        
+        return render(request, 'product/success_order.html')
+        

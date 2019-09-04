@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
-from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, SuperImage, OfferImage, UserBargain
+from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, SuperImage, OfferImage, UserBargain, UserOrder
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm
 from django.urls import reverse
@@ -367,3 +367,10 @@ class BargainView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = UserBargain 
     template_name = 'dashboard/bargain_list.html'
     context_object_name = 'bargain'
+
+
+class OrderList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_product'
+    model = UserOrder
+    template_name = 'dashboard/order_list.html'
+    context_object_name = 'order'

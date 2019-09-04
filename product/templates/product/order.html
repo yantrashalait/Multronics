@@ -13,7 +13,8 @@
                         <div class="checkout-login">
                             Returning customer? <a href="#" title="">Click here to login</a>
                         </div>
-                        <form action="#" method="get" class="checkout" accept-charset="utf-8">
+                        <form action="{% url 'product:order' request.user.pk %}" method="post" class="checkout" accept-charset="utf-8">
+                            {% csrf_token %}
                             <div class="billing-fields">
                                 <div class="fields-title">
                                     <h3>Shipping details</h3>
@@ -25,30 +26,30 @@
                                     <div class="field-row">
                                         <p class="field-one-half">
                                             <label for="first-name">First Name *</label>
-                                            <input type="text" id="first-name" name="first_name" placeholder="First Name">
+                                            <input type="text" id="first-name" name="first_name" placeholder="First Name" required>
                                         </p>
                                         <p class="field-one-half">
                                             <label for="last-name">Last Name *</label>
-                                            <input type="text" id="last-name" name="last_name" placeholder="Last Name">
+                                            <input type="text" id="last-name" name="last_name" placeholder="Last Name" required>
                                         </p>
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="field-row">
                                         <p class="field-one-half">
                                             <label for="email-address">Email Address *</label>
-                                            <input type="email" id="email-address" name="email-address" value="{{ request.user.email }}">
+                                            <input type="email" id="email-address" name="email-address" value="{{ request.user.email }}" required>
                                         </p>
                                         <p class="field-one-half">
                                             <label for="phone">Phone *</label>
-                                            <input type="text" id="phone" name="phone" value="{{ request.user.profile.contact }}">
+                                            <input type="text" id="phone" name="phone" value="{{ request.user.profile.contact }}" required>
                                         </p>
                                         <div class="clearfix"></div>
                                     </div>
                                     <label>Delivery Address *</label>
                                     <div class="field-row">
-                                        <input type="text" id="id-country" name="country" placeholder="Country">
-                                        <input type="text" id="id-city" name="city" placeholder="City">
-                                        <input type="text" id="id-street" name="street" placeholder="Street">
+                                        <input type="text" id="id-country" name="country" placeholder="Country" required>
+                                        <input type="text" id="id-city" name="city" placeholder="City" required>
+                                        <input type="text" id="id-street" name="street" placeholder="Street" required>
                                     </div>
                                     <div class="field-row">
                                         <label for="notes">Order Notes</label>
@@ -58,7 +59,6 @@
                                 <!-- /.fields-content -->
                             </div>
                             <!-- /.shipping-address-fields -->
-                        </form>
                         <!-- /.checkout -->
                     </div>
                     <!-- /.box-checkout -->
@@ -66,7 +66,6 @@
                 <div class="col-md-5">
                     <div class="cart-totals style2">
                         <h3>Your Order</h3>
-                        <form action="#" method="get" accept-charset="utf-8">
                             <table class="product">
                                 <thead>
                                     <tr>
@@ -81,14 +80,9 @@
                                             {% if item.product.offer %}
                                                 <br>{{ item.product.offer_tag }}</td>
                                             {% endif %}
-                                        <td>Rs. {{ item.product.new_price }}</td>
+                                        <td class="cart-price">Rs. {{ item.total_price }}</td>
                                     </tr>
                                     {% endfor %}
-                                    <tr>
-                                        <td>Beats Pill + Portable
-                                            <br>Speaker</td>
-                                        <td>$100.00</td>
-                                    </tr>
                                 </tbody>
                             </table>
                             <!-- /.product -->
@@ -96,28 +90,7 @@
                                 <tbody>
                                     <tr>
                                         <td>Total</td>
-                                        <td class="subtotal">$1,999.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Shipping</td>
-                                        <td class="btn-radio">
-                                            <div class="radio-info">
-                                                <input type="radio" checked="" id="flat-rate" name="radio-flat-rate">
-                                                <label for="flat-rate">Flat Rate: <span>$3.00</span></label>
-                                            </div>
-                                            <div class="radio-info">
-                                                <input type="radio" id="free-shipping" name="radio-flat-rate">
-                                                <label for="free-shipping">Free Shipping</label>
-                                            </div>
-                                            <div class="btn-shipping">
-                                                <a href="#" title="">Calculate Shipping</a>
-                                            </div>
-                                        </td>
-                                        <!-- /.btn-radio -->
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td class="price-total">$1,999.00</td>
+                                        <td class="price-total" name="total_price"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -128,7 +101,7 @@
                             </div>
                             <!-- /.checkbox -->
                             <div class="btn-order">
-                                <a href="#" class="order" title="">Place Order</a>
+                                <button type="submit" class="order" id="order">Place Order</button>
                             </div>
                             <!-- /.btn-order -->
                         </form>
@@ -138,4 +111,26 @@
             </div>
         </div>
     </section>
+{% endblock %}
+{% block scripts %}
+<script>
+    var total = 0;
+    $(".cart-price").each(function(){
+        total += parseInt($(this).html().replace("Rs. ", ""));
+    })
+    total = "Rs. " + total;
+
+    $(".subtotal").text(total);
+    $(".price-total").text(total);
+
+    $('#checked-order').click(function() {
+        if ($(this).is(':checked')) {
+            $('#order').removeAttr('disabled');
+            console.log('jnasdn');
+        } else {
+            $('#order').attr('disabled', 'disabled');
+        }
+    });
+    
+</script>
 {% endblock %}

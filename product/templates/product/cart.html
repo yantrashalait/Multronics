@@ -82,12 +82,12 @@
                                     <!-- </tr> -->
                                     <tr>
                                         <td>Total</td>
-                                        <td class="price-total">Rs.190,000.00</td>
+                                        <td class="price-total"></td>
                                     </tr>
                                 </tbody>
                             </table>
                             <div class="btn-cart-totals">
-                                <a href="#" class="checkout" title="">Proceed to Order</a>
+                                <a href="{% url 'product:order' request.user.pk %}" class="checkout" title="">Proceed to Order</a>
                             </div>
                             <!-- /.btn-cart-totals -->
                         </form>

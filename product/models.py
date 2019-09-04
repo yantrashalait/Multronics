@@ -170,6 +170,8 @@ class Subscription(models.Model):
 class UserOrder(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    email = models.CharField(max_length=255, blank=True, null=True)
+    contact = models.CharField(max_length=20, blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='orders', on_delete=models.CASCADE)
     cart = models.ManyToManyField(Cart, related_name="orders")
     total_price = models.CharField(max_length=100, null=True, blank=True)

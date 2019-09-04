@@ -2230,6 +2230,32 @@ table.product thead tr th:last-child {
     transition:all 0.3s ease-in-out;
 }
 
+.btn-order button {
+    display:block;
+    border: 0px;
+    width: 100%;
+    background-color:#f92400;
+    color:#fff;
+    font-size:20px;
+    text-align:center;
+    height:60px;
+    line-height:60px;
+    border-radius:30px;
+}
+
+.btn-order button:hover,
+.btn-order button:focus {
+    color:#FFF;
+    text-decoration:none;
+    background-color: #2d2d2d;
+    outline:0;
+    -webkit-transition:all 0.3s ease-in-out;
+    -moz-transition:all 0.3s ease-in-out;
+    -ms-transition:all 0.3s ease-in-out;
+    -o-transition:all 0.3s ease-in-out;
+    transition:all 0.3s ease-in-out;
+}
+
 
 .cart-totals.style2 form .checkbox {
     margin-top:18px;
