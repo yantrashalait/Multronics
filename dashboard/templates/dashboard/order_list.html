@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html' %}
+{% load filters %}
 {% block content %}
         <section class="cartpg">
                 <div class="container">
@@ -28,18 +29,9 @@
                                 <tr>
                                     <td>
                                         <div class="td_cont_hldr">
-                                                <div class="tbl_prd_img">  
-                                                        <img src="{{ item.product.main_image.url }}" alt="">
-                                                      </div>
-                                                      <div class="tbl_prd_ttl">
-                                                          {{ item.product.name }}
-                                                      </div>
-                                                      <div class="tbl_prd_prc">
-                                                          Rs. {{ item.product.new_price }}
-                                                      </div>
-                                            {% for obj in item.cart.all %}
+                                            {% for obj in item|get_cart %}
                                                 <div class="tbl_prd_img">
-                                                        <img src="{{ {{ obj.product.main_image.url }} }}" alt="">
+                                                        <img src="{{ obj.product.main_image.url }}" alt="">
                                                 </div>
                                                 <div class="tbl_prd_ttl">
                                                     {{ obj.product.name }}

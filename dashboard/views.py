@@ -375,9 +375,9 @@ class OrderList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'dashboard/order_list.html'
     context_object_name = 'order'
 
-    
+
 class RequestView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_request'
     model = UserRequestProduct
     template_name = 'dashboard/request_list.html'
-    context_object_name = 'request'
+    context_object_name = 'request'        
