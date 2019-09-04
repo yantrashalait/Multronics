@@ -12,7 +12,11 @@ from django.conf import settings
 from django.contrib.auth.models import User 
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login, authenticate
-from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
+from django.views.generic import CreateView, DetailView
+from .forms import UserProfileForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
 def register(request):
@@ -64,6 +68,49 @@ def activate(request, uidb64, token):
         user.backend = 'django.contrib.auth.backends.ModelBackend'
         login(request, user)
 
-        return redirect(reverse_lazy('login'))
+        return redirect(reverse_lazy('users:profile-create'))
     else:
         return HttpResponse('Activation link is invalid!')
+
+
+class ProfileView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    model = UserProfile
+    template_name = 'users/profile.html'
+    context_object_name = 'profile'
+
+    def get_object(self):
+        return UserProfile.objects.get(user_id=self.kwargs.get('pk'))
+
+
+@login_required(login_url='/login')
+def profile(request, *args, **kwargs):
+    try:
+        profile = UserProfile.objects.get(user_id=kwargs.get('pk'))
+        return render(request, 'users/profile.html', {'profile': profile})
+    except:
+        return redirect(reverse_lazy('users:profile-create'))
+
+
+class ProfileCreate(LoginRequiredMixin, CreateView):
+    template_name = 'users/userprofile_create.html'
+    form_class = UserProfileForm
+
+    def form_valid(self, form):
+        profile = form.save(commit=False)
+        profile.user = self.request.user
+        profile.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('users:profile', kwargs={'pk': self.request.user.pk})
+
+
+class ProfileUpdate(LoginRequiredMixin, CreateView):
+    template_name = 'users/userprofile_create.html'
+    form_class = UserProfileForm
+
+    def get_object(self):
+        return UserProfile.objects.get(id=self.kwargs.get('pk'))
+
+    def get_success_url(self):
+        return reverse('users:profile', kwargs={'pk': self.request.user.pk})

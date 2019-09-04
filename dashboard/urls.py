@@ -48,5 +48,6 @@ urlpatterns = [
     path('favourite/list/', views.FavouriteView.as_view(), name='favourite-list'),
     path('waitlist/list/', views.WaitListView.as_view(), name='wait-list'),
     path('bargain/list/', views.BargainView.as_view(), name='bargain-list'),
+    path('request/list/', views.RequestView.as_view(), name='request-list'),
         
 ]

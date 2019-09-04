@@ -54,7 +54,7 @@ class Product(models.Model):
     availability = models.BooleanField(default=False, verbose_name='Is this product available in stock?')
     main_image = models.ImageField(upload_to='products/', null=True, blank=True, help_text="Image size: width=265px height=290px")
     color = models.ManyToManyField(Color, related_name='product', help_text='To select multiple colors, press CTRL and select.')
-    offer_percent = models.CharField(max_length=100, null=True, blank=True )
+    offer_tag = models.CharField(max_length=100, null=True, blank=True, help_text="E.g. 15% off")
 
     def __str__(self):
         return self.name 
@@ -136,11 +136,11 @@ class UserRequestProduct(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='product_request', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     product_name = models.CharField(max_length=255)
-    type = models.CharField(max_length=100, help_text=('e.g., Laptop, Desktop')) 
+    product_type = models.CharField(max_length=100, help_text=('e.g., Laptop, Desktop'),  null=True, blank=True) 
     specification = models.TextField()
-    contact_number = models.CharField(max_length=50)
-    email = models.EmailField(max_length=100)
-    name = models.CharField(max_length=100)
+    contact_number = models.CharField(max_length=50, null=True, blank=True)
+    email = models.EmailField(max_length=100,  null=True, blank=True)
+    name = models.CharField(max_length=100,  null=True, blank=True)
     active = models.BooleanField(default=False)
     amount = models.IntegerField(null=True, blank=True)
 
@@ -163,11 +163,29 @@ class OfferImage(models.Model):
     def __str__(self):
         return self.name
 
+
 class Subscription(models.Model):
     email = models.EmailField(max_length=70, null=True, blank=True, unique=True)
 
     def __str__(self):
         return self.email
+
+
+class UserOrder(models.Model):
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='orders', on_delete=models.CASCADE)
+    cart = models.ManyToManyField(Cart, related_name="orders")
+    total_price = models.CharField(max_length=100, null=True, blank=True)
+    date = models.DateTimeField(default=datetime.now)
+    country = models.CharField(max_length=100)
+    city = models.CharField(max_length=100)
+    street = models.CharField(max_length=255)
+    note = models.TextField()
+
+    def __str__(self):
+        return self.user.username
+
 
 @receiver(post_save, sender=Product)
 def product_notify(sender, instance, created, **kwargs):

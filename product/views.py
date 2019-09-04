@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
-from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView
-from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Subscription, Color, Notification, UserRequestProduct
-from .forms import CartForm, UserRequestProductForm
+from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
+from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Subscription, Color, Notification, UserRequestProduct, UserOrder
+from .forms import CartForm, UserRequestProductForm, UserOrderForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -242,5 +242,23 @@ class RequestProduct(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     template_name = 'product/request_product.html'
     form_class = UserRequestProductForm
 
+    def form_valid(self, form):
+        product_request = form.save(commit=False)
+        product_request.user = self.request.user
+        product_request.save()
+        return super().form_valid(form)
+
     def get_success_url(self):
         return reverse('product:index')
+
+class OrderView(LoginRequiredMixin, CreateView):
+    template_name = 'product/order.html'
+    form_class = UserOrderForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(OrderView, self).get_context_data(**kwargs)
+        context['cart'] = Cart.objects.filter(user_id=kwargs.get('pk'))
+        return context
+
+    def form_valid(self):
+        pass

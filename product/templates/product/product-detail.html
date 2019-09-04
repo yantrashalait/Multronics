@@ -55,8 +55,6 @@
                                             {% if product.previous_price %}
                                             <span class="pd_price_old">Rs. {{ product.previous_price }}</span>
                                             {% endif %}
-
-
                                             <span class="pd_price_new">Rs. {{ product.new_price }}</span>
                                             {% if product.offer_percent %}
                                             <span class="pd_details_stock">{{ product.offer_percent }}% off</span>
@@ -68,6 +66,14 @@
                                             <p>{{ product.description }}</p>
                                         </div>
                                         {% endif %}
+                                        <div class="add_to_bargain_pdetails">
+                                            {% if product|check_bargain:request.user.pk %}
+                                                <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Bargain</button>
+                                            {% else %}
+                                                <button class="addbargain" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Bargain</button>
+                                            {% endif %}
+                                            
+                                        </div>
                                         {% if product.availability %}
                                         <form method="POST" action="{% url 'product:add-cart' %}">
                                             {% csrf_token %}
@@ -95,17 +101,8 @@
                                                         {% else %}
                                                             <button class="addwhislist" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Add To Favourite</button>
                                                         {% endif %}
-                                                        
                                                     </div>
-                                                <div class="add_to_bargain_pdetails">
-                                                        {% if product|check_bargain:request.user.pk %}
-                                                            <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Bargain</button>
-                                                        {% else %}
-                                                            <button class="addbargain" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Bargain</button>
-                                                        {% endif %}
-                                                        
-                                                    </div>
-                                                </div>                                     
+                                            </div>                                     
                                         </form>
                                         {% else %}
                                         <div class="pdetails_btns">
