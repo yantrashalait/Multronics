@@ -1,5 +1,5 @@
 {% extends 'dashboard/base.html' %}
-{% load filters %}
+{% load dashboard_filters %}
 {% block content %}
         <section class="cartpg">
                 <div class="container">
@@ -39,6 +39,7 @@
                                                 <div class="tbl_prd_prc">
                                                     {{ obj.product.new_price }}
                                                 </div>
+                                                <br>
                                             {% endfor %}
                                         </div>
                                     </td>
