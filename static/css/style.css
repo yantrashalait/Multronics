@@ -2409,4 +2409,5 @@ select.multi-select{
 .add_to_bargain_pdetails button{
     border: 0px;
     background: #fff;
+    margin: 5px;
 }

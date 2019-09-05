@@ -50,6 +50,7 @@ urlpatterns = [
     path('bargain/list/', views.BargainView.as_view(), name='bargain-list'),
 
     path('order/list/', views.OrderList.as_view(), name='order-list'),
+    path('order/detail/<int:pk>/', views.OrderDetail.as_view(), name='order_detail'),
     path('request/list/', views.RequestView.as_view(), name='request-list'),
         
 ]

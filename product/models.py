@@ -57,10 +57,7 @@ class Product(models.Model):
     offer_tag = models.CharField(max_length=100, null=True, blank=True, help_text="E.g. 15% off")
 
     def __str__(self):
-        return self.name 
-
-    def get_absolute_url(self):
-        return reverse("dashboard:product-list")
+        return self.name
 
 
 class ProductImage(models.Model):

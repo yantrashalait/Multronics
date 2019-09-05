@@ -55,6 +55,8 @@
                                             {% if product.previous_price %}
                                             <span class="pd_price_old">Rs. {{ product.previous_price }}</span>
                                             {% endif %}
+
+
                                             <span class="pd_price_new">Rs. {{ product.new_price }}</span>
                                             {% if product.offer_percent %}
                                             <span class="pd_details_stock">{{ product.offer_percent }}% off</span>
@@ -66,13 +68,22 @@
                                             <p>{{ product.description }}</p>
                                         </div>
                                         {% endif %}
-                                        <div class="add_to_bargain_pdetails">
-                                            {% if product|check_bargain:request.user.pk %}
-                                                <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Bargain</button>
-                                            {% else %}
-                                                <button class="addbargain" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Bargain</button>
-                                            {% endif %}
-                                            
+                                        <div class="pdetails_btns">
+                                            <div class="add_to_bargain_pdetails">
+                                                {% if product|check_bargain:request.user.pk %}
+                                                    <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Bargain</button>
+                                                {% else %}
+                                                    <button class="addbargain" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Bargain</button>
+                                                {% endif %}
+                                                
+                                            </div>
+                                            <div class="add_to_whislist_pdetails">
+                                                {% if product|check_favourite:request.user.pk %}
+                                                    <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Favourite</button>
+                                                {% else %}
+                                                    <button class="addwhislist" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Add To Favourite</button>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                         {% if product.availability %}
                                         <form method="POST" action="{% url 'product:add-cart' %}">
@@ -95,13 +106,6 @@
                                                 <div class="add_to_crt_pdetails">
                                                     <button type="submit"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add To Cart</button>
                                                 </div>   
-                                                <div class="add_to_whislist_pdetails">
-                                                        {% if product|check_favourite:request.user.pk %}
-                                                            <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Favourite</button>
-                                                        {% else %}
-                                                            <button class="addwhislist" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Add To Favourite</button>
-                                                        {% endif %}
-                                                    </div>
                                             </div>                                     
                                         </form>
                                         {% else %}
@@ -130,13 +134,9 @@
                                                     {% endif %}
                                                     
                                             </div>
-                                        
                                             </div>
                                         </div>
                                         {% endif %}
-                                        <div>
-                                            <a href="{% url 'product:request-product' %}" ><button>Request Product</button></a>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

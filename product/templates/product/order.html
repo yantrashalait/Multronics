@@ -10,9 +10,6 @@
                     <h1>Place Order</h1>
                     </div>
                     <div class="box-checkout">
-                        <div class="checkout-login">
-                            Returning customer? <a href="#" title="">Click here to login</a>
-                        </div>
                         <form action="{% url 'product:order' request.user.pk %}" method="post" class="checkout" accept-charset="utf-8">
                             {% csrf_token %}
                             <div class="billing-fields">

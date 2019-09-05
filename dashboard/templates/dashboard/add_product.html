@@ -101,8 +101,15 @@
                             <div id="imageformset" class="formset_wrap">
                             {% for form in imageform.forms %}
                                 <div class="image-form-single">
-                                    {{form}}
+                                    {% for field in form %}
+                                        {{ field.label }}<br>
+                                        {{ field }}<br>
+                                        {% if field.help_text %}
+                                            {{ field.help_text }}<br>
+                                        {% endif %}
+                                    {% endfor %}
                                 </div>
+                                <br>
                             {% endfor %}
                             </div>
                             <input type="button" id="imageadd" class="btn btn-info add-item" value="Add More Images">
@@ -119,25 +126,18 @@
                             </di>
 
                             {{ specificationform.management_form }}
-                            <div id = "specificationformset" class="formset_wrap">
+                            <div id="specificationformset" class="formset_wrap">
                                 {% for form in specificationform.forms %}
                                 <div class="spec-form-single">
                                     <div class="field-row">
                                         <div class="field-full">
-                                            {{ form.title.label }}
-                                            {{ form.title }}
-                                        </div>
-                                    </div>
-                                    <div class="field-row">
-                                        <div class="field-full">
-                                            {{ form.content.label }}
-                                            {{ form.content }}
+                                            {{ form }}
                                         </div>
                                     </div>
                                 </div>
                                 {% endfor %}
                             </div>
-                            <input type="button" id="specificationadd" class="btn btn-info add-item" value="Add More Images">
+                            <input type="button" id="specificationadd" class="btn btn-info add-item" value="Add More Specifications">
                             <div id="specempty_form" style="display:none">
                                 {{ specificationform.empty_form }}
                             </div>

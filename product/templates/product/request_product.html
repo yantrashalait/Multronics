@@ -1,17 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form }}
-            <button type="submit" class="sbt_btn">Submit</button>
-        </form>
-        
-</body>
-</html>
+{% extends 'product/base.html' %}
+{% load static %}
+{% block content %}
+    <section class="cartpg">
+        <div class="container">
+            <div class="row">
+                
+                <div class="col-md-7">
+                    <div class="crt_heading">
+                    <h1>Place Order</h1>
+                    </div>
+                    <div class="box-checkout">
+                        <form action="{% url 'product:order' request.user.pk %}" method="post" class="checkout" accept-charset="utf-8">
+                            {% csrf_token %}
+                            <div class="billing-fields">
+                                <div class="fields-title">
+                                    <h3>Order details</h3>
+                                    <span></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                                <!-- /.fields-title -->
+                                <div class="fields-content">
+                                    <div class="field-row">
+                                        <p class="field-one-half">
+                                            <label for="id_product_name">Product Name *</label>
+                                            {{ form.product_name }}
+                                        </p>
+                                        <p class="field-one-half">
+                                            <label for="id_product_type">Product Type *</label>
+                                            {{ form.product_type.help_text }}
+                                            {{ form.product_type }}
+                                        </p>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="field-row">
+                                        <p class="field-one-half">
+                                            <label for="id_specification">Specification *</label>
+                                            {{ form.specification }}
+                                        </p>
+                                        <p class="field-one-half">
+                                            <label for="id_contact_number">Contact Number *</label>
+                                            {{ form.contact_number }}
+                                        </p>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="field-row">
+                                        <p class="field-one-half">
+                                            <label for="id_email">Email *</label>
+                                            {{ form.email }}
+                                        </p>
+                                        <p class="field-one-half">
+                                            <label for="id_name">Full Name *</label>
+                                            {{ form.name }}
+                                        </p>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <div class="field-row">
+                                        <p class="field-one-half">
+                                            <label for="id_amount">Quantity *</label>
+                                            {{ form.amount }}
+                                        </p>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    
+                                </div>
+                                <!-- /.fields-content -->
+                            </div>
+                            <!-- /.shipping-address-fields -->
+                        <!-- /.checkout -->
+                    </div>
+                    <!-- /.box-checkout -->
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

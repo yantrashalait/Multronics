@@ -55,6 +55,9 @@ class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
             return HttpResponseRedirect('/')
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse('dashboard:product-list')
+
 
 class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_product'
@@ -82,17 +85,23 @@ class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         imageform = context['imageform']
         specificationform = context['specificationform']
         self.object = form.save()
-        if imageform.is_valid() and specificationform.is_valid():
+        
+        if imageform.is_valid():
             for form in imageform:
                 f = form.save(commit=False)
                 f.product = self.object
                 f.save()
+
+        if specificationform.is_valid():
             for form in specificationform:
                 f = form.save(commit=False)
                 f.product = self.object
                 f.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/dashboard/product/list/')
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('dashboard:product-list')
 
 
 class ProductDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
@@ -374,6 +383,17 @@ class OrderList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = UserOrder
     template_name = 'dashboard/order_list.html'
     context_object_name = 'order'
+
+
+class OrderDetail(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+    permission_required = 'add_product'
+    model = UserOrder
+    template_name = 'dashboard/order_detail.html'
+    context_object_name = 'order'
+
+    def get_object(self):
+        _id = self.kwargs.get('pk')
+        return UserOrder.objects.get(id=_id)
 
 
 class RequestView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
