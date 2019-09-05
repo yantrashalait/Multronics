@@ -677,16 +677,16 @@
                                         <div class="menusitms">
                                             <ul>
                                                 <li>
-                                                    <a href="#">My Account</a>
+                                                    <a href="{% url 'users:profile' request.user.pk %}">My Account</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Wishlist</a>
+                                                    <a href="{% url 'product:favourite' request.user.pk %}">Favourites</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Waitlist</a>
+                                                    <a href="{% url 'product:waitlist' request.user.pk %}">Waitlist</a>
                                                 </li>
                                                 <li>
-                                                    <a href="#">Cart</a>
+                                                    <a href="{% url 'product:cart-list' request.user.pk %}">Cart</a>
                                                 </li>
                                                 <li>
                                                     <a href="#">Product Support</a>

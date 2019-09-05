@@ -27,6 +27,7 @@ class NotificationListView(LoginRequiredMixin, ListView):
     model = Notification
     template_name = 'product/notifications.html'
     context_object_name = 'notifications'
+    paginate_by = 10
 
     def get_queryset(self):
         Notification.objects.filter(is_seen=False).update(is_seen=True)
@@ -316,6 +317,8 @@ class OrderView(LoginRequiredMixin, CreateView):
         c = Cart.objects.filter(user_id=self.request.user.pk, removed=False)
         for item in c:
             order.cart.add(item)
+        
+        Cart.objects.filter(user_id=self.request.user.pk).update(removed=True)
         
         return render(request, 'product/success_order.html')
         

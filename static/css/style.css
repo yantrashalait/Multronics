@@ -2411,3 +2411,21 @@ select.multi-select{
     background: #fff;
     margin: 5px;
 }
+
+.notify .notify-heading{
+    font-size: 18px;
+    color: #ea802d;
+}
+
+.notify .notify-content{
+    margin: 5px;
+}
+
+.notify .notify-product-detail img{
+    width: 70px;
+}
+
+.notify-tbl tr:hover{
+    background: #f7f7f7;
+}
+

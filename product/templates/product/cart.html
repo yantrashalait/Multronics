@@ -8,6 +8,7 @@
                     <div class="crt_heading">
                         <h1>Shopping Cart</h1>
                     </div>
+                    {% if carts %}
                     <table class="table prd_calc_tbl">
                       <thead>
                         <tr>
@@ -86,9 +87,16 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            {% else %}
+                            <h1>
+                                Its lonely here!!!
+                            </h1>
+                            {% endif %}
+                            {% if carts %}
                             <div class="btn-cart-totals">
                                 <a href="{% url 'product:order' request.user.pk %}" class="checkout" title="">Proceed to Order</a>
                             </div>
+                            {% endif %}
                             <!-- /.btn-cart-totals -->
                         </form>
                         <!-- /form -->

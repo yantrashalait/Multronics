@@ -213,7 +213,7 @@
                     <div class="brand_caro itms_caro owl-carousel owl-theme">
                         {% for item in brands %}
                         <div class="item">
-                            <a href="#">
+                            <a href="{% url 'product:product-brand-list' item.pk %}">
                                 <img src="{{ item.brand_image.url }}" alt="">
                             </a>
                         </div>

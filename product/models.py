@@ -193,12 +193,14 @@ def product_notify(sender, instance, created, **kwargs):
         if WaitList.objects.filter(product=instance).exists():
             users = WaitList.objects.filter(product=instance)
             for item in users:
-                Notification.objects.create(
-                    user=item.user, 
-                    date=datetime.now(), 
-                    product = item.product,
-                    title='Product Available',
-                    description='Product ' + item.product.name + ' is available on stock now.')
+                if not Notification.objects.filter(user=item.user, product=item.product).exists():
+                    Notification.objects.create(
+                        user=item.user, 
+                        date=datetime.now(), 
+                        product = item.product,
+                        title='Product Available',
+                        description='Product ' + item.product.name + ' is available on stock now.')
+                    
 
     # check if price has reduced
     if instance.previous_price:
