@@ -19,6 +19,7 @@ class ProductList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     template_name = 'dashboard/product_list.html'
     model = Product
     context_object_name = 'product'
+    paginate_by = 10
 
 
 class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):

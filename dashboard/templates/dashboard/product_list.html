@@ -37,6 +37,46 @@
                     </table>
                 </div>
             </div>
+            {% if is_paginated %}
+                    <div class="col-md-12">
+                        <div class="row">
+                        <div class="prd_pagination">
+                            <div class="blog-pagination">
+                                <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                                <ul class="flat-pagination style1">
+                                    
+                                    {% if page_obj.has_previous %}
+                                    <li class="prev">
+                                        <a href="?page={{ page_obj.previous_page_number }}" title="">
+                                            Prev Page
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% for i in paginator.page_range %}
+                                        {% if page_obj.number == i %}
+                                        <li class="active">
+                                            <a href="#" class="waves-effect" title="">{{ i }}</a>
+                                        </li>
+                                        {% else %}
+                                        <li>
+                                            <a href="?page={{ i }}" class="waves-effect" title="">{{ i }}</a>
+                                        </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% if page_obj.has_next %}
+                                    <li class="next">
+                                        <a href="?page={{ page_obj.next_page_number }}" title="">
+                                        Next Page
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                                <!-- /.flat-pagination style1 -->
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        {% endif %}
         </div>
     </section>
 {% endblock %}
