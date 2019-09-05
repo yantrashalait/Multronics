@@ -9,11 +9,12 @@ urlpatterns = [
     # crud for products
     path('product/list/', views.ProductList.as_view(), name='product-list'),
     path('product/detail/<int:pk>/', views.ProductDetail.as_view(), name='product-detail'),
-    path('product/list/brand/<int:pk>/', views.brand_list, name='product-brand-list'),
-    path('product/list/type/<int:pk>/', views.type_list, name='product-type-list'),
-    path('product/list/super-deals/', views.super_deals_list, name='product-super-deals-list'),
-    path('product/list/offer/', views.offer_list, name='product-offer-list'),
-    path('product/list/most-viewed/', views.most_viewed_list, name='product-most-viewed-list'),
+    path('product/list/category/<int:pk>', views.CategoryListView.as_view(), name='product-category-list'),
+    path('product/list/brand/<int:pk>/', views.BrandListView.as_view(), name='product-brand-list'),
+    path('product/list/type/<int:pk>/', views.TypeListView.as_view(), name='product-type-list'),
+    path('product/list/super-deals/', views.SuperDealsListView.as_view(), name='product-super-deals-list'),
+    path('product/list/offer/', views.OfferListView.as_view(), name='product-offer-list'),
+    path('product/list/most-viewed/', views.MostViewedListView.as_view(), name='product-most-viewed-list'),
     path('search/', views.search_product, name='search-product'),
 
     # view all notifications of user

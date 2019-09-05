@@ -118,23 +118,6 @@
                                                     <button class="addwaitlist" p_id={{ product.pk }}><i class="fa fa-hourglass-end" aria-hidden="true"></i>Add To Waitlist</button>
                                                 {% endif %}
                                             </div>
-                                            <div class="add_to_whislist_pdetails">
-                                                    {% if product|check_favourite:request.user.pk %}
-                                                        <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Favourite</button>
-                                                    {% else %}
-                                                        <button class="addwhislist" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Add To Favourite</button>
-                                                    {% endif %}
-                                                    
-                                            </div>
-                                            <div class="add_to_bargain_pdetails">
-                                                    {% if product|check_bargain:request.user.pk %}
-                                                        <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Bargain</button>
-                                                    {% else %}
-                                                        <button class="addbargain" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i>Bargain</button>
-                                                    {% endif %}
-                                                    
-                                            </div>
-                                            </div>
                                         </div>
                                         {% endif %}
                                     </div>

@@ -91,6 +91,8 @@ class ProductList(ListView):
     template_name = 'product/product-list.html'
     model = Product
     context_object_name = 'product'
+    paginate_by = 10
+    queryset = Product.objects.all()
 
     # def get_queryset(self):
     #     return Product.objects.all()
@@ -192,27 +194,65 @@ def add_to_bargain(request, *args, **kwargs):
         return HttpResponseRedirect('login')
 
 
+class CategoryListView(ListView):
+    template_name = 'product/product-list.html'
+    model = Product
+    context_object_name = 'product'
+    paginate_by = 10
+
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.filter(category_id=self.kwargs.get("pk"))
 
 
-def brand_list(request, *args, **kwargs):
-    brand = Product.objects.filter(brand_id=kwargs.get('pk'))
-    return render(request, 'product/product-list.html', {'product':brand})
+class BrandListView(ListView):
+    template_name = 'product/product-list.html'
+    model = Product
+    context_object_name = 'product'
+    paginate_by = 10
 
-def type_list(request, *args, **kwargs):
-    type = Product.objects.filter(product_type_id=kwargs.get('pk'))
-    return render(request, 'product/product-list.html', {'product':type})
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.filter(brand_id=self.kwargs.get("pk"))
 
-def super_deals_list(request, *args, **kwargs):
-    super_deals = Product.objects.filter(super_deals=True)
-    return render(request, 'product/product-list.html', {'product':super_deals})
 
-def offer_list(request, *args, **kwargs):
-    offer = Product.objects.filter(offer=True)
-    return render(request, 'product/product-list.html', {'product':offer})
+class TypeListView(ListView):
+    template_name = 'product/product-list.html'
+    model = Product
+    context_object_name = 'product'
+    paginate_by = 10
 
-def most_viewed_list(request, *args, **kwargs):
-    most_viewed = Product.objects.filter(views__gte=10)
-    return render(request, 'product/product-list.html', {'product':most_viewed})
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.filter(type_id=self.kwargs.get("pk"))
+
+
+class SuperDealsListView(ListView):
+    template_name = 'product/product-list.html'
+    model = Product
+    context_object_name = 'product'
+    paginate_by = 10
+
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.filter(super_deals=True)
+
+
+class OfferListView(ListView):
+    template_name = 'product/product-list.html'
+    model = Product
+    context_object_name = 'product'
+    paginate_by = 10
+
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.filter(offer=True)
+
+
+class MostViewedListView(ListView):
+    template_name = 'product/product-list.html'
+    model = Product
+    context_object_name = 'product'
+    paginate_by = 10
+
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.filter(views__get=10)
+
 
 def search_product(request):
     if request.method=='POST':

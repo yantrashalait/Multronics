@@ -5,12 +5,12 @@
         <div class="container">
             <div class="row">
                 
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="crt_heading">
                     <h1>Place Order</h1>
                     </div>
                     <div class="box-checkout">
-                        <form action="{% url 'product:order' request.user.pk %}" method="post" class="checkout" accept-charset="utf-8">
+                        <form action="{% url 'product:request-product' %}" method="post" class="checkout" accept-charset="utf-8">
                             {% csrf_token %}
                             <div class="billing-fields">
                                 <div class="fields-title">
@@ -67,6 +67,10 @@
                             </div>
                             <!-- /.shipping-address-fields -->
                         <!-- /.checkout -->
+                        <div class="btn-order">
+                            <button type="submit" class="order" id="order">Place Order</button>
+                        </div>
+                    </form>
                     </div>
                     <!-- /.box-checkout -->
                 </div>
