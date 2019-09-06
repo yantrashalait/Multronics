@@ -101,13 +101,7 @@
                             <div id="imageformset" class="formset_wrap">
                             {% for form in imageform.forms %}
                                 <div class="image-form-single">
-                                    {% for field in form %}
-                                        {{ field.label }}<br>
-                                        {{ field }}<br>
-                                        {% if field.help_text %}
-                                            {{ field.help_text }}<br>
-                                        {% endif %}
-                                    {% endfor %}
+                                    {{ form }}
                                 </div>
                                 <br>
                             {% endfor %}

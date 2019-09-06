@@ -42,7 +42,9 @@
                                         <div class="pdetails_ttl">
                                             <h1>{{ product.name }}</h1>
                                             <span class="pdetails_cat_ttl">{{ product.category }}</span>
+                                            {% if product.offer %}<div class="pd_offer">{{ product.offer_tag }}</div>{% endif %}
                                         </div>
+                                        
                                         <div class="pdetails_avail_stock">
                                             <span class="avail_txt">Availablity</span>
                                             {% if product.availability %}
@@ -68,15 +70,21 @@
                                             <p>{{ product.description }}</p>
                                         </div>
                                         {% endif %}
-                                        <div class="pdetails_btns">
-                                            <div class="add_to_bargain_pdetails">
-                                                {% if product|check_bargain:request.user.pk %}
-                                                    <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Bargain</button>
-                                                {% else %}
-                                                    <button class="addbargain" p_id={{ product.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i> Bargain</button>
-                                                {% endif %}
-                                                
+                                        <div class="row">
+                                            <div class="pd_bargain">Not satisfied with the price?</div>
+                                            
+                                            <div class="pd_bargain_setting">
+                                                <button type="button" data-toggle="collapse" data-target="#bargain"><i class="fa fa-cogs"></i></button>
+                                                <div id="bargain" class="collapse">
+                                                        {% if product|check_bargain:request.user.pk %}
+                                                            <button class="arrow-box"> Notify me when price drops</button>
+                                                        {% else %}
+                                                            <button class="addbargain arrow-box" p_id={{ product.pk }}> Notify me when price drops</button>
+                                                        {% endif %}
+                                                </div>
                                             </div>
+                                        </div>
+                                        <div class="pdetails_btns">
                                             <div class="add_to_whislist_pdetails">
                                                 {% if product|check_favourite:request.user.pk %}
                                                     <button><i class="fa fa-heart-o" aria-hidden="true"></i> Added To Favourite</button>

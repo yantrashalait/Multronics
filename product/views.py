@@ -48,7 +48,7 @@ class CartListView(LoginRequiredMixin, ListView):
     def post(self, request, *args, **kwargs):
         _id = self.request.POST.get('delete')
         cart = Cart.objects.get(pk=_id)
-        cart.removed=True 
+        cart.removed = True 
         cart.save()
         return render(request, self.template_name, {'carts': self.get_queryset()})
 
@@ -64,6 +64,12 @@ class WaitListView(LoginRequiredMixin, ListView):
         else:
             return WaitList.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
     
+    def post(self, request, *args, **kwargs):
+        _id = self.request.POST.get('delete')
+        wait = WaitList.objects.get(pk=_id)
+        wait.removed = True 
+        wait.save()
+        return render(request, self.template_name, {'waitlists': self.get_queryset()})
 
 class FavouriteListView(LoginRequiredMixin, ListView):
     model = Favourite
@@ -285,8 +291,6 @@ class RequestProduct(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
     def form_valid(self, form):
         product_request = form.save(commit=False)
-        product_request.user = self.request.user
-        product_request.save()
         return super().form_valid(form)
 
     def get_success_url(self):

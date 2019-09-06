@@ -2429,3 +2429,109 @@ select.multi-select{
     background: #f7f7f7;
 }
 
+/* edit profiel page css */
+
+.profile__edit__head .adprd_heading {
+    display: flex;
+    justify-content: space-between;
+}
+
+.prof__infos__list label {
+    width: 100%;
+    margin: 0 0 5px 0;
+}
+
+
+.user__infos__profile h2{
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.user__infos__profile {
+    border: 1px solid #ecebeb;
+    padding: 20px;    
+    margin: 0 0 10px 0;
+}
+
+.prof__infos__list {
+    border-bottom: 1px solid #ecebeb;
+    padding: 0 0 10px 0;
+    margin: 0 0 10px 0;
+}
+
+
+.prof__infos__list .info__text {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.user__infos__profile .prof__infos__list:last-child{
+    border-bottom: none;
+    padding: 0;
+    margin: 0;  
+}
+
+.info__text img{
+    max-width: 283px;
+}
+/* edit profiel page css */
+
+.pd_offer{
+    color: white;
+    width: 70px;
+    /* border: solid; */
+    background-color: #e33a2b;
+    margin: 0px;
+    padding: 9px;
+    border-radius: 25px;
+    margin-top: 20px;
+    padding-left: 12px;
+}
+
+.pd_bargain{
+    color: #e33a2b;
+    font-size: 15px;
+    padding-left: 16px;
+}
+
+.pd_bargain_setting{
+    padding-left: 10px;
+}
+
+.pd_bargain_setting button{
+
+}
+
+#bargain button{
+    border: 2px;
+    background: #88b7d5;
+    border-radius: 6px;
+    height: 30px;
+    position: relative;
+    margin-top: 5px;
+}
+
+#bargain button:after, #bargain button:before{
+    bottom: 100%;
+	left: 10%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+    pointer-events: none;
+}
+
+#bargain button:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-bottom-color: #88b7d5;
+	border-width: 5px;
+    margin-left: -5px;
+}
+
+#bargain button:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-bottom-color: #c2e1f5;
+	border-width: 5px;
+    margin-left: -5px;
+}

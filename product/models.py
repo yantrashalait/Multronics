@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from datetime import datetime
 from django.urls import reverse
+from django.core.mail import send_mail
 
 
 class Category(models.Model):
@@ -130,7 +131,6 @@ class UserBargain(models.Model):
 
 
 class UserRequestProduct(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='product_request', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     product_name = models.CharField(max_length=255)
     product_type = models.CharField(max_length=100, help_text=('e.g., Laptop, Desktop'),  null=True, blank=True) 
@@ -142,7 +142,7 @@ class UserRequestProduct(models.Model):
     amount = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.user.username + ' ' + self.product_name
+        return self.name + ' ' + self.product_name
 
 
 class SuperImage(models.Model):
@@ -191,8 +191,10 @@ def product_notify(sender, instance, created, **kwargs):
     # check if the product is made available and user have added it to their wish list
     if instance.availability == True:
         if WaitList.objects.filter(product=instance).exists():
+            user_mail = []
             users = WaitList.objects.filter(product=instance)
             for item in users:
+                user_mail.append(item.user.email)
                 if not Notification.objects.filter(user=item.user, product=item.product).exists():
                     Notification.objects.create(
                         user=item.user, 
@@ -200,6 +202,13 @@ def product_notify(sender, instance, created, **kwargs):
                         product = item.product,
                         title='Product Available',
                         description='Product ' + item.product.name + ' is available on stock now.')
+            # send_mail(
+            #     'Product Available', 
+            #     'Product' + instance.name + 'is not available on stock.', 
+            #     'support@iteam.com.np',
+            #     [user_mail],
+            #     fail_silently=False
+            # )
                     
 
     # check if price has reduced

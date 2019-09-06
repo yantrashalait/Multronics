@@ -664,7 +664,7 @@
                                             <ul>
                                                 {% for item in menu_categories %}
                                                 <li>
-                                                    <a href="#">{{ item.name }}</a>
+                                                    <a href="{% url 'product:product-category-list' item.pk %}">{{ item.name }}</a>
                                                 </li>
                                                 {% endfor %}
                                             </ul>
@@ -676,6 +676,7 @@
                                         <h5>Customer Care</h5>
                                         <div class="menusitms">
                                             <ul>
+                                                {% if request.user.is_authenticated %}
                                                 <li>
                                                     <a href="{% url 'users:profile' request.user.pk %}">My Account</a>
                                                 </li>
@@ -688,6 +689,7 @@
                                                 <li>
                                                     <a href="{% url 'product:cart-list' request.user.pk %}">Cart</a>
                                                 </li>
+                                                {% endif %}
                                                 <li>
                                                     <a href="#">Product Support</a>
                                                 </li>

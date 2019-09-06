@@ -13,7 +13,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 from .forms import UserProfileForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -73,15 +73,6 @@ def activate(request, uidb64, token):
         return HttpResponse('Activation link is invalid!')
 
 
-class ProfileView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
-    model = UserProfile
-    template_name = 'users/profile.html'
-    context_object_name = 'profile'
-
-    def get_object(self):
-        return UserProfile.objects.get(user_id=self.kwargs.get('pk'))
-
-
 @login_required(login_url='/login')
 def profile(request, *args, **kwargs):
     try:
@@ -105,12 +96,12 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
         return reverse('users:profile', kwargs={'pk': self.request.user.pk})
 
 
-class ProfileUpdate(LoginRequiredMixin, CreateView):
+class ProfileUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'users/userprofile_create.html'
     form_class = UserProfileForm
 
     def get_object(self):
-        return UserProfile.objects.get(id=self.kwargs.get('pk'))
+        return UserProfile.objects.get(user_id=self.kwargs.get('pk'))
 
     def get_success_url(self):
         return reverse('users:profile', kwargs={'pk': self.request.user.pk})
