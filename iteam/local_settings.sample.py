@@ -1,7 +1,7 @@
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = ''
+SECRET_KEY = '05bxt%h%a2gd@aedgt^grl!&xhmj6^y7j=#_h_z71)3b0)_2$)'
 
 ALLOWED_HOSTS = []
 
@@ -21,7 +21,7 @@ DATABASES = {
 
 from .settings import INSTALLED_APPS
 
-INSTALLED_APPS += ['users', 'product']
+INSTALLED_APPS += ['users', 'product', 'dashboard']
 
 LOGOUT_REDIRECT_URL = '/login/'
 
@@ -33,6 +33,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
+SITE_URL = 'http://localhost:8000'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
