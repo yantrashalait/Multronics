@@ -2504,7 +2504,7 @@ select.multi-select{
 
 #bargain button{
     border: 2px;
-    background: #88b7d5;
+    background-image: linear-gradient(to right, #5000f1 , #7801e6);
     border-radius: 6px;
     height: 30px;
     position: relative;
@@ -2524,14 +2524,39 @@ select.multi-select{
 
 #bargain button:after {
 	border-color: rgba(136, 183, 213, 0);
-	border-bottom-color: #88b7d5;
+	border-bottom-color: linear-gradient(to right, #5000f1 , #7801e6);
 	border-width: 5px;
     margin-left: -5px;
 }
 
 #bargain button:before {
 	border-color: rgba(194, 225, 245, 0);
-	border-bottom-color: #c2e1f5;
+	border-bottom-color: #5000f1;
 	border-width: 5px;
     margin-left: -5px;
+}
+
+.req__item__text__hldr{
+    padding: 8px 0;
+    color: #fff;    
+    position: relative;
+}
+.req__item{ 
+    background-image: #5000f1;
+    display: flex;
+    justify-content: center; 
+}
+.req__item__text__hldr a{
+    background: #fff;
+    color: #4b4b4b;
+    display: inline-block;
+    margin: 0 0 0 20px;
+    padding: 5px 30px;
+    border-radius: 50px;
+    position: relative; 
+}
+
+.req__item__text__hldr a:hover{
+    background: #ff8200;
+    color: #fff;
 }

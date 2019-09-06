@@ -122,6 +122,13 @@
 
 
     <header class="main_header">
+        <div class="req__item">
+            <div class="text-center req__content">
+                <div class="req__item__text__hldr">
+                    <span class="req__text">...order a Product Not Found Here</span><a href="{% url 'product:request-product' %}">Request A Product</a> 
+                </div>
+            </div>
+        </div> 
         <div class="rsp_srch_bx_hldr">
             <span class="rsp_srch_close">x</span>
             <form method="POST" action="{% url 'product:search-product' %}">
