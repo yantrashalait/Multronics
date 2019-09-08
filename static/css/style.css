@@ -2542,7 +2542,7 @@ select.multi-select{
     position: relative;
 }
 .req__item{ 
-    background-image: #5000f1;
+    background-image: linear-gradient(to right, #5000f1 , #7801e6);
     display: flex;
     justify-content: center; 
 }
