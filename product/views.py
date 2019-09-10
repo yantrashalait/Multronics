@@ -228,7 +228,7 @@ class TypeListView(ListView):
     paginate_by = 10
 
     def get_queryset(self, *args, **kwargs):
-        return Product.objects.filter(type_id=self.kwargs.get("pk"))
+        return Product.objects.filter(product_type_id=self.kwargs.get("pk"))
 
 
 class SuperDealsListView(ListView):
