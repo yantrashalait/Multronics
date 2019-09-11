@@ -6,17 +6,17 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
     <meta name="keywords" content="">
-	<title>Document</title>
+	<title>Iteam</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
-
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
     <!-- Plugins css -->
     <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cropper.css' %}">
 </head>
 	<body>
         <section class="cartpg">
@@ -27,12 +27,13 @@
         {% block content %}
         {% endblock %}
         <script src="{% static 'js/jquery.min.js' %}"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="{% static 'js/bootstrap.js' %}"></script>
         <script src="{% static 'js/owl.carousel.min.js' %}"></script>
         <script src="{% static 'js/main.js' %}"></script>
         <!-- Plugins script -->
         <script src="{% static 'js/plugins.js' %}"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{% static 'js/cropper.js' %}"></script>
         {% block scripts %}
         {% endblock %}
     </body>
