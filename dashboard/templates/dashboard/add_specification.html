@@ -1,0 +1,66 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+<section class="cartpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <di class="box-checkout">
+                    <div class="checkout-login adprd_heading">
+                        <div class="crt_heading">
+                            <h1>Add Specifications</h1>
+                        </div>
+                    </div>
+                </di>
+                <div class="prd_add fields-content">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="field-row">
+                            <div class="field-full">
+                                <label for="id_name">Specification Title (e.g. CPU, RAM, etc.)*</label>
+                                {{ form.title }}
+                            </div>
+                        </div>
+
+                        <di class="box-checkout">
+                            <div class="checkout-login adprd_heading">
+                                <div class="crt_heading">
+                                    <h1>Add multiple values for specification</h1>
+                                </div>
+                            </div>
+                        </di>
+
+                        {{ contentform.management_form }}
+                        <div id="contentformset" class="formset_wrap">
+                            {% for form in contentform.forms %}
+                            <div class="spec-form-single">
+                                <div class="field-row">
+                                    <div class="field-full">
+                                        {{ form }}
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <input type="button" id="contentadd" class="btn btn-info add-item" value="Add More Values">
+                        <div id="contentempty_form" style="display:none">
+                            {{ contentform.empty_form }}
+                        </div>
+                        <div class="sbtprd">
+                            <button type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script>
+    $('#contentadd').click(function() {
+        var form_idx = $('#id_content-TOTAL_FORMS').val();
+        $('#contentformset').append($('#contentempty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_content-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+    });
+</script>
+{% endblock %}

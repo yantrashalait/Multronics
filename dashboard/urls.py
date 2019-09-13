@@ -52,5 +52,9 @@ urlpatterns = [
     path('order/list/', views.OrderList.as_view(), name='order-list'),
     path('order/detail/<int:pk>/', views.OrderDetail.as_view(), name='order_detail'),
     path('request/list/', views.RequestView.as_view(), name='request-list'),
+
+    path('specification/list', views.SpecificationList.as_view(), name='specification-list'),
+    path('specification/add', views.SpecificationCreate.as_view(), name='specification-create'),
+    path('specification/<int:pk>/update', views.SpecificationUpdate.as_view(), name="specification-update"),
         
 ]

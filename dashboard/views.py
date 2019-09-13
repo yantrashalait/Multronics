@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
-from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, SuperImage, OfferImage, UserBargain, UserRequestProduct, UserOrder
+from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, SuperImage, OfferImage, UserBargain, UserRequestProduct, UserOrder, SpecificationTitle
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm
+from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm, SpecificationContentFormset, SpecificationTitleForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -53,7 +53,7 @@ class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
                 f = form.save(commit=False)
                 f.product = self.object
                 f.save()
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/dashboard/product/list/')
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -402,3 +402,77 @@ class RequestView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = UserRequestProduct
     template_name = 'dashboard/request_list.html'
     context_object_name = 'request'      
+
+
+class SpecificationCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = ('add_product')
+    model = SpecificationTitle
+    template_name = 'dashboard/add_specification.html'
+    form_class = SpecificationTitleForm
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(SpecificationCreate, self).get_context_data(**kwargs)
+        if self.request.method == 'POST':
+            context['contentform'] = SpecificationContentFormset(self.request.POST)
+        else:
+            context['contentform'] = SpecificationContentFormset()
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        contentform = context['contentform']
+        if contentform.is_valid():
+            self.object = form.save()
+            for form in contentform:
+                f = form.save(commit=False)
+                f.title = self.object
+                f.save()
+            print('hello asdasvdh')
+            return HttpResponseRedirect('/dashboard/specification/list')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('dashboard:specification-list')
+
+
+class SpecificationUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'change_product'
+    template_name = 'dashboard/add_specification.html'
+    form_class = SpecificationTitleForm
+    is_update_view = True
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(SpecificationTitle, pk=id_)
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super(SpecificationUpdate, self).get_context_data(**kwargs)
+        if self.request.method == 'POST':
+            context['contentform'] = SpecificationContentFormset(self.request.POST, instance=self.object)
+        
+        else:
+            context['contentform'] = SpecificationContentFormset(instance=self.object)
+        return context
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        contentform = context['contentform']
+        self.object = form.save()
+        
+        if contentform.is_valid():
+            for form in contentform:
+                f = form.save(commit=False)
+                f.title = self.object
+                f.save()
+            return HttpResponseRedirect('/dashboard/specification/list')
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('dashboard:specification-list')
+
+
+class SpecificationList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_product'
+    model = SpecificationTitle
+    template_name = 'dashboard/specification_list.html'
+    context_object_name = 'spec'

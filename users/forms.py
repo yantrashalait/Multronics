@@ -6,6 +6,7 @@ from django.core.validators import RegexValidator
 from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 import re
+from PIL import Image
 
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField(max_length=200, help_text='Required')
@@ -50,11 +51,15 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserProfileForm(forms.ModelForm):
+    x = forms.FloatField(widget=forms.HiddenInput())
+    y = forms.FloatField(widget=forms.HiddenInput())
+    width = forms.FloatField(widget=forms.HiddenInput())
+    height = forms.FloatField(widget=forms.HiddenInput())
     contact = forms.CharField()
 
     class Meta:
         model = UserProfile
-        fields = ['address', 'contact', 'image']
+        fields = ['address', 'contact', 'image', 'x', 'y', 'width', 'height']
 
     def clean_contact(self):
         contact = self.cleaned_data.get('contact')
@@ -64,3 +69,16 @@ class UserProfileForm(forms.ModelForm):
             raise ValidationError('Enter a valid mobile number.')
         else:
             return contact
+
+    def save(self):
+        photo = super(UserProfileForm, self).save()
+
+        x = self.cleaned_data.get('x')
+        y = self.cleaned_data.get('y')
+        w = self.cleaned_data.get('width')
+        h = self.cleaned_data.get('height')
+        # if x is not None and y is not None:
+        image = Image.open(photo.image)
+        cropped_image = image.crop((x, y, w+x, h+y))
+        resized_image = cropped_image.resize((283, 283), Image.ANTIALIAS)
+        resized_image.save(photo.image.path)

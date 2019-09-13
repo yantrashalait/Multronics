@@ -13,7 +13,9 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/cropper.css' %}">
+    
 
     <!-- Plugins css -->
     <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
@@ -39,7 +41,7 @@
                         <div class="clk_show_dh_catlist">
                         <span class="menu_cat_name">
                             <span class="menu_icn">
-                            <img src="{% static 'images/7.png' %}" alt="">
+                            <i class="fa fa-bars"></i>
                             </span> All Laptops
                         </span>
                         </a>
@@ -49,7 +51,7 @@
                             <div class="clk_show_dh_catlist">
                             <span class="menu_cat_name">
                                 <span class="menu_icn">
-                                <img src="{% static 'images/7.png' %}" alt="">
+                                <i class="fa fa-bars"></i>
                                 </span> Laptops By Brand
                             </span>
                             <span class="sh_hd_accor_cont">
@@ -72,7 +74,7 @@
                             <div class="clk_show_dh_catlist">
                             <span class="menu_cat_name">
                                 <span class="menu_icn">
-                                <img src="{% static 'images/7.png' %}" alt="">
+                                    <i class="fa fa-bars"></i>
                                 </span> Laptops By Types
                             </span>
                             <span class="sh_hd_accor_cont">
@@ -465,7 +467,7 @@
                                     <li>
                                         <a href="{% url 'product:product-list' %}">
                                             <span class="menu_icn">
-                                                        <img src="{% static 'images/7.png' %}" alt="">
+                                                <i class="fa fa-list"></i>
                                                     </span> All Laptops
                                         </a>
                                         <!-- <div class="submenu">
@@ -504,7 +506,7 @@
                                     <li>
                                         <a href="#">
                                             <span class="menu_icn">
-                                                <img src="{% static 'images/7.png' %}" alt="">
+                                                <i class="fa fa-angle-right"></i>
                                             </span> Laptops By Brands
                                         </a>
                                         <div class="submenu">
@@ -513,7 +515,7 @@
                                                 <li>
                                                     <a href="{% url 'product:product-brand-list' item.pk %}">
                                                         <span class="menu_icn">
-                                                            <img src="{{ item.brand_small_image.url }}" alt="">
+                                                            <i class="fa fa-list"></i>
                                                         </span> {{ item.name }}
                                                     </a>
                                                 </li>
@@ -524,7 +526,7 @@
                                     <li>
                                         <a href="#">
                                             <span class="menu_icn">
-                                                <img src="{% static 'images/7.png' %}" alt="">
+                                                <i class="fa fa-angle-right"></i>
                                             </span> Laptops By Type
                                         </a>
                                         <div class="submenu">
@@ -533,7 +535,7 @@
                                                 <li>
                                                     <a href="{% url 'product:product-type-list' item.pk %}">
                                                         <span class="menu_icn">
-                                                                <img src="{{ item.type_image.url }}" alt="">
+                                                            <i class="fa fa-list"></i>
                                                             </span> {{ item.brand_type }}
                                                     </a>
                                                 </li>
@@ -726,6 +728,7 @@
     <script src="{% static 'js/main.js' %}"></script>
     <!-- Plugins script -->
     <script src="{% static 'js/plugins.js' %}"></script>
+    <script src="{% static 'js/cropper.js' %}"></script>
     {% block scripts %}
     {% endblock %}
       </body>

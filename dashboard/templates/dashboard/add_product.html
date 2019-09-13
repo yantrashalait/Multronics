@@ -12,7 +12,7 @@
                         </div>
                     </di>
                     <div class="prd_add fields-content">
-                        <form action='.' method="POST" enctype="multipart/form-data">
+                        <form action='.' method="POST" enctype="multipart/form-data" id="formUpload">
                             {% csrf_token %}
                             <div class="field-row">
                                 <div class="field-full">
@@ -56,19 +56,12 @@
                                     {{ form.super_deals }}
                                 </div>
                             </div>
-                            <div class="field-row">
+                            <div class="field-row offer">
                                 <div class="radio_hlf">
                                     <label for="id_offer">{{ form.offer.label }}</span></label>
-                                    {{ form.offer }}
+                                    <input type="checkbox" name="offer" id="id_offer" disabled>
                                 </div> 
                             </div>
-                            <div class="field-row">
-                                <div class="radio_hlf">
-                                    <label for="id_offer">{{ form.offer_tag.label }}</span></label>
-                                    {{ form.offer_tag }}
-                                    {{ form.offer_tag.help_text }}
-                                </div> 
-                                </div>
                             <div class="field-row">
                                 <div class="radio_hlf">
                                     <label for="id_availability">{{ form.availability.label }}</span></label>
@@ -82,6 +75,10 @@
                                     {{ form.main_image }}
                                 </div>
                             </div>
+                            {{ form.x }}
+                            {{ form.y }}
+                            {{ form.width }}
+                            {{ form.height }}
                             <div class="field-row">
                                 <div class="field-full">
                                     <label for="id_color">Choose the colors *</label>
@@ -139,13 +136,106 @@
                                 <button type="submit">Submit</button>
                             </div>
                         </form>
+                        <div class="modal fade" id="modalCrop">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                  <h4 class="modal-title">Crop the photo</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <img src="" id="image" style="max-width: 100%;">
+                                </div>
+                                <div class="modal-footer">
+                                  <div class="btn-group pull-left" role="group">
+                                    <button type="button" class="btn btn-default js-zoom-in">
+                                      <span class="glyphicon glyphicon-zoom-in"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default js-zoom-out">
+                                      <span class="glyphicon glyphicon-zoom-out"></span>
+                                    </button>
+                                  </div>
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                  <button type="button" class="btn btn-primary js-crop-and-upload">Crop</button>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     {% endblock %}
-	{% block scripts %}
+    {% block scripts %}
+    <script>
+        if ($("#id_previous_price").val().length > 0){
+            $("#id_offer").removeAttr("disabled");
+        }
+        else{
+            $('#id_offer').attr('disabled', 'disabled');
+        }
+        $("#id_previous_price").keyup(function(){
+            if ($(this).val().length){
+                $('#id_offer').removeAttr('disabled');
+            }
+            else{
+                $('#id_offer').attr('disabled', 'disabled');
+            }
+        });
+    </script>
+    <script>
+        $(function () {
+          /* SCRIPT TO OPEN THE MODAL WITH THE PREVIEW */
+          $("#id_main_image").change(function () {
+            if (this.files && this.files[0]) {
+              var reader = new FileReader();
+              reader.onload = function (e) {
+                $("#image").attr("src", e.target.result);
+                $("#modalCrop").modal("show");
+              }
+              reader.readAsDataURL(this.files[0]);
+            }
+          });
+          /* SCRIPTS TO HANDLE THE CROPPER BOX */
+          var $image = $("#image");
+          var cropBoxData;
+          var canvasData;
+          $("#modalCrop").on("shown.bs.modal", function () {
+            $image.cropper({
+              viewMode: 1,
+              aspectRatio: 256/290,
+              minCropBoxWidth: 256,
+              minCropBoxHeight: 290,
+              ready: function () {
+                $image.cropper("setCanvasData", canvasData);
+                $image.cropper("setCropBoxData", cropBoxData);
+              }
+            });
+          }).on("hidden.bs.modal", function () {
+            cropBoxData = $image.cropper("getCropBoxData");
+            canvasData = $image.cropper("getCanvasData");
+            $image.cropper("destroy");
+          });
+          $(".js-zoom-in").click(function () {
+            $image.cropper("zoom", 0.1);
+          });
+          $(".js-zoom-out").click(function () {
+            $image.cropper("zoom", -0.1);
+          });
+          /* SCRIPT TO COLLECT THE DATA AND POST TO THE SERVER */
+          $(".js-crop-and-upload").click(function () {
+            var cropData = $image.cropper("getData");
+            $("#id_x").val(cropData["x"]);
+            $("#id_y").val(cropData["y"]);
+            $("#id_height").val(Math.round(cropData["height"]));
+            $("#id_width").val(Math.round(cropData["width"]));
+            $("#modalCrop").modal("hide");
+          });
+        });
+      </script>
     <script>
         $('#imageadd').click(function() {
 

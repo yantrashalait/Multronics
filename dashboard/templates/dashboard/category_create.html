@@ -40,32 +40,32 @@
                         </form>
 
                         <div class="modal fade" id="modalCrop">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
-                                <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                          <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h4 class="modal-title">Crop the photo</h4>
+                              </div>
+                              <div class="modal-body">
+                                <img src="" id="image" style="max-width: 100%;">
+                              </div>
+                              <div class="modal-footer">
+                                <div class="btn-group pull-left" role="group">
+                                  <button type="button" class="btn btn-default js-zoom-in">
+                                    <span class="glyphicon glyphicon-zoom-in"></span>
                                   </button>
-                                  <h4 class="modal-title">Crop the photo</h4>
+                                  <button type="button" class="btn btn-default js-zoom-out">
+                                    <span class="glyphicon glyphicon-zoom-out"></span>
+                                  </button>
                                 </div>
-                                <div class="modal-body">
-                                  <img src="" id="image" style="max-width: 100%;">
-                                </div>
-                                <div class="modal-footer">
-                                  <div class="btn-group pull-left" role="group">
-                                    <button type="button" class="btn btn-default js-zoom-in">
-                                      <span class="glyphicon glyphicon-zoom-in"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-default js-zoom-out">
-                                      <span class="glyphicon glyphicon-zoom-out"></span>
-                                    </button>
-                                  </div>
-                                  <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
-                                  <button type="button" class="btn btn-primary js-crop-and-upload">Crop and upload</button>
-                                </div>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                <button type="button" class="btn btn-primary js-crop-and-upload">Crop</button>
                               </div>
                             </div>
                           </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -94,9 +94,9 @@
       $("#modalCrop").on("shown.bs.modal", function () {
         $image.cropper({
           viewMode: 1,
-          aspectRatio: 1/1,
-          minCropBoxWidth: 200,
-          minCropBoxHeight: 200,
+          aspectRatio: 410/281,
+          minCropBoxWidth: 410,
+          minCropBoxHeight: 281,
           ready: function () {
             $image.cropper("setCanvasData", canvasData);
             $image.cropper("setCropBoxData", cropBoxData);
@@ -120,7 +120,7 @@
         $("#id_y").val(cropData["y"]);
         $("#id_height").val(cropData["height"]);
         $("#id_width").val(cropData["width"]);
-        $("#formUpload").submit();
+        $("#modalCrop").modal("hide");
       });
     });
   </script>

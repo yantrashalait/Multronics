@@ -42,7 +42,9 @@
                                         <div class="pdetails_ttl">
                                             <h1>{{ product.name }}</h1>
                                             <span class="pdetails_cat_ttl">{{ product.category }}</span>
-                                            {% if product.offer %}<div class="pd_offer">{{ product.offer_tag }}</div>{% endif %}
+                                            {% if product.offer_tag %}
+                                                <div class="pd_offer">{{ product.offer_tag }}% off</div>
+                                            {% endif %}
                                         </div>
                                         
                                         <div class="pdetails_avail_stock">
@@ -60,9 +62,7 @@
 
 
                                             <span class="pd_price_new">Rs. {{ product.new_price }}</span>
-                                            {% if product.offer_percent %}
-                                            <span class="pd_details_stock">{{ product.offer_percent }}% off</span>
-                                            {% endif %}
+                                            
                                         </div>
                                      
                                         {% if product.description %}

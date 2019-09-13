@@ -19,7 +19,6 @@ class Brand(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='brands')
     name = models.CharField(max_length=100)
     brand_image = models.ImageField(upload_to='brands/', null=True, blank=True, help_text="Image size: width=193px height=115px")
-    brand_small_image = models.ImageField(upload_to='brands/small/', null=True, blank=True, help_text="Image size: width=150px, height=150px")
 
     def __str__(self):
         return self.category.name + '-' + self.name
@@ -28,7 +27,6 @@ class Brand(models.Model):
 class Type(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
     brand_type = models.CharField(max_length=100)
-    type_image = models.ImageField(upload_to='type/small/', null=True, blank=True, help_text="Image size: width=150px, height=150px")
 
     def __str__(self):
         return self.brand.name + '-' + self.brand_type
@@ -51,14 +49,20 @@ class Product(models.Model):
     product_type = models.ForeignKey(Type, verbose_name='Type of laptop', on_delete=models.CASCADE, related_name='product_type', null=True, blank=True)
     views = models.IntegerField(default=0)
     super_deals = models.BooleanField(default=False, verbose_name='Do you want this item to display in super deals section?')
-    offer = models.BooleanField(default=False, verbose_name='Does this item have an offer?')
-    availability = models.BooleanField(default=False, verbose_name='Is this product available in stock?')
+    offer = models.BooleanField(default=False, verbose_name='Does you want this item to be displayed in offer section?')
+    availability = models.BooleanField(default=True, verbose_name='Is this product available in stock?')
     main_image = models.ImageField(upload_to='products/', null=True, blank=True, help_text="Image size: width=265px height=290px")
     color = models.ManyToManyField(Color, related_name='product', help_text='To select multiple colors, press CTRL and select.')
     offer_tag = models.CharField(max_length=100, null=True, blank=True, help_text="E.g. 15% off")
 
     def __str__(self):
         return self.name
+        
+    def save(self, *args, **kwargs):
+        if self.previous_price and self.previous_price > self.new_price:
+            offer = round(((int(self.previous_price) - int(self.new_price)) / int(self.previous_price)), 2)* 100
+            self.offer_tag = offer
+            super().save(*args, **kwargs) 
 
 
 class ProductImage(models.Model):
@@ -67,14 +71,8 @@ class ProductImage(models.Model):
     thumbnail_image = models.ImageField(upload_to='products/thumbnail/', null=True, blank=True, help_text="Image size: width=100px height=100px")
 
 
-class ProductSpecification(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='specifications')
-    title = models.CharField(max_length=100)
-    content = models.TextField()
-
-
 class BannerImage(models.Model):
-    image = models.ImageField(upload_to='banners/', help_text="Image size: width=193px height=115px")
+    image = models.ImageField(upload_to='banners/', help_text="Image size: width=1280px height=435px")
 
 
 class Notification(models.Model):
@@ -184,6 +182,27 @@ class UserOrder(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class SpecificationTitle(models.Model):
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.title
+
+
+class SpecificationContent(models.Model):
+    title = models.ForeignKey(SpecificationTitle, on_delete=models.CASCADE, related_name="content")
+    content = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.content
+
+
+class ProductSpecification(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='specifications')
+    title = models.ForeignKey(SpecificationTitle, on_delete=models.CASCADE, related_name="product_title")
+    content = models.ForeignKey(SpecificationContent, on_delete=models.CASCADE, related_name="product_content")
 
 
 @receiver(post_save, sender=Product)
