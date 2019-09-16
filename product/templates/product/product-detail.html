@@ -71,7 +71,7 @@
                                         </div>
                                         {% endif %}
                                         <div class="row">
-                                            <div class="pd_bargain">Not satisfied with the price?</div>
+                                            <div class="pd_bargain">Not satisfied?</div>
                                             
                                             <div class="pd_bargain_setting">
                                                 <button type="button" data-toggle="collapse" data-target="#bargain"><i class="fa fa-cogs"></i></button>
@@ -97,14 +97,6 @@
                                         <form method="POST" action="{% url 'product:add-cart' %}">
                                             {% csrf_token %}
                                             <div class="pdetails_clr_qty">
-                                                <div class="colors">
-                                                    <select name="color">
-                                                        <option value="">Select Color</option>
-                                                        {% for item in product.color.all %}
-                                                        <option value="{{ item.id }}">{{ item }}</option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
                                                 <div class="quanlity">
                                                     <input type="number" name="quantity" min="1" max="100" placeholder="Quantity" required>
                                                     <input type="hidden" name="product" value="{{product.pk}}">

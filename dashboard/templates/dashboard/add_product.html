@@ -79,13 +79,7 @@
                             {{ form.y }}
                             {{ form.width }}
                             {{ form.height }}
-                            <div class="field-row">
-                                <div class="field-full">
-                                    <label for="id_color">Choose the colors *</label>
-                                    {{ form.color.help_text }}
-                                    {{ form.color }}
-                                </div>
-                            </div>
+                            {{ form.errors }}
                             <di class="box-checkout">
                                 <div class="checkout-login adprd_heading">
                                     <div class="crt_heading">
@@ -99,6 +93,7 @@
                             {% for form in imageform.forms %}
                                 <div class="image-form-single">
                                     {{ form }}
+                                    {{ form.errors }}
                                 </div>
                                 <br>
                             {% endfor %}
@@ -123,6 +118,7 @@
                                     <div class="field-row">
                                         <div class="field-full">
                                             {{ form }}
+                                            {{ form.errors }}
                                         </div>
                                     </div>
                                 </div>

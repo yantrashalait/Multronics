@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
-from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Subscription, Color, Notification, UserRequestProduct, UserOrder
+from .models import Product, Category, Brand, Type, BannerImage, ProductImage, ProductSpecification, Cart, Subscription, Notification, UserRequestProduct, UserOrder
 from .forms import CartForm, UserRequestProductForm, UserOrderForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -135,9 +135,7 @@ class AddCart(LoginRequiredMixin, CreateView):
         quantity = int(request.POST.get("quantity"))
         product_id = request.POST.get("product")
         product = Product.objects.get(id=int(product_id))
-        color = Color.objects.get(id=int(color))
         cart = Cart()
-        cart.color=color
         cart.amount=quantity
         cart.total_price = int(product.new_price)*quantity
         cart.user=request.user

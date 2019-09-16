@@ -12,11 +12,7 @@ class ProductForm(forms.ModelForm):
     
     class Meta:
         model = Product 
-        fields = ['name', 'description', 'previous_price', 'new_price', 'category', 'brand', 'product_type', 'super_deals', 'offer', 'availability', 'main_image', 'color', 'x', 'y', 'width', 'height']
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["color"].widget.attrs.update({'class': 'multi-select'})
+        fields = ['name', 'description', 'previous_price', 'new_price', 'category', 'brand', 'product_type', 'super_deals', 'offer', 'availability', 'main_image', 'x', 'y', 'width', 'height']
     
     def save(self):
         photo = super(ProductForm, self).save()

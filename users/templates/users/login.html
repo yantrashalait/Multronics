@@ -17,7 +17,8 @@
 				                    <label>Password</label>
 				                    <a class="float-right" href="{% url 'password_reset' %}">Forgot Password?</a>
 				                    <input type="password" class="form-control" name="password">
-				                </div>
+								</div>
+								<input type="hidden" name="next" value="{{ next }}">
 				                <button type="submit" class="sbt_btn">Login</button>
 				            </form>
 				        </div>

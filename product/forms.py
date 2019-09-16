@@ -6,7 +6,7 @@ from django.forms.models import inlineformset_factory
 class CartForm(forms.ModelForm):
     class Meta:
         model = Cart
-        fields = ['user', 'product', 'amount', 'color']
+        fields = ['user', 'product', 'amount']
 
 class UserRequestProductForm(forms.ModelForm):
     class Meta:
