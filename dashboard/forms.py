@@ -5,10 +5,10 @@ from PIL import Image
 
 
 class ProductForm(forms.ModelForm):
-    x = forms.FloatField(widget=forms.HiddenInput())
-    y = forms.FloatField(widget=forms.HiddenInput())
-    width = forms.FloatField(widget=forms.HiddenInput())
-    height = forms.FloatField(widget=forms.HiddenInput())
+    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
     
     class Meta:
         model = Product 
@@ -20,20 +20,20 @@ class ProductForm(forms.ModelForm):
         y = self.cleaned_data.get('y')
         w = self.cleaned_data.get('width')
         h = self.cleaned_data.get('height')
-        # if x is not None and y is not None:
-        image = Image.open(photo.main_image)
-        cropped_image = image.crop((x, y, w+x, h+y))
-        resized_image = cropped_image.resize((265, 290), Image.ANTIALIAS)
-        resized_image.save(photo.main_image.path)
+        if x is not None and y is not None:
+            image = Image.open(photo.main_image)
+            cropped_image = image.crop((x, y, w+x, h+y))
+            resized_image = cropped_image.resize((265, 290), Image.ANTIALIAS)
+            resized_image.save(photo.main_image.path)
         
         return photo
 
 
 class CategoryForm(forms.ModelForm):
-    x = forms.FloatField(widget=forms.HiddenInput())
-    y = forms.FloatField(widget=forms.HiddenInput())
-    width = forms.FloatField(widget=forms.HiddenInput())
-    height = forms.FloatField(widget=forms.HiddenInput())
+    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Category
@@ -46,18 +46,19 @@ class CategoryForm(forms.ModelForm):
         y = self.cleaned_data.get('y')
         w = self.cleaned_data.get('width')
         h = self.cleaned_data.get('height')
-        # if x is not None and y is not None:
-        image = Image.open(photo.category_image)
-        cropped_image = image.crop((x, y, w+x, h+y))
-        resized_image = cropped_image.resize((410, 281), Image.ANTIALIAS)
-        resized_image.save(photo.category_image.path)
+        if x is not None and y is not None:
+            image = Image.open(photo.category_image)
+            cropped_image = image.crop((x, y, w+x, h+y))
+            resized_image = cropped_image.resize((410, 281), Image.ANTIALIAS)
+            resized_image.save(photo.category_image.path)
+        return photo
 
 
 class BrandForm(forms.ModelForm):
-    x = forms.FloatField(widget=forms.HiddenInput())
-    y = forms.FloatField(widget=forms.HiddenInput())
-    width = forms.FloatField(widget=forms.HiddenInput())
-    height = forms.FloatField(widget=forms.HiddenInput())
+    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = Brand
@@ -70,11 +71,12 @@ class BrandForm(forms.ModelForm):
         y = self.cleaned_data.get('y')
         w = self.cleaned_data.get('width')
         h = self.cleaned_data.get('height')
-        # if x is not None and y is not None:
-        image = Image.open(photo.brand_image)
-        cropped_image = image.crop((x, y, w+x, h+y))
-        resized_image = cropped_image.resize((193, 115), Image.ANTIALIAS)
-        resized_image.save(photo.brand_image.path)
+        if x is not None and y is not None:
+            image = Image.open(photo.brand_image)
+            cropped_image = image.crop((x, y, w+x, h+y))
+            resized_image = cropped_image.resize((193, 115), Image.ANTIALIAS)
+            resized_image.save(photo.brand_image.path)
+        return photo
 
 
 class TypeForm(forms.ModelForm):
@@ -84,10 +86,10 @@ class TypeForm(forms.ModelForm):
 
 
 class BannerImageForm(forms.ModelForm):
-    x = forms.FloatField(widget=forms.HiddenInput())
-    y = forms.FloatField(widget=forms.HiddenInput())
-    width = forms.FloatField(widget=forms.HiddenInput())
-    height = forms.FloatField(widget=forms.HiddenInput())
+    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
 
     class Meta:
         model = BannerImage
@@ -100,11 +102,12 @@ class BannerImageForm(forms.ModelForm):
         y = self.cleaned_data.get('y')
         w = self.cleaned_data.get('width')
         h = self.cleaned_data.get('height')
-        # if x is not None and y is not None:
-        image = Image.open(photo.image)
-        cropped_image = image.crop((x, y, w+x, h+y))
-        resized_image = cropped_image.resize((1280, 435), Image.ANTIALIAS)
-        resized_image.save(photo.image.path)
+        if x is not None and y is not None:
+            image = Image.open(photo.image)
+            cropped_image = image.crop((x, y, w+x, h+y))
+            resized_image = cropped_image.resize((1280, 435), Image.ANTIALIAS)
+            resized_image.save(photo.image.path)
+        return photo
 
 
 class ProductSpecificationForm(forms.ModelForm):
@@ -124,15 +127,53 @@ ProductSpecificationFormset = inlineformset_factory(Product, ProductSpecificatio
 
 
 class SuperImageForm(forms.ModelForm):
+    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = SuperImage
-        fields = ['name', 'super_image']
+        fields = ['name', 'super_image', 'x', 'y', 'width', 'height']
+
+    def save(self):
+        photo = super(SuperImageForm, self).save()
+
+        x = self.cleaned_data.get('x')
+        y = self.cleaned_data.get('y')
+        w = self.cleaned_data.get('width')
+        h = self.cleaned_data.get('height')
+        if x is not None and y is not None:
+            image = Image.open(photo.super_image)
+            cropped_image = image.crop((x, y, w+x, h+y))
+            resized_image = cropped_image.resize((401, 424), Image.ANTIALIAS)
+            resized_image.save(photo.super_image.path)
+        return photo
 
 
 class OfferImageForm(forms.ModelForm):
+    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = OfferImage
-        fields = ['name', 'offer_image']
+        fields = ['name', 'offer_image', 'x', 'y', 'width', 'height']
+
+    def save(self):
+        photo = super(OfferImageForm, self).save()
+
+        x = self.cleaned_data.get('x')
+        y = self.cleaned_data.get('y')
+        w = self.cleaned_data.get('width')
+        h = self.cleaned_data.get('height')
+        if x is not None and y is not None:
+            image = Image.open(photo.offer_image)
+            cropped_image = image.crop((x, y, w+x, h+y))
+            resized_image = cropped_image.resize((401, 424), Image.ANTIALIAS)
+            resized_image.save(photo.offer_image.path)
+        return photo
 
 
 class SpecificationTitleForm(forms.ModelForm):

@@ -29,10 +29,9 @@
                                     {{ form.category_image.help_text }}
                                 </div>
                             </div>
-                            {{ form.x }}
-                            {{ form.y }}
-                            {{ form.width }}
-                            {{ form.height }}
+                            {% for field in form.hidden_fields %}
+									            <div style="display:none;">{{ field }}</div>
+									          {% endfor %}
                             <div class="sbtprd">
                                 <button>Submit</button>
                             </div>
