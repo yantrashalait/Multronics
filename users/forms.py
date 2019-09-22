@@ -51,10 +51,10 @@ class UserRegisterForm(UserCreationForm):
 
 
 class UserProfileForm(forms.ModelForm):
-    x = forms.FloatField(widget=forms.HiddenInput())
-    y = forms.FloatField(widget=forms.HiddenInput())
-    width = forms.FloatField(widget=forms.HiddenInput())
-    height = forms.FloatField(widget=forms.HiddenInput())
+    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
     contact = forms.CharField()
 
     class Meta:
@@ -77,8 +77,9 @@ class UserProfileForm(forms.ModelForm):
         y = self.cleaned_data.get('y')
         w = self.cleaned_data.get('width')
         h = self.cleaned_data.get('height')
-        # if x is not None and y is not None:
-        image = Image.open(photo.image)
-        cropped_image = image.crop((x, y, w+x, h+y))
-        resized_image = cropped_image.resize((283, 283), Image.ANTIALIAS)
-        resized_image.save(photo.image.path)
+        if x is not None and y is not None:
+            image = Image.open(photo.image)
+            cropped_image = image.crop((x, y, w+x, h+y))
+            resized_image = cropped_image.resize((283, 283), Image.ANTIALIAS)
+            resized_image.save(photo.image.path)
+        return photo
