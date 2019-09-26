@@ -10,30 +10,47 @@
                     <div class="crt_heading">
                         <h1>Your Notifications</h1>
                     </div>
-                    <table class="table notify-tbl">
+                    <table class="table prd_calc_tbl">
+                        <thead>
+                            <tr>
+                            <th scope="col">Product</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Add To Cart</th>
+                            <th scope="col">Availability</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             {% for item in notifications %}
-                            <tr>
-                                <td>
-                                    <div class="notify">
-                                        <div class="notify-heading">
-                                            {{ item.title }}
+                                <tr>
+                                    <td>
+                                        <div class="td_cont_hldr">
+                                            <div class="tbl_prd_img">  
+                                                <img src="{{ item.product.main_image.url }}" alt="product">
+                                            </div>
+                                            <div class="tbl_prd_ttl">
+                                                {{ item.product.name }}
+                                            </div>
+                                            <div class="tbl_prd_prc">
+                                                Rs.{{ item.product.new_price }}
+                                            </div>
                                         </div>
-                                        <div class="notify-content">
-                                            {{ item.description }}
-                                        </div>
-                                        <div class="notify-product-detail">
-                                            <a href="{% url 'product:product-detail' item.product.pk %}"><img src="{{ item.product.main_image.url }}" alt="product-image"></a>
-                                            <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.product.name }}</a>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>  
-                            {% endfor %}                              
+                                    </td>
+                                    <td>
+                                        {{ item.description }}
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'product:product-detail' item.product.pk %}">
+                                            <button class="crt_ad">Add To Cart</button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <span class="avilable_tg_wait">{% if item.product.availability %}Available{% else %}Not available{% endif %}</span>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
-                
             </div>
             {% if is_paginated %}
                     <div class="col-md-12">

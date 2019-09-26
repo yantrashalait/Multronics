@@ -220,15 +220,6 @@
                                                 </a>
                                             </span>
                                         </div>
-                                        <div class="hd_waitclick shop_itm">
-                                            <div class="clk_for_dropdwn waitclick"></div>
-                                            <span class="shop_itm_txt">
-                                                <a href="#">
-                                                <i class="fa fa-hourglass-end" aria-hidden="true"></i>
-                                                <!-- <span class="shp_itm_indic">2</span>  -->
-                                                </a>
-                                            </span>
-                                        </div>
                                         <div class="hd_noti shop_itm">
                                             <div class="clk_for_dropdwn hd_notofi"></div>
                                             <span class="shop_itm_txt">
@@ -414,6 +405,23 @@
                                                 <ul>
                                                     {% for item in menu_notifications %}
                                                     <li>
+                                                        <div class="row">
+                                                            <a href="{% url 'product:product-detail' item.product.pk %}">
+                                                                <div class="notif__sml__img">
+                                                                    <img src="{{ item.product.main_image.url }}" alt="product-image">
+                                                                </div>
+                                                            </a>
+                                                            <div class="notif__text">
+                                                                <div class="notif__ttl">
+                                                                    {{ item.title }}
+                                                                </div>
+                                                                <div class="notif__dat">
+                                                                    {{ item.date }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <!-- <li>
                                                         <div class="drp_added_itms_lst">
                                                             <div class="drp_added_itms_cont_hldr">
                                                                 <div class="drp_added_itms_cont">
@@ -425,7 +433,49 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </li> -->
+                                                    {% endfor %}
+                                                </ul>
+                                                <ul>
+                                                    {% for item in header_waitlist %}
+                                                    <li>
+                                                        <div class="row">
+                                                            <a href="{% url 'product:product-detail' item.product.pk %}">
+                                                                <div class="notif__sml__img">
+                                                                    <img src="{{ item.product.main_image.url }}" alt="product-image">
+                                                                </div>
+                                                            </a>
+                                                            <div class="notif__text">
+                                                                <div class="notif__ttl">
+                                                                    {{ item.title }}
+                                                                </div>
+                                                                <div class="notif__dat">
+                                                                    {{ item.date }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </li>
+                                                    <!-- <li>
+                                                        <div class="drp_added_itms_lst">
+                                                            <div class="added_itms_img">
+                                                                <a href="{% url 'product:product-detail' item.product.pk %}">
+                                                                    <img src="{{ item.product.main_image.url }}" alt="">
+                                                                </a>
+                                                            </div>
+                                                            <div class="drp_added_itms_cont_hldr">
+                                                                <div class="drp_added_itms_cont">
+                                                                    <span class="drp_added_itms_txt">
+                                                                                <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.product.name }}</a>
+                                                                                <span class="drp_added_itms_prc">{{ item.product.new_price }}</span>
+                                                                    </span>
+
+                                                                </div> -->
+                                                                <!-- <div class="dlt_drp_added_itm">
+                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
+                                                                </div> -->
+                                                            <!-- </div>
+                                                        </div>
+                                                    </li> -->
                                                     {% endfor %}
                                                 </ul>
                                                 <div class="drp_more_items">

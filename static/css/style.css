@@ -2560,3 +2560,40 @@ select.multi-select{
     background: #ff8200;
     color: #fff;
 }
+
+/* notification list css*/
+.notifpg__list ul li{
+    list-style: none;
+    padding: 10px;
+    background: #fff;
+    border-bottom: 1px solid #e8e8e8;
+}
+.notifpg__list ul li a{
+    display: flex;
+    align-items: center;
+}
+
+.notifpg__list ul li a .notif__ttl{
+    color: #333e48;
+}
+.notifpg__list ul li a .notif__dat{
+    color: #ccc;
+}
+.notifpg__list ul li a .notif__sml__img img{
+    width: 50px;
+    margin: 0 10px 0 0;
+}
+
+.notifpg__list ul li:last-child(){
+
+}
+
+.notifpg__list ul li:nth-child(odd){
+    background: #f7f7f7;
+}
+
+.notif__sml__img img{
+    width: 50px;
+    margin: 0 10px 0 0;
+}
+/* notification page css */

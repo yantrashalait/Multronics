@@ -246,7 +246,13 @@ $(document).ready(function(){
 });// document ready
 
 
-
-
+$(window).scroll(function(){
+    var scroll__ = $(window).scrollTop();
+    if(scroll__ > 10){
+        $('.req__item').slideUp()
+    }else{
+        $('.req__item').slideDown();
+    }
+})
 
 })(window.jQuery);   

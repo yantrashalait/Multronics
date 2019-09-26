@@ -234,9 +234,10 @@ def product_notify(sender, instance, created, **kwargs):
             if UserBargain.objects.filter(product=instance).exists():
                 users = UserBargain.objects.filter(product=instance)
                 for item in users:
-                    Notification.objects.create(
-                            user=item.user, 
-                            date=datetime.now(), 
-                            product = item.product,
-                            title='Price Drop',
-                            description='Product ' + item.product.name + ' is now available at ' + instance.new_price)
+                    if not Notification.objects.filter(user=item.user, product = item.product).exists():
+                        Notification.objects.create(
+                                user=item.user, 
+                                date=datetime.now(), 
+                                product = item.product,
+                                title='Price Drop',
+                                description='Product ' + item.product.name + ' is now available at ' + instance.new_price)
