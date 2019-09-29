@@ -11,6 +11,8 @@ urlpatterns = [
     path('category/create/', views.CategoryCreate.as_view(), name='category-create'),
     path('category/<int:pk>/delete/', views.CategoryDelete.as_view(), name='category-delete'),
     path('category/<int:pk>/update/', views.CategoryUpdate.as_view(), name='category-update'),
+    path('add/contact/?', views.newCategory, name="category"),
+
 
     # crud for brands
     path('brand/list/', views.BrandList.as_view(), name='brand-list'),

@@ -7,7 +7,24 @@ from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, P
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.utils.html import escape
 
+
+def handlePopAdd(request, addForm, field):
+    if request.method == "POST":
+        form = addForm(request.POST)
+        if form.is_valid():
+            try:
+                newObject = form.save()
+            except forms.ValidationError:
+                newObject = None
+            if newObject:
+                return HttpResponse('<script type="text/javascript">opener.dismissAddAnotherPopup(window, "%s", "%s");</script>' % (escape(newObject._get_pk_val()), escape(newObject)))
+    else:
+        form = addForm()
+
+    pageContext = {'form': form, 'field': field}
+    return render_to_response("add/popadd.html", pageContext)
 
 class DashboardView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'add_product'
@@ -44,7 +61,7 @@ class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         imageform = context['imageform']
         specificationform = context['specificationform']
         if imageform.is_valid() and specificationform.is_valid():
-            self.object = form.save()
+            self.object = form.save(commit=False)
             for form in imageform:
                 f = form.save(commit=False)
                 f.product = self.object
@@ -53,6 +70,7 @@ class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
                 f = form.save(commit=False)
                 f.product = self.object
                 f.save()
+            self.object.save()
             return HttpResponseRedirect('/dashboard/product/list/')
         return super().form_valid(form)
 
@@ -95,9 +113,10 @@ class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
         if specificationform.is_valid():
             for form in specificationform:
-                f = form.save(commit=False)
-                f.product = self.object
-                f.save()
+                if form.cleaned_data != {}:
+                    f = form.save(commit=False)
+                    f.product = self.object
+                    f.save()
             return HttpResponseRedirect('/dashboard/product/list/')
         return super().form_valid(form)
 
@@ -149,10 +168,17 @@ class CategoryUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('dashboard:category-list')
 
+
+@login_required
+def newCategory(request):
+    return handlePopAdd(request, CategoryForm, "category")
+
+
 class BrandList(ListView):
     template_name = 'dashboard/brand_list.html'
     model = Brand
     context_object_name = 'brand'
+
 
 class BrandCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'add_brand'

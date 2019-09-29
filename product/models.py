@@ -21,15 +21,14 @@ class Brand(models.Model):
     brand_image = models.ImageField(upload_to='brands/', null=True, blank=True, help_text="Image size: width=193px height=115px")
 
     def __str__(self):
-        return self.category.name + '-' + self.name
+        return self.name
 
 
 class Type(models.Model):
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
-    brand_type = models.CharField(max_length=100)
+    brand_type = models.CharField(max_length=100, help_text="E.g. Economic, Gaming, etc.")
 
     def __str__(self):
-        return self.brand.name + '-' + self.brand_type
+        return self.brand_type
 
 
 # class Color(models.Model):

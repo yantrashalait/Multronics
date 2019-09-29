@@ -2,6 +2,7 @@ from django import forms
 from product.models import Product, Category, Brand, Type, BannerImage, Cart, ProductSpecification, ProductImage, SuperImage, OfferImage, SpecificationTitle, SpecificationContent
 from django.forms.models import inlineformset_factory
 from PIL import Image
+from .widgets import *
 
 
 class ProductForm(forms.ModelForm):
@@ -55,6 +56,7 @@ class CategoryForm(forms.ModelForm):
 
 
 class BrandForm(forms.ModelForm):
+    category = forms.ModelChoiceField(Category.objects, widget=SelectWithPop)
     x = forms.FloatField(widget=forms.HiddenInput(), required=False)
     y = forms.FloatField(widget=forms.HiddenInput(), required=False)
     width = forms.FloatField(widget=forms.HiddenInput(), required=False)
@@ -63,6 +65,7 @@ class BrandForm(forms.ModelForm):
     class Meta:
         model = Brand
         fields = ['category', 'name', 'brand_image', 'x', 'y', 'width', 'height']
+    
     
     def save(self):
         photo = super(BrandForm, self).save()
@@ -82,7 +85,7 @@ class BrandForm(forms.ModelForm):
 class TypeForm(forms.ModelForm):
     class Meta:
         model = Type
-        fields = ['brand', 'brand_type']
+        fields = ['brand_type']
 
 
 class BannerImageForm(forms.ModelForm):

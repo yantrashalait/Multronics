@@ -1,4 +1,5 @@
 {% extends 'dashboard/base.html' %}
+{% load static %}
 {% block content %}
     <section class="cartpg">
         <div class="container">
@@ -28,7 +29,7 @@
                             </div>
                             <div class='field-row'>
                                 <div class="field-full">
-                                    <label for="id_brand_image">Image</label>
+                                    <label for="id_brand_image">Logo</label>
                                     {{ form.brand_image }}
                                     {{ form.brand_image.help_text }}
                                 </div>
@@ -74,8 +75,10 @@
         </div>
     </section>
 {% endblock %}
-
 {% block scripts %}
+<script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+<script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+<script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
   <script>
     $(function () {
       /* SCRIPT TO OPEN THE MODAL WITH THE PREVIEW */
