@@ -264,7 +264,7 @@ def search_product(request):
         search = request.POST.get('srh')
 
         if search:
-            match = Product.objects.filter(Q(name__icontains=search) | Q(product_type__product_type__icontains=search) | Q(category__name__icontains=search) | Q(brand__name__icontains=search))
+            match = Product.objects.filter(Q(name__icontains=search) | Q(product_type__brand_type__icontains=search) | Q(category__name__icontains=search) | Q(brand__name__icontains=search))
                 
             if match:
                 return render(request, 'product/product-list.html', {'product':match})
