@@ -8,11 +8,13 @@
 	<body>
 		<h1>Add {{ field }}</h1>
 
-		<form method="POST" action="/add/{{ field }}">
+		<form method="POST" action="/dashboard/add/{{ field }}/">
+			{% csrf_token %}
 			<table>
 				{{ form }}
 			</table>
 			<p><input type="submit" /> | <a href="javascript:window.close()">Cancel</a></p>
 		</form>
 	</body>
+	
 </html>

@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 app_name = 'dashboard'
@@ -11,7 +11,10 @@ urlpatterns = [
     path('category/create/', views.CategoryCreate.as_view(), name='category-create'),
     path('category/<int:pk>/delete/', views.CategoryDelete.as_view(), name='category-delete'),
     path('category/<int:pk>/update/', views.CategoryUpdate.as_view(), name='category-update'),
-    path('add/contact/?', views.newCategory, name="category"),
+    re_path(r'^add/specform-(?P<id>[0-9])-title/$', views.newSpecificationTitle, name="title"),
+    path('add/title/', views.newSpecificationTitle, name="title"),
+    re_path(r'^add/specform-(?P<id>[0-9])-content/$', views.newSpecificationContent, name="title"),
+    path('add/content/', views.newSpecificationContent, name="content"),
 
 
     # crud for brands

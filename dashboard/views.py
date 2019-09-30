@@ -3,11 +3,12 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
 from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, SuperImage, OfferImage, UserBargain, UserRequestProduct, UserOrder, SpecificationTitle
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm, SpecificationContentFormset, SpecificationTitleForm
+from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm, SpecificationContentFormset, SpecificationTitleForm, SpecificationContentForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils.html import escape
+from django.shortcuts import render_to_response
 
 
 def handlePopAdd(request, addForm, field):
@@ -167,11 +168,6 @@ class CategoryUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('dashboard:category-list')
-
-
-@login_required
-def newCategory(request):
-    return handlePopAdd(request, CategoryForm, "category")
 
 
 class BrandList(ListView):
@@ -502,3 +498,13 @@ class SpecificationList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     model = SpecificationTitle
     template_name = 'dashboard/specification_list.html'
     context_object_name = 'spec'
+
+
+@login_required
+def newSpecificationTitle(request, *args, **kwargs):
+    return handlePopAdd(request, SpecificationTitleForm, "title")
+
+
+@login_required
+def newSpecificationContent(request, *args, **kwargs):
+    return handlePopAdd(request, SpecificationContentForm, "content")

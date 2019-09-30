@@ -56,7 +56,6 @@ class CategoryForm(forms.ModelForm):
 
 
 class BrandForm(forms.ModelForm):
-    category = forms.ModelChoiceField(Category.objects, widget=SelectWithPop)
     x = forms.FloatField(widget=forms.HiddenInput(), required=False)
     y = forms.FloatField(widget=forms.HiddenInput(), required=False)
     width = forms.FloatField(widget=forms.HiddenInput(), required=False)
@@ -114,6 +113,9 @@ class BannerImageForm(forms.ModelForm):
 
 
 class ProductSpecificationForm(forms.ModelForm):
+    title = forms.ModelChoiceField(SpecificationTitle.objects, widget=SelectWithPop)
+    content = forms.ModelChoiceField(SpecificationContent.objects, widget=SelectWithPop)
+    
     class Meta:
         model = ProductSpecification
         fields = ['title', 'content']

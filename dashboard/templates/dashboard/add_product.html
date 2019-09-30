@@ -116,7 +116,7 @@
                                 {% for form in specificationform.forms %}
                                 <div class="spec-form-single">
                                     <div class="field-row">
-                                        <div class="field-full">
+                                        <div class="field-one-half">
                                             {{ form }}
                                             {{ form.errors }}
                                         </div>
@@ -166,6 +166,7 @@
     </section>
     {% endblock %}
     {% block scripts %}
+    <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
     <script>
         if ($("#id_previous_price").val().length > 0){
             $("#id_offer").removeAttr("disabled");
