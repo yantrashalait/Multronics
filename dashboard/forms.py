@@ -197,6 +197,26 @@ SpecificationContentFormset = inlineformset_factory(SpecificationTitle, Specific
 
 
 class AboutForm(forms.ModelForm):
+    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
+
     class Meta:
         model = AboutITeam
-        fields = ['contact_number', 'email', 'logo']
+        fields = ['contact_number', 'email', 'logo', 'x', 'y', 'height', 'width']
+
+    def save(self):
+        photo = super(AboutForm, self).save()
+
+        x = self.cleaned_data.get('x')
+        y = self.cleaned_data.get('y')
+        w = self.cleaned_data.get('width')
+        h = self.cleaned_data.get('height')
+        if x is not None and y is not None:
+            image = Image.open(photo.logo)
+            cropped_image = image.crop((x, y, w+x, h+y))
+            resized_image = cropped_image.resize((192, 31), Image.ANTIALIAS)
+            resized_image.save(photo.logo.path)
+        return photo
+    

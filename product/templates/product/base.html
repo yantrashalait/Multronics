@@ -157,7 +157,12 @@
                     <!-- responsive toggle main menu -->
                     <div class="header_logo">
                         <div class="logo">
-                            <a href="{% url 'product:index' %}"><img src="{% static 'images/newlogo.png' %}"></a>
+                            <a href="{% url 'product:index' %}">
+                                {% if about.logo %}
+                                    <img src="{{ about.logo.url }}">
+                                {% else %}
+                                    <img src="{% static 'images/newlogo.png' %}"></a>
+                                {% endif %}
                         </div>
                     </div>
                     <div class="header_right">

@@ -205,7 +205,7 @@ class ProductSpecification(models.Model):
 class AboutITeam(models.Model):
     contact_number = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to="logo/")
+    logo = models.ImageField(upload_to="logo/", help_text="Image size: width=192px height=31px")
 
     def __str__(self):
         return self.email
