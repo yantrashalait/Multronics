@@ -815,6 +815,7 @@ section.caro_products {
 .prd_infos h3{
     font-size: 14px;    
     font-weight: 400;
+    min-height: 32px;
 }
 
 .prd_infos .price_new{
@@ -2597,3 +2598,14 @@ select.multi-select{
     margin: 0 10px 0 0;
 }
 /* notification page css */
+
+/* index page price */
+.price_old{
+    text-decoration: line-through;
+    color: #c5c5c5;
+}
+
+.price{
+    font-size: 14px;
+    color: #ea802d;
+}
