@@ -202,6 +202,15 @@ class ProductSpecification(models.Model):
     content = models.ForeignKey(SpecificationContent, on_delete=models.CASCADE, related_name="product_content")
 
 
+class AboutITeam(models.Model):
+    contact_number = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    logo = models.ImageField(upload_to="logo/")
+
+    def __str__(self):
+        return self.email
+
+
 @receiver(post_save, sender=Product)
 def product_notify(sender, instance, created, **kwargs):
     # check if the product is made available and user have added it to their wish list

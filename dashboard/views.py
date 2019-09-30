@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
-from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, SuperImage, OfferImage, UserBargain, UserRequestProduct, UserOrder, SpecificationTitle
+from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, \
+    SuperImage, OfferImage, UserBargain, UserRequestProduct, UserOrder, SpecificationTitle, AboutITeam
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm, SpecificationContentFormset, SpecificationTitleForm, SpecificationContentForm
+from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, \
+    CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm, \
+        SpecificationContentFormset, SpecificationTitleForm, SpecificationContentForm, AboutForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -508,3 +511,40 @@ def newSpecificationTitle(request, *args, **kwargs):
 @login_required
 def newSpecificationContent(request, *args, **kwargs):
     return handlePopAdd(request, SpecificationContentForm, "content")
+
+
+class AboutList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+    permission_required = 'add_aboutiteam'
+    model = AboutITeam
+    template_name = 'dashboard/about_list.html'
+    context_object_name = "about"
+
+
+class AboutCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    permission_required = 'add_aboutiteam'
+    model = AboutITeam
+    template_name = 'dashboard/about_create.html'
+    form_class = AboutForm
+
+    def get_success_url(self):
+        return reverse('dashboard:about-list')
+
+
+class AboutDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+    permission_required = 'delete_aboutiteam'
+    template_name = 'dashboard/about_confirm_delete.html'
+    model = AboutITeam
+    success_url = '/dashboard/about/list'
+
+
+class AboutUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+    permission_required = 'change_aboutiteam'
+    template_name = 'dashboard/about_create.html'
+    form_class = AboutForm
+
+    def get_object(self):
+        id_ = self.kwargs.get("pk")
+        return get_object_or_404(AboutITeam, pk=id_)
+
+    def get_success_url(self):
+        return reverse('dashboard:about-list')

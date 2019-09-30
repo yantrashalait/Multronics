@@ -61,5 +61,9 @@ urlpatterns = [
     path('specification/list', views.SpecificationList.as_view(), name='specification-list'),
     path('specification/add', views.SpecificationCreate.as_view(), name='specification-create'),
     path('specification/<int:pk>/update', views.SpecificationUpdate.as_view(), name="specification-update"),
-        
+    
+    path('about/list/', views.AboutList.as_view(), name='about-list'),
+    path('about/create/', views.AboutCreate.as_view(), name='about-create'),
+    path('about/<int:pk>/delete/', views.AboutDelete.as_view(), name='about-delete'),
+    path('about/<int:pk>/update/', views.AboutUpdate.as_view(), name='about-update'),
 ]

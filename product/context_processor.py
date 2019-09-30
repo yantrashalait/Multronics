@@ -1,4 +1,4 @@
-from .models import Notification, Brand, Cart, WaitList, Category, Type, Favourite
+from .models import Notification, Brand, Cart, WaitList, Category, Type, Favourite, AboutITeam
 
 def header_processor(request):
     if request.user.is_authenticated:
@@ -9,6 +9,7 @@ def header_processor(request):
         categories = Category.objects.all()
         brands = Brand.objects.all()
         types = Type.objects.all()
+        about = AboutITeam.objects.last()
         # notification_count = Notification.objects.filter(user=request.user, is_seen=False).count()
         # favourite = Favourite.objects.filter(user=request.user, removed=False).count()
         # cart_count = Cart.objects.filter(user=request.user, removed=False).count()
@@ -19,18 +20,21 @@ def header_processor(request):
             'header_cart': cart,
             'header_favourites': favourite,
             'menu_categories': categories,
-            'menu_types': types,   
+            'menu_types': types,  
+            'about': about 
         }
     else:
         categories = Category.objects.all()
         brands = Brand.objects.all()
         types = Type.objects.all()
+        about = AboutITeam.objects.last()
         # notification_count = Notification.objects.filter(user=request.user, is_seen=False).count()
         # favourite = Favourite.objects.filter(user=request.user, removed=False).count()
         # cart_count = Cart.objects.filter(user=request.user, removed=False).count()
         context = {
             'menu_brands': brands,
             'menu_categories': categories,
-            'menu_types': types,   
+            'menu_types': types, 
+            'about': about  
         }
     return context

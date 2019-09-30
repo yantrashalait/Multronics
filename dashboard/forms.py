@@ -1,5 +1,6 @@
 from django import forms
-from product.models import Product, Category, Brand, Type, BannerImage, Cart, ProductSpecification, ProductImage, SuperImage, OfferImage, SpecificationTitle, SpecificationContent
+from product.models import Product, Category, Brand, Type, BannerImage, Cart, ProductSpecification, \
+    ProductImage, SuperImage, OfferImage, SpecificationTitle, SpecificationContent, AboutITeam
 from django.forms.models import inlineformset_factory
 from PIL import Image
 from .widgets import *
@@ -193,3 +194,9 @@ class SpecificationContentForm(forms.ModelForm):
         fields = ['title', 'content']
 
 SpecificationContentFormset = inlineformset_factory(SpecificationTitle, SpecificationContent, form=SpecificationContentForm, fields=['title', 'content'], extra=1, max_num=20)
+
+
+class AboutForm(forms.ModelForm):
+    class Meta:
+        model = AboutITeam
+        fields = ['contact_number', 'email', 'logo']

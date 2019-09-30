@@ -27,7 +27,11 @@
             <div class="mb_sld_top">
                 <div class="logo_sld_mnu">
                     <a href="{% url 'product:index' %}">
-                        <img src="{% static 'images/newlogo.png' %}">
+                        {% if about.logo %}
+                            <img src="{{ about.logo.url }}">
+                        {% else %}
+                            <img src="{% static 'images/newlogo.png' %}">
+                        {% endif %}
                     </a>
                 </div>
                 <div class="mb_sld_hide">
@@ -163,10 +167,10 @@
                                 <div class="new-cn-inf">
                                     <div class="cnt_infos">
                                         <span class="cnt_infs_lst">
-                                               <i class="fa fa-phone "> </i> Hotline: +977 9803621548
+                                               <i class="fa fa-phone "> </i> Hotline: {{ about.contact_number }}
                                                </span>
                                         <span class="cnt_infs_lst">
-                                               <i class="fa fa-envelope"> </i>Email: info@iteam.com.np  
+                                               <i class="fa fa-envelope"> </i>Email: {{ about.email }}
                                                </span>
                                     </div>
                                     <div class="flt-lft-lr">
@@ -622,28 +626,28 @@
                         <i class="fa fa-truck" aria-hidden="true"></i>
                         <div class="wrap-left-info">
                             <h4 class="fc-name">Free shipping</h4>
-                            <p class="fc-desc"> Free on order over $99</p>
+                            <p class="fc-desc"> All Over Nepal</p>
                         </div>
                     </li>
                     <li class="info-item">
-                        <i class="fa fa-recycle" aria-hidden="true"></i>
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
                         <div class="wrap-left-info">
                             <h4 class="fc-name">Guarantee</h4>
-                            <p class="fc-desc"> 30 days money back</p>
+                            <p class="fc-desc"> Genuine Products</p>
                         </div>
                     </li>
                     <li class="info-item">
-                        <i class="fa fa-credit-card"></i>
+                        <i class="fa fa-cubes"></i>
                         <div class="wrap-left-info">
-                            <h4 class="fc-name">Safe Payment</h4>
-                            <p class="fc-desc"> safe your online payment</p>
+                            <h4 class="fc-name">Diversity</h4>
+                            <p class="fc-desc"> Range of Products</p>
                         </div>
                     </li>
                     <li class="info-item">
-                        <i class="fa fa-life-ring" aria-hidden="true"></i>
+                        <i class="fa fa-rocket" aria-hidden="true"></i>
                         <div class="wrap-left-info">
-                            <h4 class="fc-name">Online Support</h4>
-                            <p class="fc-desc">We Have Support 24/7</p>
+                            <h4 class="fc-name">Fast</h4>
+                            <p class="fc-desc">Faster Delivery</p>
                         </div>
                     </li>
                 </ul>
