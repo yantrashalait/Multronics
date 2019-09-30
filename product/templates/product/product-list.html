@@ -10,7 +10,9 @@
                         <div class="row">
                             <div class="prd_list_heading">
                                 <h1>Product Listing</h1>
-                                <spna class="showing_itms">showing 1–15 of 20 results</spna>
+                                {% if is_paginated %}
+                                    <spna class="showing_itms">page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} pages</spna>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
