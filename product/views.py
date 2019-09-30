@@ -256,7 +256,7 @@ class MostViewedListView(ListView):
     paginate_by = 10
 
     def get_queryset(self, *args, **kwargs):
-        return Product.objects.filter(views__get=10)
+        return Product.objects.filter(views__gte=10)
 
 
 def search_product(request):
