@@ -2609,3 +2609,29 @@ select.multi-select{
     font-size: 14px;
     color: #ea802d;
 }
+
+/*login error*/
+.error-top{
+    margin-bottom: 7px;
+    background-color: #f2c1cf;
+    border-radius: 3px;
+    height: 40px;
+    border: 1px solid #ea802d;
+}
+
+.error-top p{
+    margin-left: 70px;
+    padding: 10px;
+
+}
+
+.error-bottom{
+    background-color: #f2c1cf;
+    border: 0px solid #ea802d;
+    margin-bottom: 10px;
+    border-radius: 2px;
+}
+
+.error-bottom p{
+    padding: 5px;
+}

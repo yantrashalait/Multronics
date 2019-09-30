@@ -8,17 +8,30 @@
 				    <div class="thirdprty_login">
 				        <div class="formContainer p-4">
 				            <form method='post' action=".">
-                                {% csrf_token %}
+								{% csrf_token %}
+								{% if form.errors %}
+									<div class="error-top">
+										<p>Login Failed</p>
+									</div>
+								{% endif %}
 				                <div class="form-group">
 				                    <label>Username</label>
-				                    <input type="text" class="form-control" name="username">
+									<input type="text" class="form-control" name="username">
 				                </div>
 				                <div class="form-group">
 				                    <label>Password</label>
 				                    <a class="float-right" href="{% url 'password_reset' %}">Forgot Password?</a>
-				                    <input type="password" class="form-control" name="password">
+									<input type="password" class="form-control" name="password">
+										
 								</div>
 								<input type="hidden" name="next" value="{{ next }}">
+								{% if form.errors %}
+								<div class="error-bottom">
+									<p>Check If:</p>
+									<p>1. Username and password matches.</p>
+									<p>2. You have activated your account.</p>
+								</div>
+								{% endif %}
 				                <button type="submit" class="sbt_btn">Login</button>
 				            </form>
 				        </div>
