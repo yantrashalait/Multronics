@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
 from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, \
@@ -11,7 +11,7 @@ from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.utils.html import escape
-from django.shortcuts import render_to_response
+from django.template import RequestContext
 
 
 def handlePopAdd(request, addForm, field):
@@ -27,8 +27,7 @@ def handlePopAdd(request, addForm, field):
     else:
         form = addForm()
 
-    pageContext = {'form': form, 'field': field}
-    return render_to_response("add/popadd.html", pageContext)
+    return render(request, "add/popadd.html", {'form': form, 'field': field})
 
 class DashboardView(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'add_product'
