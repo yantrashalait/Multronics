@@ -42,6 +42,16 @@ class ProductList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     paginate_by = 10
 
 
+@login_required
+def newBrand(request, *args, **kwargs):
+    return handlePopAdd(request, BrandForm, "brand")
+
+
+@login_required
+def newType(request, *args, **kwargs):
+    return handlePopAdd(request, TypeForm, "product_type")
+
+
 class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ('add_product')
     model = Product

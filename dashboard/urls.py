@@ -18,12 +18,14 @@ urlpatterns = [
 
 
     # crud for brands
+    path('add/brand/', views.newBrand, name="brand"),
     path('brand/list/', views.BrandList.as_view(), name='brand-list'),
     path('brand/create/', views.BrandCreate.as_view(), name='brand-create'),
     path('brand/<int:pk>/delete/', views.BrandDelete.as_view(), name='brand-delete'),
     path('brand/<int:pk>/update/', views.BrandUpdate.as_view(), name='brand-update'),
 
     # crud for types
+    path('add/product_type/', views.newType, name="type"),
     path('type/list/', views.TypeList.as_view(), name='type-list'),
     path('type/create/', views.TypeCreate.as_view(), name='type-create'),
     path('type/<int:pk>/delete/', views.TypeDelete.as_view(), name='type-delete'),

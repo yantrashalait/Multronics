@@ -11,6 +11,8 @@ class ProductForm(forms.ModelForm):
     y = forms.FloatField(widget=forms.HiddenInput(), required=False)
     width = forms.FloatField(widget=forms.HiddenInput(), required=False)
     height = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    brand = forms.ModelChoiceField(Brand.objects, widget=SelectWithPop)
+    product_type = forms.ModelChoiceField(Type.objects, widget=SelectWithPop)
     
     class Meta:
         model = Product 
