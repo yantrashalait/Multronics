@@ -12,9 +12,9 @@ from django.db.models import Q
 
 
 def index(request):
-    super_deals = Product.objects.filter(super_deals=True)
-    most_viewed = Product.objects.filter(views__gte=10)
-    offer = Product.objects.filter(offer=True)
+    super_deals = Product.objects.filter(super_deals=True, visibility=True)
+    most_viewed = Product.objects.filter(views__gte=10, visibility=True)
+    offer = Product.objects.filter(offer=True, visibility=True)
     brand = Brand.objects.all()
     superimages = SuperImage.objects.last()
     offerimages = OfferImage.objects.last()
@@ -41,9 +41,9 @@ class CartListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return Cart.objects.filter(removed=False).order_by('-date')
+            return Cart.objects.filter(removed=False, product__visibility=True).order_by('-date')
         else:
-            return Cart.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
+            return Cart.objects.filter(user_id=self.kwargs.get('pk'), removed=False, product__visibility=True).order_by('-date')
     
     def post(self, request, *args, **kwargs):
         _id = self.request.POST.get('delete')
@@ -60,7 +60,7 @@ class WaitListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if self.request.user.is_superuser:
-            return WaitList.objects.filter(removed=False).order_by('-date')
+            return WaitList.objects.filter(removed=False, product__visibility=True).order_by('-date')
         else:
             return WaitList.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
     
@@ -77,7 +77,7 @@ class FavouriteListView(LoginRequiredMixin, ListView):
     context_object_name = 'favourites'
 
     def get_queryset(self):
-        return Favourite.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
+        return Favourite.objects.filter(user_id=self.kwargs.get('pk'), removed=False, product__visibility=True).order_by('-date')
 
     def post(self, request, *args, **kwargs):
         _id = self.request.POST.get('delete')
@@ -99,7 +99,7 @@ class ProductList(ListView):
     model = Product
     context_object_name = 'product'
     paginate_by = 10
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(visibility=True)
 
     # def get_queryset(self):
     #     return Product.objects.all()
@@ -123,7 +123,7 @@ class ProductDetail(DetailView):
         self.object.views += 1
         self.object.save()
         context['brands'] = Brand.objects.all()
-        context['related'] = Product.objects.filter( ~Q(id=self.object.id), category=self.object.category, brand=self.object.brand, product_type=self.object.product_type)[:10]
+        context['related'] = Product.objects.filter( ~Q(id=self.object.id), category=self.object.category, brand=self.object.brand, product_type=self.object.product_type, visibility=True)[:10]
         return context
 
 
@@ -134,7 +134,7 @@ class AddCart(LoginRequiredMixin, CreateView):
         color = request.POST.get("color")
         quantity = int(request.POST.get("quantity"))
         product_id = request.POST.get("product")
-        product = Product.objects.get(id=int(product_id))
+        product = Product.objects.get(id=int(product_id), visibility=True)
         cart = Cart()
         cart.amount=quantity
         cart.total_price = int(product.new_price)*quantity
@@ -206,7 +206,7 @@ class CategoryListView(ListView):
     paginate_by = 10
 
     def get_queryset(self, *args, **kwargs):
-        return Product.objects.filter(category_id=self.kwargs.get("pk"))
+        return Product.objects.filter(category_id=self.kwargs.get("pk"), visibility=True)
 
 
 class BrandListView(ListView):
@@ -216,7 +216,7 @@ class BrandListView(ListView):
     paginate_by = 10
 
     def get_queryset(self, *args, **kwargs):
-        return Product.objects.filter(brand_id=self.kwargs.get("pk"))
+        return Product.objects.filter(brand_id=self.kwargs.get("pk"), visibility=True)
 
 
 class TypeListView(ListView):
@@ -226,7 +226,7 @@ class TypeListView(ListView):
     paginate_by = 10
 
     def get_queryset(self, *args, **kwargs):
-        return Product.objects.filter(product_type_id=self.kwargs.get("pk"))
+        return Product.objects.filter(product_type_id=self.kwargs.get("pk"), visibility=True)
 
 
 class SuperDealsListView(ListView):
@@ -236,7 +236,7 @@ class SuperDealsListView(ListView):
     paginate_by = 10
 
     def get_queryset(self, *args, **kwargs):
-        return Product.objects.filter(super_deals=True)
+        return Product.objects.filter(super_deals=True, visibility=True)
 
 
 class OfferListView(ListView):
@@ -246,7 +246,7 @@ class OfferListView(ListView):
     paginate_by = 10
 
     def get_queryset(self, *args, **kwargs):
-        return Product.objects.filter(offer=True)
+        return Product.objects.filter(offer=True, visibility=True)
 
 
 class MostViewedListView(ListView):
@@ -256,7 +256,7 @@ class MostViewedListView(ListView):
     paginate_by = 10
 
     def get_queryset(self, *args, **kwargs):
-        return Product.objects.filter(views__gte=10)
+        return Product.objects.filter(views__gte=10, visibility=True)
 
 
 def search_product(request):
@@ -264,7 +264,7 @@ def search_product(request):
         search = request.POST.get('srh')
 
         if search:
-            match = Product.objects.filter(Q(name__icontains=search) | Q(product_type__brand_type__icontains=search) | Q(category__name__icontains=search) | Q(brand__name__icontains=search))
+            match = Product.objects.filter(Q(name__icontains=search) | Q(product_type__brand_type__icontains=search) | Q(category__name__icontains=search) | Q(brand__name__icontains=search), visibility=True)
                 
             if match:
                 return render(request, 'product/product-list.html', {'product':match})

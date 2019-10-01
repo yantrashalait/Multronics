@@ -52,6 +52,7 @@ class Product(models.Model):
     availability = models.BooleanField(default=True, verbose_name='Is this product available in stock?')
     main_image = models.ImageField(upload_to='products/', null=True, blank=True, help_text="Image size: width=265px height=290px")
     offer_tag = models.CharField(max_length=100, null=True, blank=True, help_text="E.g. 15% off")
+    visibility = models.BooleanField(default=True, verbose_name="Make this product visibile?")
 
     def __str__(self):
         return self.name

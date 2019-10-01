@@ -16,7 +16,7 @@ class ProductForm(forms.ModelForm):
     
     class Meta:
         model = Product 
-        fields = ['name', 'description', 'previous_price', 'new_price', 'category', 'brand', 'product_type', 'super_deals', 'offer', 'availability', 'main_image', 'x', 'y', 'width', 'height']
+        fields = ['name', 'description', 'previous_price', 'new_price', 'category', 'brand', 'product_type', 'super_deals', 'offer', 'availability', 'main_image', 'visibility', 'x', 'y', 'width', 'height']
     
     def save(self):
         photo = super(ProductForm, self).save()
