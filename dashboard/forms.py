@@ -100,7 +100,7 @@ class BannerImageForm(forms.ModelForm):
         model = BannerImage
         fields = ['image', 'x', 'y', 'width', 'height']
 
-    def save(self):
+    def save(self, *args, **kwargs):
         photo = super(BannerImageForm, self).save()
 
         x = self.cleaned_data.get('x')
@@ -125,12 +125,55 @@ class ProductSpecificationForm(forms.ModelForm):
 
 
 class ProductImageForm(forms.ModelForm):
+    x_main = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y_main = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width_main = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height_main = forms.FloatField(widget=forms.HiddenInput(), required=False)
+
+    x_thumb = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    y_thumb = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    width_thumb = forms.FloatField(widget=forms.HiddenInput(), required=False)
+    height_thumb = forms.FloatField(widget=forms.HiddenInput(), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(ProductImageForm, self).__init__(*args, **kwargs)
+        self.fields['big_image'].widget.attrs['class'] = 'big_image_class'
+        self.fields['thumbnail_image'].widget.attrs['class'] = 'thumb_image_class'
+
     class Meta:
         model = ProductImage
-        fields = ['big_image', 'thumbnail_image']
+        fields = ['big_image', 'thumbnail_image', 'x_main', 'y_main', 'width_main', 'height_main', 'x_thumb', 'y_thumb', 'width_thumb', 'height_thumb']
+    
+    def save(self, *args, **kwargs):
+        photo = super(ProductImageForm, self).save()
+
+        x_main = self.cleaned_data.get('x_main')
+        y_main = self.cleaned_data.get('y_main')
+        w_main = self.cleaned_data.get('width_main')
+        h_main = self.cleaned_data.get('height_main')
+
+        x_thumb = self.cleaned_data.get('x_thumb')
+        y_thumb = self.cleaned_data.get('y_thumb')
+        w_thumb = self.cleaned_data.get('width_thumb')
+        h_thumb = self.cleaned_data.get('height_thumb')
+
+        if x_main is not None and y_main is not None:
+            image = Image.open(photo.big_image)
+            cropped_image = image.crop((x_main, y_main, w_main+x_main, h_main+y_main))
+            resized_image = cropped_image.resize((700, 700), Image.ANTIALIAS)
+            resized_image.save(photo.big_image.path)
+        
+        if x_thumb is not None and y_thumb is not None:
+            image = Image.open(photo.thumbnail_image)
+            cropped_image = image.crop((x_thumb, y_thumb, w_thumb + x_thumb, h_thumb + y_thumb))
+            resized_image = cropped_image.resize((100, 100), Image.ANTIALIAS)
+            resized_image.save(photo.thumbnail_image.path)
+        return photo
+
+        return photo
 
 
-ProductImageFormset = inlineformset_factory(Product, ProductImage, form=ProductImageForm, fields=['big_image', 'thumbnail_image'], extra=1, max_num=10)
+ProductImageFormset = inlineformset_factory(Product, ProductImage, form=ProductImageForm, fields=['big_image', 'thumbnail_image', 'x_main', 'y_main', 'width_main', 'height_main', 'x_thumb', 'y_thumb', 'width_thumb', 'height_thumb'], extra=1, max_num=10)
 ProductSpecificationFormset = inlineformset_factory(Product, ProductSpecification, form=ProductSpecificationForm, fields=['title', 'content'], extra=1, max_num=20)
 
 

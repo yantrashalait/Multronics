@@ -120,9 +120,10 @@ class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         
         if imageform.is_valid():
             for form in imageform:
-                f = form.save(commit=False)
-                f.product = self.object
-                f.save()
+                if form.cleaned_data != {}:
+                    f = form.save(commit=False)
+                    f.product = self.object
+                    f.save()
 
         if specificationform.is_valid():
             for form in specificationform:

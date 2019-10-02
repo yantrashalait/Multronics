@@ -165,6 +165,60 @@
                               </div>
                             </div>
                         </div>
+                        <div class="modal fade" id="bigmodalCrop">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                  <h4 class="modal-title">Crop the photo</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <img src="" id="bigimage" style="max-width: 100%;">
+                                </div>
+                                <div class="modal-footer">
+                                  <div class="btn-group pull-left" role="group">
+                                    <button type="button" class="btn btn-default js-zoom-in">
+                                      <span class="glyphicon glyphicon-zoom-in"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default js-zoom-out">
+                                      <span class="glyphicon glyphicon-zoom-out"></span>
+                                    </button>
+                                  </div>
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                  <button type="button" class="btn btn-primary js-crop-and-upload-big">Crop</button>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="thumbmodalCrop">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                  <h4 class="modal-title">Crop the photo</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <img src="" id="thumbimage" style="max-width: 100%;">
+                                </div>
+                                <div class="modal-footer">
+                                  <div class="btn-group pull-left" role="group">
+                                    <button type="button" class="btn btn-default js-zoom-in">
+                                      <span class="glyphicon glyphicon-zoom-in"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default js-zoom-out">
+                                      <span class="glyphicon glyphicon-zoom-out"></span>
+                                    </button>
+                                  </div>
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">Nevermind</button>
+                                  <button type="button" class="btn btn-primary js-crop-and-upload-thumb">Crop</button>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -239,6 +293,113 @@
           });
         });
       </script>
+
+    <script>
+        $(function () {
+            var num = 0;
+            $(".big_image_class").change(function(){
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#bigimage").attr("src", e.target.result);
+                        $("#bigmodalCrop").modal("show");
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+                num = this.id.split('-')[1];
+            });
+            /* SCRIPTS TO HANDLE THE CROPPER BOX */
+            var $image = $("#bigimage");
+            var cropBoxData;
+            var canvasData;
+            $("#bigmodalCrop").on("shown.bs.modal", function () {
+                $image.cropper({
+                viewMode: 1,
+                aspectRatio: 700/700,
+                minCropBoxWidth: 700,
+                minCropBoxHeight: 700,
+                ready: function () {
+                    $image.cropper("setCanvasData", canvasData);
+                    $image.cropper("setCropBoxData", cropBoxData);
+                }
+                });
+            }).on("hidden.bs.modal", function () {
+                cropBoxData = $image.cropper("getCropBoxData");
+                canvasData = $image.cropper("getCanvasData");
+                $image.cropper("destroy");
+            });
+            $(".js-zoom-in").click(function () {
+                $image.cropper("zoom", 0.1);
+            });
+            $(".js-zoom-out").click(function () {
+                $image.cropper("zoom", -0.1);
+            });
+            /* SCRIPT TO COLLECT THE DATA AND POST TO THE SERVER */
+            $(".js-crop-and-upload-big").click(function () {
+                var cropData = $image.cropper("getData");
+                $("#id_imageform-" + num + "-x_main").val(cropData["x"]);
+                $("#id_imageform-" + num + "-y_main").val(cropData["y"]);
+                $("#id_imageform-" + num + "-height_main").val(Math.round(cropData["height"]));
+                console.log($("#id_imageform-" + num + "-height_main").val());
+                $("#id_imageform-" + num + "-width_main").val(Math.round(cropData["width"]));
+                console.log($("#id_imageform-" + num + "-width_main").val());
+                $("#bigmodalCrop").modal("hide");
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            var num = 0;
+            $(".thumb_image_class").change(function(){
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $("#thumbimage").attr("src", e.target.result);
+                        $("#thumbmodalCrop").modal("show");
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+                num = this.id.split('-')[1];
+            });
+            /* SCRIPTS TO HANDLE THE CROPPER BOX */
+            var $image = $("#thumbimage");
+            var cropBoxData;
+            var canvasData;
+            $("#thumbmodalCrop").on("shown.bs.modal", function () {
+                $image.cropper({
+                viewMode: 1,
+                aspectRatio: 100/100,
+                minCropBoxWidth: 100,
+                minCropBoxHeight: 100,
+                ready: function () {
+                    $image.cropper("setCanvasData", canvasData);
+                    $image.cropper("setCropBoxData", cropBoxData);
+                }
+                });
+            }).on("hidden.bs.modal", function () {
+                cropBoxData = $image.cropper("getCropBoxData");
+                canvasData = $image.cropper("getCanvasData");
+                $image.cropper("destroy");
+            });
+            $(".js-zoom-in").click(function () {
+                $image.cropper("zoom", 0.1);
+            });
+            $(".js-zoom-out").click(function () {
+                $image.cropper("zoom", -0.1);
+            });
+            /* SCRIPT TO COLLECT THE DATA AND POST TO THE SERVER */
+            $(".js-crop-and-upload-thumb").click(function () {
+                var cropData = $image.cropper("getData");
+                $("#id_imageform-" + num + "-x_thumb").val(cropData["x"]);
+                $("#id_imageform-" + num + "-y_thumb").val(cropData["y"]);
+                $("#id_imageform-" + num + "-height_thumb").val(Math.round(cropData["height"]));
+                console.log($("#id_imageform-" + num + "-height_thumb").val());
+                $("#id_imageform-" + num + "-width_thumb").val(Math.round(cropData["width"]));
+                console.log($("#id_imageform-" + num + "-width_thumb").val());
+                $("#thumbmodalCrop").modal("hide");
+            });
+        });
+    </script>
     <script>
         $('#imageadd').click(function() {
 
