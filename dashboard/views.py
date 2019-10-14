@@ -12,6 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.decorators import login_required
 from django.utils.html import escape
 from django.template import RequestContext
+from django.db import transaction
 
 
 def handlePopAdd(request, addForm, field):
@@ -61,30 +62,30 @@ class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def get_context_data(self, *args, **kwargs):
         context = super(ProductCreate, self).get_context_data(**kwargs)
         if self.request.method == 'POST':
-            context['imageform'] = ProductImageFormset(self.request.POST, self.request.FILES, prefix='imageform')
-            context['specificationform'] = ProductSpecificationFormset(self.request.POST, self.request.FILES, prefix='specform')
+            context['imageform'] = ProductImageFormset(self.request.POST, self.request.FILES, prefix='imageform', instance=self.object)
+            context['specificationform'] = ProductSpecificationFormset(self.request.POST, self.request.FILES, prefix='specform', instance=self.object)
         
         else:
-            context['imageform'] = ProductImageFormset(prefix='imageform')
-            context['specificationform'] = ProductSpecificationFormset(prefix='specform')
+            context['imageform'] = ProductImageFormset(prefix='imageform', instance=self.object)
+            context['specificationform'] = ProductSpecificationFormset(prefix='specform', instance=self.object)
         return context
 
     def form_valid(self, form):
         context = self.get_context_data()
         imageform = context['imageform']
         specificationform = context['specificationform']
-        if imageform.is_valid() and specificationform.is_valid():
-            self.object = form.save(commit=False)
-            for form in imageform:
-                f = form.save(commit=False)
-                f.product = self.object
-                f.save()
-            for form in specificationform:
-                f = form.save(commit=False)
-                f.product = self.object
-                f.save()
-            self.object.save()
-            return HttpResponseRedirect('/dashboard/product/list/')
+        with transaction.atomic():
+            self.object = form.save()
+            if imageform.is_valid() and specificationform.is_valid():
+                for form in imageform:
+                    f = form.save(commit=False)
+                    f.product = self.object
+                    f.save()
+                for form in specificationform:
+                    f = form.save(commit=False)
+                    f.product = self.object
+                    f.save()
+                return HttpResponseRedirect('/dashboard/product/list/')
         return super().form_valid(form)
 
     def get_success_url(self):

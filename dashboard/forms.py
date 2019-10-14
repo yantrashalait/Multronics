@@ -29,7 +29,6 @@ class ProductForm(forms.ModelForm):
             cropped_image = image.crop((x, y, w+x, h+y))
             resized_image = cropped_image.resize((265, 290), Image.ANTIALIAS)
             resized_image.save(photo.main_image.path)
-        
         return photo
 
 
@@ -144,8 +143,8 @@ class ProductImageForm(forms.ModelForm):
         model = ProductImage
         fields = ['big_image', 'thumbnail_image', 'x_main', 'y_main', 'width_main', 'height_main', 'x_thumb', 'y_thumb', 'width_thumb', 'height_thumb']
     
-    def save(self, *args, **kwargs):
-        photo = super(ProductImageForm, self).save()
+    def save(self, commit=True):
+        photo = super(ProductImageForm, self).save(commit=False)
 
         x_main = self.cleaned_data.get('x_main')
         y_main = self.cleaned_data.get('y_main')
@@ -168,9 +167,10 @@ class ProductImageForm(forms.ModelForm):
             cropped_image = image.crop((x_thumb, y_thumb, w_thumb + x_thumb, h_thumb + y_thumb))
             resized_image = cropped_image.resize((100, 100), Image.ANTIALIAS)
             resized_image.save(photo.thumbnail_image.path)
-        return photo
-
-        return photo
+        if commit:
+            photo.save()
+        else:
+            return photo
 
 
 ProductImageFormset = inlineformset_factory(Product, ProductImage, form=ProductImageForm, fields=['big_image', 'thumbnail_image', 'x_main', 'y_main', 'width_main', 'height_main', 'x_thumb', 'y_thumb', 'width_thumb', 'height_thumb'], extra=1, max_num=10)
