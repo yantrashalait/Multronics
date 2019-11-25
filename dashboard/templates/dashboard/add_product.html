@@ -263,7 +263,7 @@
           $("#modalCrop").on("shown.bs.modal", function () {
             $image.cropper({
               viewMode: 1,
-              aspectRatio: 256/290,
+              aspectRatio: 1/1.13,
               minCropBoxWidth: 256,
               minCropBoxHeight: 290,
               ready: function () {
@@ -315,7 +315,7 @@
             $("#bigmodalCrop").on("shown.bs.modal", function () {
                 $image.cropper({
                 viewMode: 1,
-                aspectRatio: 700/700,
+                aspectRatio: 1/1,
                 minCropBoxWidth: 700,
                 minCropBoxHeight: 700,
                 ready: function () {
@@ -368,7 +368,7 @@
             $("#thumbmodalCrop").on("shown.bs.modal", function () {
                 $image.cropper({
                 viewMode: 1,
-                aspectRatio: 100/100,
+                aspectRatio: 1/1,
                 minCropBoxWidth: 100,
                 minCropBoxHeight: 100,
                 ready: function () {
