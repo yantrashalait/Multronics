@@ -326,10 +326,12 @@ class OrderView(LoginRequiredMixin, CreateView):
 
 
 class LaptopPriceListView(ListView):
-    template_name = 'core/product-list.html'
+    template_name = 'product/product-list.html'
     context_object_name = 'product'
     model = Product
     paginate_by = 20
         
     def get_queryset(self, *args, **kwargs):
+        brand_name = self.kwargs.get('brand_name')
+        brand_name = brand_name.replace("_", " ")
         return Product.objects.filter(brand__name=self.kwargs.get('brand_name'))

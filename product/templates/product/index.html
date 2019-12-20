@@ -30,7 +30,7 @@
                     <div class="sml_ad_txt_hldr">
                         <div class="sml_ad_txt">
                             <span class="sml_adt_ttl">{{ item.name }} Laptops price in Nepal</span>
-                            <a href="{% url 'product:product-offer-list'  %}">Shop Now <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+                            <a href="{% url 'product:laptop-price-in-nepal' item.name|space_to_underscore  %}">Shop Now <i class="fa fa-angle-right" aria-hidden="true"></i></a>
                         </div>
                     </div>
                 </div>

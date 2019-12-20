@@ -24,3 +24,7 @@ def check_bargain(obj, pk):
         return True
     else:
         return False
+
+@register.filter
+def space_to_underscore(obj):
+    return obj.replace(" ", "_")
