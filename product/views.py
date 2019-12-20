@@ -253,7 +253,7 @@ class MostViewedListView(ListView):
     template_name = 'product/product-list.html'
     model = Product
     context_object_name = 'product'
-    paginate_by = 10
+    paginate_by = 20
 
     def get_queryset(self, *args, **kwargs):
         return Product.objects.filter(views__gte=10, visibility=True)
@@ -323,4 +323,13 @@ class OrderView(LoginRequiredMixin, CreateView):
         Cart.objects.filter(user_id=self.request.user.pk).update(removed=True)
         
         return render(request, 'product/success_order.html')
+
+
+class LaptopPriceListView(ListView):
+    template_name = 'core/product-list.html'
+    context_object_name = 'product'
+    model = Product
+    paginate_by = 20
         
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.filter(brand__name=self.kwargs.get('brand_name'))

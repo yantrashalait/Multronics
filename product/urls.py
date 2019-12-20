@@ -38,10 +38,14 @@ urlpatterns = [
     # add to favourite
     path('favourite/add/', views.add_to_favourite, name='add_favourite'),
 
-    #subscription
+    # subscription
     path('subscription/', views.subscription, name='subscribe'),
 
     path('request/', views.RequestProduct.as_view(), name='request-product'),
     path('order/<int:pk>', views.OrderView.as_view(), name='order'),
+
+    # prices in nepal urls
+    path('laptop/price/nepal/laptop_prices_in_nepal/<slug:brand_name>', views.LaptopPriceListView.as_view(), name='laptop-price-in-nepal'),
+    
 
 ]
