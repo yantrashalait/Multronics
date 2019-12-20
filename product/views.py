@@ -203,7 +203,7 @@ class CategoryListView(ListView):
     template_name = 'product/product-list.html'
     model = Product
     context_object_name = 'product'
-    paginate_by = 10
+    paginate_by = 20
 
     def get_queryset(self, *args, **kwargs):
         return Product.objects.filter(category_id=self.kwargs.get("pk"), visibility=True)
@@ -213,7 +213,7 @@ class BrandListView(ListView):
     template_name = 'product/product-list.html'
     model = Product
     context_object_name = 'product'
-    paginate_by = 10
+    paginate_by = 20
 
     def get_queryset(self, *args, **kwargs):
         return Product.objects.filter(brand_id=self.kwargs.get("pk"), visibility=True)
@@ -223,7 +223,7 @@ class TypeListView(ListView):
     template_name = 'product/product-list.html'
     model = Product
     context_object_name = 'product'
-    paginate_by = 10
+    paginate_by = 20
 
     def get_queryset(self, *args, **kwargs):
         return Product.objects.filter(product_type_id=self.kwargs.get("pk"), visibility=True)
@@ -233,7 +233,7 @@ class SuperDealsListView(ListView):
     template_name = 'product/product-list.html'
     model = Product
     context_object_name = 'product'
-    paginate_by = 10
+    paginate_by = 20
 
     def get_queryset(self, *args, **kwargs):
         return Product.objects.filter(super_deals=True, visibility=True)
@@ -243,7 +243,7 @@ class OfferListView(ListView):
     template_name = 'product/product-list.html'
     model = Product
     context_object_name = 'product'
-    paginate_by = 10
+    paginate_by = 20
 
     def get_queryset(self, *args, **kwargs):
         return Product.objects.filter(offer=True, visibility=True)
