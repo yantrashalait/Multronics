@@ -56,28 +56,34 @@
                         </div>
                     </div>
                     <div class="featured_caro itms_caro owl-carousel owl-theme">
-                        {% for item in most_viewed %}
-                        <div class="item">
-                            <div class="list_prd_itm text-center">
-                                <div class="prd_img">
-                                    <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
-                                </div>
-                                <div class="prd_infos">
-                                    <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
-                                    {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
-                                    <span class="price">Rs.{{ item.new_price }}</span>
-                                </div>
-                                <div class="prd_actions">
-                                        <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
-                                    {% if item|check_favourite:request.user.pk %}
-                                        <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    {% else %}
-                                        <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                    {% endif %}
-                                </div>
+                        {% with most_viewed|separate_two as items %}
+                            {% for counts in items %}
+                            <div class="item">
+                                {% with most_viewed|block_viewed:forloop.counter as populars %}
+                                    {% for item in populars %}
+                                        <div class="list_prd_itm text-center">
+                                            <div class="prd_img">
+                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
+                                            </div>
+                                            <div class="prd_infos">
+                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
+                                                {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
+                                                <span class="price">Rs.{{ item.new_price }}</span>
+                                            </div>
+                                            <div class="prd_actions">
+                                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
+                                                {% if item|check_favourite:request.user.pk %}
+                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% else %}
+                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endwith %}
                             </div>
-                        </div>
-                        {% endfor %}
+                            {% endfor %}
+                        {% endwith %}
                     </div>
                 </div>
             </div>
