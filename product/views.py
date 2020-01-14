@@ -20,7 +20,7 @@ def index(request):
     offerimages = OfferImage.objects.last()
     banner = BannerImage.objects.all()
     category = Category.objects.all()
-    types = Type.objects.all()
+    types = Type.objects.all().order_by('-brand_type')
     return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand, 'superimage': superimages, 'offerimage': offerimages, 'banner': banner, 'category': category, 'type': types})
 
 
