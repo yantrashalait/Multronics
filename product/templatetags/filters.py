@@ -34,7 +34,7 @@ def space_to_underscore(obj):
 def separate_two(popular):
     total = len(popular)
     if total < 2:
-        return range(1)
+        return range(2)
     else:
         if(total / 2) == 0:
             return range((total / 2))
@@ -51,4 +51,15 @@ def block_viewed(popular, index=None):
         start = (index - 1) * 2
         end = start + 2
         return Product.objects.filter(views__gte=10, visibility=True)[start:end]
+
+
+@register.filter
+def block_type(type, index=None):
+    if index == 1:
+        return Product.objects.filter(visibility=True, product_type=type)[:2]
+    
+    if index > 1:
+        start = (index - 1) * 2
+        end = start + 2
+        return Product.objects.filter(visibility=True, product_type=type)[start:end]
 

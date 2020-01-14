@@ -20,7 +20,8 @@ def index(request):
     offerimages = OfferImage.objects.last()
     banner = BannerImage.objects.all()
     category = Category.objects.all()
-    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand, 'superimage': superimages, 'offerimage': offerimages, 'banner': banner, 'category': category})
+    types = Type.objects.all()
+    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand, 'superimage': superimages, 'offerimage': offerimages, 'banner': banner, 'category': category, 'type': types})
 
 
 class NotificationListView(LoginRequiredMixin, ListView):
