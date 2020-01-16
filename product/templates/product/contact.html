@@ -1,0 +1,77 @@
+{% extends 'product/base.html' %}
+{% block content %}
+<div class="contentspacer"></div> 
+	<section class="cont-pagecontent">
+		<div class="contact-infos">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-6">
+						<div class="contact-texts">
+						    <div class="section__heading halfwidth__headings sub__ttl__heading">
+						        <h2>Get in touch</h2>
+						        <p>Get in touch with us.</p>
+						    </div>
+						    <div class="contact__pg__social">
+						        <ul>
+                                    {% if about.facebook_link %}
+						            <li class="fb__icn">
+						                <a href="{{ about.facebook_link }}">
+						                    <i class="fa fa-facebook" aria-hidden="true"></i>
+						                </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if about.youtube_link %}
+						            <li class="ytb__icn">
+						                <a href="{{ about.youtube_link }}">
+						                    <i class="fa fa-youtube-play" aria-hidden="true"></i>
+						                </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if about.instagram_link %}
+						            <li class="inst__icn">
+						                <a href="{{ about.instagram_link }}">
+						                    <i class="fa fa-instagram" aria-hidden="true"></i>
+						                </a>
+                                    </li>
+                                    {% endif %}
+						        </ul>
+						    </div>
+						    <div class="act__cont__infos">
+						        <div class="info__lst__holder">
+						            <div class="cnt__info__icn">
+						                <i class="fa fa-map-marker" aria-hidden="true"></i>
+						            </div>
+						            <div class="cont__info__txt">
+						                <h3>Address</h3>
+						                <p>{{ about.address }}</p>
+						            </div>
+						        </div>
+						        <div class="info__lst__holder">
+						            <div class="cnt__info__icn">
+						                <i class="fa fa-phone" aria-hidden="true"></i>
+						            </div>
+						            <div class="cont__info__txt">
+						                <h3>Give us a call</h3>
+						                <p>{{ about.contact1 }}{% if about.contact2 %}, {{ about.contact2 }}{% endif %}{% if about.contact3 %}{{about.contact3}}{% endif %}</p>
+						            </div>
+						        </div>
+						        <div class="info__lst__holder">
+						            <div class="cnt__info__icn">
+						                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+						            </div>
+						            <div class="cont__info__txt">
+						                <h3>Write us an email</h3>
+						                <p>{{ about.email }}</p>
+						            </div>
+						        </div>
+						    </div>
+					    </div>
+					</div>
+					<div class="cnt__map">
+                        <iframe src="https://maps.google.com/maps?q=iteam&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</section>
+	{% endblock %}

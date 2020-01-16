@@ -339,3 +339,11 @@ class LaptopPriceListView(ListView):
         brand_name = self.kwargs.get('brand_name')
         brand_name = brand_name.replace("_", " ")
         return Product.objects.filter(brand__name=self.kwargs.get('brand_name'))
+
+
+class ContactView(TemplateView):
+    template_name = 'product/contact.html'
+    
+    def get_context_data(self, *args, **kwargs):
+        context = super(ContactView, self).get_context_data(**kwargs)
+        context['about'] = AboutITeam.objects.last()

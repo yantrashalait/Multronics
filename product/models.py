@@ -205,7 +205,9 @@ class ProductSpecification(models.Model):
 
 
 class AboutITeam(models.Model):
-    contact_number = models.CharField(max_length=100)
+    contact1 = models.CharField(max_length=100, default='')
+    contact2 = models.CharField(max_length=100, default='')
+    contact3 = models.CharField(max_length=100, default='')
     email = models.CharField(max_length=100)
     logo = models.ImageField(upload_to="logo/", help_text="Image size: width=192px height=31px")
     address = models.CharField(max_length=255, default='')

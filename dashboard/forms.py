@@ -249,7 +249,7 @@ class AboutForm(forms.ModelForm):
 
     class Meta:
         model = AboutITeam
-        fields = ['contact_number', 'email', 'logo', 'x', 'y', 'height', 'width']
+        fields = ['contact1', 'contact2', 'contact3', 'address', 'facebook_link', 'youtube_link', 'instagram_link', 'email', 'logo', 'x', 'y', 'height', 'width']
 
     def save(self):
         photo = super(AboutForm, self).save()

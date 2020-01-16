@@ -47,5 +47,6 @@ urlpatterns = [
     # prices in nepal urls
     path('laptop/price/nepal/laptop_prices_in_nepal/<slug:brand_name>', views.LaptopPriceListView.as_view(), name='laptop-price-in-nepal'),
     
+    path('contact', views.ContactView.as_view(), name="contact"),
 
 ]

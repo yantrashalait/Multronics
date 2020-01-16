@@ -14,14 +14,39 @@
                     <div class="prd_add fields-content">
                         <form action='.' method="POST" enctype="multipart/form-data" id="formUpload">
                             {% csrf_token %}
-                            <div class="field-row">
+                              <div class="field-one-half">
+                                  <label for="id_name">Contact Number 1</label>
+                                  {{ form.contact1 }}
+                              </div>
+                              <div class="field-one-half">
+                                <label for="id_name">Contact Number 2</label>
+                                  {{ form.contact2 }}
+                              </div>
+                              <div class="field-one-half">
+                                <label for="id_name">Contact Number 3</label>
+                                {{ form.contact3 }}
+                              </div>
+                              <div class="field-row">
                                 <div class="field-one-half">
-                                    <label for="id_name">Contact Number</label>
-                                    {{ form.contact_number }}
+                                  <label for="id_name">Address</label>
+                                  {{ form.address }}
                                 </div>
                                 <div class="field-one-half">
                                     <label for="id_name">Email</label>
                                     {{ form.email }}
+                                </div>
+                              </div>
+                                <div class="field-one-half">
+                                  <label for="id_name">Facebook Link</label>
+                                  {{ form.facebook_link }}
+                                </div>
+                                <div class="field-one-half">
+                                  <label for="id_name">Youtube Link</label>
+                                  {{ form.youtube_link }}
+                                </div>
+                                <div class="field-one-half">
+                                  <label for="id_name">Instagram Link</label>
+                                  {{ form.instagram_link }}
                                 </div>
                             </div>
                             <div class="field-row">
