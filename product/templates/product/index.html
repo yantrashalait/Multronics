@@ -64,7 +64,7 @@
         </div>
     </div>
 </section>
-{% for obj in type %}
+{% if gaming %}
 <section class="caro_products">
     <div class="container">
         <div class="row">
@@ -73,18 +73,18 @@
                     <div class="section_heading">
                         <div class="sectionheading_cont">
                             <div class="sectionttl">
-                                <h2>{{ obj.brand_type }} Series</h2>
+                                <h2>Gaming Series</h2>
                             </div>
                             <div class="vi_all_prd_caro">
-                                <a href="{% url 'product:product-most-viewed-list'  %}">View All</a>
+                                <a href="{% url 'product:product-type-list' gaming.0.product_type.id %}">View All</a>
                             </div>
                         </div>
                     </div>
                     <div class="featured_caro itms_caro owl-carousel owl-theme">
-                        {% with obj.product_type.all|separate_two as items %}
+                        {% with gaming|separate_two as items %}
                             {% for counts in items %}
                             <div class="item">
-                                {% with obj|block_type:forloop.counter as type_laptops %}
+                                {% with gaming.0.product_type|block_type:forloop.counter as type_laptops %}
                                     {% for item in type_laptops %}
                                         <div class="list_prd_itm text-center">
                                             <div class="prd_img">
@@ -115,8 +115,111 @@
         </div>
     </div>
 </section>
-{% endfor %}
-
+{% endif %}
+{% if business %}
+<section class="caro_products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="featured_caro_holder brdr_bx">
+                    <div class="section_heading">
+                        <div class="sectionheading_cont">
+                            <div class="sectionttl">
+                                <h2>Business Series</h2>
+                            </div>
+                            <div class="vi_all_prd_caro">
+                                <a href="{% url 'product:product-type-list' business.0.product_type.id  %}">View All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="featured_caro itms_caro owl-carousel owl-theme">
+                        {% with business|separate_two as items %}
+                            {% for counts in items %}
+                            <div class="item">
+                                {% with business.0.product_type|block_type:forloop.counter as type_laptops %}
+                                    {% for item in type_laptops %}
+                                        <div class="list_prd_itm text-center">
+                                            <div class="prd_img">
+                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
+                                            </div>
+                                            <div class="prd_infos">
+                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
+                                                {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
+                                                <span class="price">Rs.{{ item.new_price }}</span>
+                                            </div>
+                                            <div class="prd_actions">
+                                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
+                                                {% if item|check_favourite:request.user.pk %}
+                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% else %}
+                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endwith %}
+                            </div>
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+{% if economic %}
+<section class="caro_products">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="featured_caro_holder brdr_bx">
+                    <div class="section_heading">
+                        <div class="sectionheading_cont">
+                            <div class="sectionttl">
+                                <h2>Economic Series</h2>
+                            </div>
+                            <div class="vi_all_prd_caro">
+                                <a href="{% url 'product:product-type-list' economic.0.product_type.id %}">View All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="featured_caro itms_caro owl-carousel owl-theme">
+                        {% with economic|separate_two as items %}
+                            {% for counts in items %}
+                            <div class="item">
+                                {% with economic.0.product_type|block_type:forloop.counter as type_laptops %}
+                                    {% for item in type_laptops %}
+                                        <div class="list_prd_itm text-center">
+                                            <div class="prd_img">
+                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
+                                            </div>
+                                            <div class="prd_infos">
+                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
+                                                {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
+                                                <span class="price">Rs.{{ item.new_price }}</span>
+                                            </div>
+                                            <div class="prd_actions">
+                                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
+                                                {% if item|check_favourite:request.user.pk %}
+                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% else %}
+                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endwith %}
+                            </div>
+                            {% endfor %}
+                        {% endwith %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
 <section class="caro_products">
     <div class="container">
         <div class="row">

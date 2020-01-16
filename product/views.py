@@ -20,8 +20,11 @@ def index(request):
     offerimages = OfferImage.objects.last()
     banner = BannerImage.objects.all()
     category = Category.objects.all()
-    types = Type.objects.all().order_by('-brand_type')
-    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand, 'superimage': superimages, 'offerimage': offerimages, 'banner': banner, 'category': category, 'type': types})
+    gaming = Product.objects.filter(product_type__brand_type__icontains="gam")
+    business = Product.objects.filter(product_type__brand_type__icontains="busi")
+    economic = Product.objects.filter(product_type__brand_type__icontains="eco")
+    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand, 
+    'superimage': superimages, 'offerimage': offerimages, 'banner': banner, 'category': category, 'gaming': gaming, 'business': business, 'economic': economic})
 
 
 class NotificationListView(LoginRequiredMixin, ListView):
