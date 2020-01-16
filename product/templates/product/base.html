@@ -168,7 +168,7 @@
                                 <div class="new-cn-inf">
                                     <div class="cnt_infos">
                                         <span class="cnt_infs_lst">
-                                               <i class="fa fa-phone "> </i> Hotline: {{ about.contact_number }}
+                                               <i class="fa fa-phone "> </i> Hotline: {{ about.contact1 }}{% if about.contact2 %}, {{ about.contact2 }}{% endif %}{% if about.contact3 %}{{about.contact3}}{% endif %}
                                                </span>
                                         <span class="cnt_infs_lst">
                                                <i class="fa fa-envelope"> </i>Email: {{ about.email }}
@@ -663,7 +663,7 @@
                                     </div>
                                     <div class="cont_num_txt">
                                         <span class="fotphone_ttl">Got Questions ? Call us 24/7!</span>
-                                        <span class="fotphonenum">{{ about.contact_number }}</span>
+                                        <span class="fotphonenum">{{ about.contact1 }}{% if about.contact2 %}, {{ about.contact2 }}{% endif %}{% if about.contact3 %}{{about.contact3}}{% endif %}</span>
                                     </div>
                                 </div>
                                 <div class="continfo">
@@ -714,6 +714,9 @@
                                         <h5>Customer Care</h5>
                                         <div class="menusitms">
                                             <ul>
+                                                <li>
+                                                    <a href="{% url 'product:contact' %}">Contact Us</a>
+                                                </li>
                                                 {% if request.user.is_authenticated %}
                                                 <li>
                                                     <a href="{% url 'users:profile' request.user.pk %}">My Account</a>
