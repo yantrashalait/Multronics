@@ -208,6 +208,10 @@ class AboutITeam(models.Model):
     contact_number = models.CharField(max_length=100)
     email = models.CharField(max_length=100)
     logo = models.ImageField(upload_to="logo/", help_text="Image size: width=192px height=31px")
+    address = models.CharField(max_length=255, default='')
+    facebook_link = models.CharField(max_length=255, default='')
+    instagram_link = models.CharField(max_length=255, default='')
+    youtube_link = models.CharField(max_length=255, default='')
 
     def __str__(self):
         return self.email

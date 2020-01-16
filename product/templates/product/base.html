@@ -663,24 +663,30 @@
                                     </div>
                                     <div class="cont_num_txt">
                                         <span class="fotphone_ttl">Got Questions ? Call us 24/7!</span>
-                                        <span class="fotphonenum">+977 98523654217</span>
+                                        <span class="fotphonenum">{{ about.contact_number }}</span>
                                     </div>
                                 </div>
                                 <div class="continfo">
                                     <h5>Be In Touch With Us</h5>
-                                    <p>Putalisadak, Kathmandu, Nepal</p>
+                                    <p>{{ about.address }}</p>
                                 </div>
                                 <div class="fot_socials">
                                     <ul>
+                                        {% if about.facebook_link %}
                                         <li>
-                                            <a href="#"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                                            <a href="{{ about.facebook_link }}"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
                                         </li>
+                                        {% endif %}
+                                        {% if about.instagram_link %}
                                         <li>
-                                            <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                            <a href="{{about.instagram_link}}"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                                         </li>
+                                        {% endif %}
+                                        {% if about.youtube_link %}
                                         <li>
-                                            <a href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                                            <a href="{{about.youtube_link}}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
                                         </li>
+                                        {% endif %}
                                     </ul>
                                 </div>
                             </div>
