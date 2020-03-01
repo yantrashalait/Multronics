@@ -285,6 +285,10 @@
         </div>
         {% endblock %}
         {% block scripts %}
+        <script>
+          $("#product-nav").addClass('active');
+          $("#product-nav ul").addClass('show');
+        </script>
         <script src="{% static 'dashboard/js/cropper/cropper.min.js' %}"></script>
         <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
 

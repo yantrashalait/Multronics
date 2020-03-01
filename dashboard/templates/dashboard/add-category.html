@@ -79,6 +79,9 @@
         </div>
         {% endblock %}
         {% block scripts %}
+        <script>
+          $("#category-nav").addClass('active');
+        </script>
         <script src="{% static 'dashboard/js/cropper/cropper.min.js' %}"></script>
         <script>
           $(function () {

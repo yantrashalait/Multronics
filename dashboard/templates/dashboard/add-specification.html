@@ -75,6 +75,10 @@
         {% endblock %}
         {% block scripts %}
         <script>
+          $("#specification-nav").addClass('active');
+          $("#specification-nav ul").addClass('show');
+        </script>
+        <script>
             $('#contentadd').click(function() {
                 var form_idx = $('#id_content-TOTAL_FORMS').val();
                 $('#contentformset').append($('#contentempty_form').html().replace(/__prefix__/g, form_idx));

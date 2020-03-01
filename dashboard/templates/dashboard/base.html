@@ -52,58 +52,56 @@
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li>
+                        <li id="category-nav">
                             <a class="has-arrow" href="{% url 'dashboard:category-list' %}" aria-expanded="false"><span class="mini-click-non">Category</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Categories" href="{% url 'dashboard:category-list' %}"><span class="mini-sub-pro">All Categories</span></a></li>
                                 <li><a title="Add Category" href="{% url 'dashboard:category-create' %}"><span class="mini-sub-pro">Add Category</span></a></li>
                             </ul>
                         </li>
-                        <li>
+                        <li id="brand-nav">
                             <a class="has-arrow" href="{% url 'dashboard:brand-list' %}" aria-expanded="false"> <span class="mini-click-non">Brand</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Brands" href="{% url 'dashboard:brand-list' %}"><span class="mini-sub-pro">All Brands</span></a></li>
                                 <li><a title="Add Brand" href="{% url 'dashboard:brand-create' %}"><span class="mini-sub-pro">Add Brand</span></a></li>
                             </ul>
                         </li>
-                        <li>
+                        <li id="type-nav">
                             <a class="has-arrow" href="{% url 'dashboard:type-list' %}" aria-expanded="false"><span class="mini-click-non">Product Type</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Product Types" href="{% url 'dashboard:type-list' %}"><span class="mini-sub-pro">All Product Types</span></a></li>
                                 <li><a title="Add Product Type" href="{% url 'dashboard:type-create' %}"><span class="mini-sub-pro">Add Product Type</span></a></li>
                             </ul>
                         </li>
-                        <li class="active">
-                            <a class="has-arrow" href="all-courses.html" aria-expanded="false"> <span class="mini-click-non">Specification</span></a>
+                        <li id="specification-nav">
+                            <a class="has-arrow" href="{% url 'dashboard:specification-list' %}" aria-expanded="false"> <span class="mini-click-non">Specification</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="All Specifications" href="{% url 'dashboard:specification-list' %}"><span class="mini-sub-pro">All Specifications</span></a></li>
                                 <li><a title="Add Specification" href="{% url 'dashboard:specification-create' %}"><span class="mini-sub-pro">Add Specification</span></a></li>
                             </ul>
                         </li>
-                        <li>
+                        <li id="product-nav">
                             <a class="has-arrow" href="{% url 'dashboard:product-list' %}" aria-expanded="false"><span class="mini-click-non">Product</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Product List" href="{% url 'dashboard:product-list' %}"><span class="mini-sub-pro">All Products</span></a></li>
                                 <li><a title="Add Product" href="{% url 'dashboard:product-create' %}"><span class="mini-sub-pro">Add Product</span></a></li>
                             </ul>
                         </li>
-                        <li>
+                        <li id="banner-nav">
                             <a class="has-arrow" href="{% url 'dashboard:banner-list' %}" aria-expanded="false"><span class="mini-click-non">Banner Images</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Banners List" href="{% url 'dashboard:banner-list' %}"><span class="mini-sub-pro">All Banner Images</span></a></li>
                                 <li><a title="Add Banner" href="{% url 'dashboard:banner-create' %}"><span class="mini-sub-pro">Add Banner Image</span></a></li>
                             </ul>
                         </li>
-
-                        <li>
+                        <li id="super-nav">
                             <a class="has-arrow" href="{% url 'dashboard:superimage-list' %}" aria-expanded="false"> <span class="mini-click-non">Super Deals Image</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Super Deal Images List" href="{% url 'dashboard:superimage-list' %}"><span class="mini-sub-pro">All Super Deal Images</span></a></li>
                                 <li><a title="Add Super Deal Image" href="{% url 'dashboard:superimage-create' %}"><span class="mini-sub-pro">Add Super Deal Image</span></a></li>
                             </ul>
                         </li>
-
-                        <li>
+                        <li id="offer-nav">
                             <a class="has-arrow" href="{% url 'dashboard:offerimage-list' %}" aria-expanded="false"><span class="mini-click-non">Offer Image</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Departments List" href="{% url 'dashboard:offerimage-list' %}"><span class="mini-sub-pro">All Offer Images</span></a></li>

@@ -75,6 +75,10 @@
         </div>
         {% endblock %}
         {% block scripts %}
+        <script>
+          $("#banner-nav").addClass('active');
+          $("#banner-nav ul").addClass('show');
+        </script>
         <script src="{% static 'dashboard/js/cropper/cropper.min.js' %}"></script>
         <script>
           $(function () {
