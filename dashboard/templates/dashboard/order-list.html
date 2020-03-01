@@ -1,0 +1,102 @@
+{% extends 'dashboard/base.html' %}
+{% block content %}
+        <!-- Static Table Start -->
+        <div class="static-table-area">
+            <div class="container-fluid">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="sparkline12-list mg-b-30">
+                          <div class="sparkline12-hd">
+                              <div class="main-sparkline12-hd">
+                                  <h1>Orders</h1>
+                              </div>
+                          </div>
+                          <div class="sparkline12-graph">
+                              <div class="static-table-list">
+                                  <table class="table hover-table">
+                                      <thead>
+                                          <tr>
+                                              <th>#</th>
+                                              <th>Date Ordered</th>
+                                              <th>First Name</th>
+                                              <th>Last Name</th>
+                                              <th>Username</th>
+                                              <th>Email</th>
+                                              <th>Contact Number</th>
+                                              <th>Country</th>
+                                              <th>City</th>
+                                              <th>Street</th>
+                                              <th>Note</th>
+                                              <th>Action</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for item in order %}
+                                          <tr>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ item.date }}</td>
+                                              <td>{{ item.first_name }}</td>
+                                              <td>{{ item.last_name }}</td>
+                                              <td>{{ item.user.username }}</td>
+                                              <td>{{ item.user.email }}</td>
+                                              <td>{{ item.contact }}</td>
+                                              <td>{{ item.country }}</td>
+                                              <td>{{ item.city }}</td>
+                                              <td>{{ item.street }}</td>
+                                              <td>{{ item.note }}</td>
+                                              <td>
+                                                <a href="{% url 'dashboard:order_detail' item.pk %}" data-toggle="tooltip" title="View"><button class="btn btn-success">View</button></a>
+                                              </td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="sparkline12-list mg-b-30">
+                          <div class="sparkline12-hd">
+                              <div class="main-sparkline12-hd">
+                                  <h1>Requested Products</h1>
+                              </div>
+                          </div>
+                          <div class="sparkline12-graph">
+                              <div class="static-table-list">
+                                  <table class="table hover-table">
+                                      <thead>
+                                          <tr>
+                                              <th>#</th>
+                                              <th>Date Ordered</th>
+                                              <th>Product Name</th>
+                                              <th>Product Type</th>
+                                              <th>Specification</th>
+                                              <th>Contact</th>
+                                              <th>Email</th>
+                                              <th>Name</th>
+                                              <th>Amount</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                          {% for item in requests %}
+                                          <tr>
+                                              <td>{{ forloop.counter }}</td>
+                                              <td>{{ item.date }}</td>
+                                              <td>{{ item.product_name }}</td>
+                                              <td>{{ item.product_type }}</td>
+                                              <td>{{ item.specification }}</td>
+                                              <td>{{ item.contact }}</td>
+                                              <td>{{ item.email }}</td>
+                                              <td>{{ item.name }}</td>
+                                              <td>{{ item.amount }}</td>
+                                          </tr>
+                                          {% endfor %}
+                                      </tbody>
+                                  </table>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+            </div>
+        </div>
+        {% endblock %}

@@ -53,14 +53,14 @@ def brandPopAdd(request, addForm, field):
 
 class DashboardView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_product'
-    template_name = 'admin_panel/product-list.html'
+    template_name = 'dashboard/product-list.html'
     model = Product
     context_object_name = 'product'
     paginate_by = 10
 
 class ProductList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_product'
-    template_name = 'admin_panel/product-list.html'
+    template_name = 'dashboard/product-list.html'
     model = Product
     context_object_name = 'product'
     paginate_by = 10
@@ -79,7 +79,7 @@ def newType(request, *args, **kwargs):
 class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ('add_product')
     model = Product
-    template_name = 'admin_panel/add-product.html'
+    template_name = 'dashboard/add-product.html'
     form_class = ProductForm
 
     def get_context_data(self, *args, **kwargs):
@@ -119,7 +119,7 @@ class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class ProductUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_product'
-    template_name = 'admin_panel/add-product.html'
+    template_name = 'dashboard/add-product.html'
     form_class = ProductForm
     is_update_view = True
 
@@ -173,7 +173,7 @@ class ProductDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 class CategoryList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_category'
-    template_name = 'admin_panel/category-list.html'
+    template_name = 'dashboard/category-list.html'
     model = Category
     context_object_name = 'category'
     paginate_by = 10
@@ -182,7 +182,7 @@ class CategoryList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class CategoryCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'add_category'
     model = Category
-    template_name = 'admin_panel/add-category.html'
+    template_name = 'dashboard/add-category.html'
     form_class = CategoryForm
 
     def get_success_url(self):
@@ -198,7 +198,7 @@ class CategoryDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 class CategoryUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_category'
-    template_name = 'admin_panel/add-category.html'
+    template_name = 'dashboard/add-category.html'
     form_class = CategoryForm
 
     def get_object(self):
@@ -214,7 +214,7 @@ class CategoryUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 
 class BrandList(ListView):
-    template_name = 'admin_panel/brand-list.html'
+    template_name = 'dashboard/brand-list.html'
     model = Brand
     context_object_name = 'brand'
     paginate_by = 10
@@ -223,7 +223,7 @@ class BrandList(ListView):
 class BrandCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'add_brand'
     model = Brand
-    template_name = 'admin_panel/add-brand.html'
+    template_name = 'dashboard/add-brand.html'
     form_class = BrandForm
 
     def get_success_url(self):
@@ -243,7 +243,7 @@ class BrandDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 class BrandUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_brand'
-    template_name = 'admin_panel/add-brand.html'
+    template_name = 'dashboard/add-brand.html'
     form_class = BrandForm
 
     def get_object(self):
@@ -260,7 +260,7 @@ class BrandUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class TypeList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_type'
-    template_name = 'admin_panel/type-list.html'
+    template_name = 'dashboard/type-list.html'
     model = Type
     context_object_name = 'type'
     paginate_by = 10
@@ -269,7 +269,7 @@ class TypeList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class TypeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'add_type'
     model = Type
-    template_name = 'admin_panel/add-type.html'
+    template_name = 'dashboard/add-type.html'
     form_class = TypeForm
 
     def get_success_url(self):
@@ -289,7 +289,7 @@ class TypeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 class TypeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_type'
-    template_name = 'admin_panel/add-type.html'
+    template_name = 'dashboard/add-type.html'
     form_class = TypeForm
 
     def get_object(self):
@@ -306,7 +306,7 @@ class TypeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class BannerList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_bannerimage'
-    template_name = 'admin_panel/banner-list.html'
+    template_name = 'dashboard/banner-list.html'
     model = BannerImage
     context_object_name = 'banner'
     paginate_by = 10
@@ -315,7 +315,7 @@ class BannerList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 class BannerCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'add_bannerimage'
     model = BannerImage
-    template_name = 'admin_panel/add-banner.html'
+    template_name = 'dashboard/add-banner.html'
     form_class = BannerImageForm
 
     def get_success_url(self):
@@ -333,7 +333,7 @@ class BannerDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 class BannerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_bannerimage'
-    template_name = 'admin_panel/add-banner.html'
+    template_name = 'dashboard/add-banner.html'
     form_class = BannerImageForm
 
     def get_object(self):
@@ -350,7 +350,7 @@ class BannerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class SuperImageList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_superimage'
-    template_name = 'admin_panel/super-list.html'
+    template_name = 'dashboard/super-list.html'
     model = SuperImage
     context_object_name = 'superimage'
     paginate_by = 10
@@ -358,7 +358,7 @@ class SuperImageList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class SuperImageAdd(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'add_superimage'
-    template_name = 'admin_panel/add-super.html'
+    template_name = 'dashboard/add-super.html'
     form_class = SuperImageForm
 
     def get_success_url(self):
@@ -371,7 +371,7 @@ class SuperImageAdd(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class SuperImageUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_superimage'
-    template_name = 'admin_panel/add-super.html'
+    template_name = 'dashboard/add-super.html'
     form_class = SuperImageForm
 
     def get_object(self):
@@ -395,7 +395,7 @@ class SuperImageDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 class OfferImageList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_offerimage'
-    template_name = 'admin_panel/offer-list.html'
+    template_name = 'dashboard/offer-list.html'
     model = OfferImage
     context_object_name = 'offerimage'
     paginate_by = 10
@@ -403,7 +403,7 @@ class OfferImageList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class OfferImageAdd(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'add_offerimage'
-    template_name = 'admin_panel/add-offer.html'
+    template_name = 'dashboard/add-offer.html'
     form_class = OfferImageForm
 
     def get_success_url(self):
@@ -416,7 +416,7 @@ class OfferImageAdd(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class OfferImageUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_offerimage'
-    template_name = 'admin_panel/add-offer.html'
+    template_name = 'dashboard/add-offer.html'
     form_class = OfferImageForm
 
     def get_object(self):
@@ -441,7 +441,7 @@ class OfferImageDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 class OrderList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_product'
     model = UserOrder
-    template_name = 'admin_panel/order-list.html'
+    template_name = 'dashboard/order-list.html'
     context_object_name = 'order'
 
     def get_context_data(self, *args, **kwargs):
@@ -455,7 +455,7 @@ class OrderList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class OrderDetail(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
     permission_required = 'add_product'
-    template_name = 'admin_panel/order-detail.html'
+    template_name = 'dashboard/order-detail.html'
 
     def get_context_data(self, *args ,**kwargs):
         context = super(OrderDetail, self).get_context_data(**kwargs)
@@ -468,7 +468,7 @@ class OrderDetail(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
 class SpecificationCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ('add_product')
     model = SpecificationTitle
-    template_name = 'admin_panel/add-specification.html'
+    template_name = 'dashboard/add-specification.html'
     form_class = SpecificationTitleForm
 
     def get_context_data(self, *args, **kwargs):
@@ -499,7 +499,7 @@ class SpecificationCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateVie
 
 class SpecificationUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_product'
-    template_name = 'admin_panel/add-specification.html'
+    template_name = 'dashboard/add-specification.html'
     form_class = SpecificationTitleForm
     is_update_view = True
 
@@ -538,7 +538,7 @@ class SpecificationUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateVie
 class SpecificationList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_product'
     model = SpecificationTitle
-    template_name = 'admin_panel/specification-list.html'
+    template_name = 'dashboard/specification-list.html'
     context_object_name = 'spec'
     paginate_by = 10
 
@@ -553,7 +553,7 @@ class SpecificationDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteVie
 class SpecificationContentList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_product'
     model = SpecificationContent
-    template_name = "admin_panel/spec-content-list.html"
+    template_name = "dashboard/spec-content-list.html"
     context_object_name = 'spec_content'
     paginate_by = 10
 
@@ -583,7 +583,7 @@ def newSpecificationContent(request, *args, **kwargs):
 class AboutCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'add_aboutiteam'
     model = AboutITeam
-    template_name = 'admin_panel/about-iteam.html'
+    template_name = 'dashboard/about-iteam.html'
     form_class = AboutForm
 
     def get_success_url(self):
@@ -592,7 +592,7 @@ class AboutCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 class AboutUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     permission_required = 'change_aboutiteam'
-    template_name = 'admin_panel/about-iteam.html'
+    template_name = 'dashboard/about-iteam.html'
     form_class = AboutForm
 
     def get_object(self):
@@ -605,7 +605,7 @@ class AboutUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class ProductImageList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_product'
-    template_name = 'admin_panel/product-image-list.html'
+    template_name = 'dashboard/product-image-list.html'
     model = ProductImage
     context_object_name = 'images'
     paginate_by = 10
@@ -625,7 +625,7 @@ class ProductImageDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView
 
 class ProductSpecificationList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_product'
-    template_name = 'admin_panel/product-specification-list.html'
+    template_name = 'dashboard/product-specification-list.html'
     model = ProductSpecification
     context_object_name = 'spec'
     paginate_by = 10
