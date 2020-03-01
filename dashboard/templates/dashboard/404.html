@@ -1,4 +1,5 @@
 <!doctype html>
+{% load static %}
 <html class="no-js" lang="">
 
 <head>
@@ -49,7 +50,7 @@
     <link rel="stylesheet" href="{% static 'dashboard/css/calendar/fullcalendar.print.min.css' %}">
     <!-- style CSS
 		============================================ -->
-    <link rel="stylesheet" href="{% static 'dashboard/style.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard/css/style.css' %}">
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="{% static 'dashboard/css/responsive.css' %}">
@@ -67,7 +68,7 @@
 			<div class="content-error">
 				<h1>ERROR <span class="counter"> 404</span></h1>
 				<p>Sorry, but the page you are looking for has not been found. Try checking the URL for the error, then hit the refresh button on your browser or try found something else in our app.</p>
-				<a href="{% url 'dashboard:dashboard' %}">Dashboard</a>
+				<a href="{% url 'product:index' %}">Dashboard</a>
 				<!-- <a href="#">Report Problem</a> -->
 			</div>
 		</div>

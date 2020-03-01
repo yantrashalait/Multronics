@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from .models import *
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
@@ -9,6 +9,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
+from django.template import RequestContext
+
+
+def handler404(request, *args, **argv):
+    response = render_to_response('dashboard/404.html')
+    response.status_code = 404
+    return response
+
+def handler500(request, *args, **argv):
+    response = render_to_response('dashboard/500.html')
+    response.status_code = 500
+    return response
 
 
 def index(request):
