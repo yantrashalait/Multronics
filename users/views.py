@@ -9,7 +9,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.template.loader import render_to_string
 from .signup_tokens import account_activation_token
 from django.conf import settings
-from django.contrib.auth.models import User 
+from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest, HttpResponseRedirect
@@ -51,8 +51,8 @@ def register(request):
                 'username': username,
                 'email': email,
             })
-    else:        
-        form = UserRegisterForm()        
+    else:
+        form = UserRegisterForm()
         return render(request, 'users/register.html', {'form': form})
 
 
@@ -87,10 +87,8 @@ class ProfileCreate(LoginRequiredMixin, CreateView):
     form_class = UserProfileForm
 
     def form_valid(self, form):
-        profile = form.save(commit=False)
-        profile.user = self.request.user
-        profile.save()
-        return super().form_valid(form)
+        form.instance.user = self.request.user
+        return super(ProfileCreate, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('users:profile', kwargs={'pk': self.request.user.pk})

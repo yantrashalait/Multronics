@@ -56,13 +56,13 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-        
+
     def save(self):
         if self.previous_price and self.previous_price > self.new_price:
             offer = round(((int(self.previous_price) - int(self.new_price)) / int(self.previous_price)), 2)* 100
             self.offer_tag = offer
         super(Product, self).save()
-            
+
 
 
 class ProductImage(models.Model):
@@ -116,7 +116,7 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.user.username + ' ' + self.product.name
-    
+
 
 class UserBargain(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='bargain', on_delete=models.CASCADE)
@@ -130,7 +130,7 @@ class UserBargain(models.Model):
 class UserRequestProduct(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     product_name = models.CharField(max_length=255)
-    product_type = models.CharField(max_length=100, help_text=('e.g., Laptop, Desktop'),  null=True, blank=True) 
+    product_type = models.CharField(max_length=100, help_text=('e.g., Laptop, Desktop'),  null=True, blank=True)
     specification = models.TextField()
     contact_number = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(max_length=100,  null=True, blank=True)
@@ -206,14 +206,14 @@ class ProductSpecification(models.Model):
 
 class AboutITeam(models.Model):
     contact1 = models.CharField(max_length=100, default='')
-    contact2 = models.CharField(max_length=100, default='')
-    contact3 = models.CharField(max_length=100, default='')
+    contact2 = models.CharField(max_length=100, null=True, blank=True)
+    contact3 = models.CharField(max_length=100, null=True, blank=True)
     email = models.CharField(max_length=100)
     logo = models.ImageField(upload_to="logo/", help_text="Image size: width=192px height=31px")
-    address = models.CharField(max_length=255, default='')
-    facebook_link = models.CharField(max_length=255, default='')
-    instagram_link = models.CharField(max_length=255, default='')
-    youtube_link = models.CharField(max_length=255, default='')
+    address = models.CharField(max_length=255, null=True, blank=True)
+    facebook_link = models.CharField(max_length=255, null=True, blank=True)
+    instagram_link = models.CharField(max_length=255, null=True, blank=True)
+    youtube_link = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.email
@@ -230,19 +230,19 @@ def product_notify(sender, instance, created, **kwargs):
                 user_mail.append(item.user.email)
                 if not Notification.objects.filter(user=item.user, product=item.product).exists():
                     Notification.objects.create(
-                        user=item.user, 
-                        date=datetime.now(), 
+                        user=item.user,
+                        date=datetime.now(),
                         product = item.product,
                         title='Product Available',
                         description='Product ' + item.product.name + ' is available on stock now.')
             # send_mail(
-            #     'Product Available', 
-            #     'Product' + instance.name + 'is not available on stock.', 
+            #     'Product Available',
+            #     'Product' + instance.name + 'is not available on stock.',
             #     'support@iteam.com.np',
             #     [user_mail],
             #     fail_silently=False
             # )
-                    
+
 
     # check if price has reduced
     if instance.previous_price:
@@ -252,8 +252,8 @@ def product_notify(sender, instance, created, **kwargs):
                 for item in users:
                     if not Notification.objects.filter(user=item.user, product = item.product).exists():
                         Notification.objects.create(
-                                user=item.user, 
-                                date=datetime.now(), 
+                                user=item.user,
+                                date=datetime.now(),
                                 product = item.product,
                                 title='Price Drop',
                                 description='Product ' + item.product.name + ' is now available at ' + instance.new_price)

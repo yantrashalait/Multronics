@@ -23,8 +23,7 @@ def index(request):
     gaming = Product.objects.filter(product_type__brand_type__icontains="gam")
     business = Product.objects.filter(product_type__brand_type__icontains="busi")
     economic = Product.objects.filter(product_type__brand_type__icontains="eco")
-    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand, 
-    'superimage': superimages, 'offerimage': offerimages, 'banner': banner, 'category': category, 'gaming': gaming, 'business': business, 'economic': economic})
+    return render(request, 'product/index.html', {'super_deals': super_deals, 'most_viewed':most_viewed, 'offer':offer, 'brand':brand, 'superimage': superimages, 'offerimage': offerimages, 'banner': banner, 'category': category, 'gaming': gaming, 'business': business, 'economic': economic})
 
 
 class NotificationListView(LoginRequiredMixin, ListView):
@@ -48,11 +47,11 @@ class CartListView(LoginRequiredMixin, ListView):
             return Cart.objects.filter(removed=False, product__visibility=True).order_by('-date')
         else:
             return Cart.objects.filter(user_id=self.kwargs.get('pk'), removed=False, product__visibility=True).order_by('-date')
-    
+
     def post(self, request, *args, **kwargs):
         _id = self.request.POST.get('delete')
         cart = Cart.objects.get(pk=_id)
-        cart.removed = True 
+        cart.removed = True
         cart.save()
         return render(request, self.template_name, {'carts': self.get_queryset()})
 
@@ -67,11 +66,11 @@ class WaitListView(LoginRequiredMixin, ListView):
             return WaitList.objects.filter(removed=False, product__visibility=True).order_by('-date')
         else:
             return WaitList.objects.filter(user_id=self.kwargs.get('pk'), removed=False).order_by('-date')
-    
+
     def post(self, request, *args, **kwargs):
         _id = self.request.POST.get('delete')
         wait = WaitList.objects.get(pk=_id)
-        wait.removed = True 
+        wait.removed = True
         wait.save()
         return render(request, self.template_name, {'waitlists': self.get_queryset()})
 
@@ -111,7 +110,7 @@ class ProductList(ListView):
     # def get_context_data(self,**kwargs):
     #     context = super(ProductList,self).get_context_data(**kwargs)
     #     return context
-      
+
 
 class ProductDetail(DetailView):
     model = Product
@@ -269,14 +268,14 @@ def search_product(request):
 
         if search:
             match = Product.objects.filter(Q(name__icontains=search) | Q(product_type__brand_type__icontains=search) | Q(category__name__icontains=search) | Q(brand__name__icontains=search), visibility=True)
-                
+
             if match:
                 return render(request, 'product/product-list.html', {'product':match})
             else:
                 messages.error(request, 'no result found')
         else:
             return HttpResponseRedirect('/')
-    
+
     return render (request, 'product/product-list.html')
 
 def subscription(request):
@@ -284,7 +283,7 @@ def subscription(request):
         subscribe = request.POST.get('subs')
         Subscription.objects.get_or_create(email=subscribe)
     return HttpResponseRedirect('/')
-    
+
 class RequestProduct(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = 'request_product'
     model = UserRequestProduct
@@ -323,9 +322,9 @@ class OrderView(LoginRequiredMixin, CreateView):
         c = Cart.objects.filter(user_id=self.request.user.pk, removed=False)
         for item in c:
             order.cart.add(item)
-        
+
         Cart.objects.filter(user_id=self.request.user.pk).update(removed=True)
-        
+
         return render(request, 'product/success_order.html')
 
 
@@ -334,7 +333,7 @@ class LaptopPriceListView(ListView):
     context_object_name = 'product'
     model = Product
     paginate_by = 20
-        
+
     def get_queryset(self, *args, **kwargs):
         brand_name = self.kwargs.get('brand_name')
         brand_name = brand_name.replace("_", " ")
@@ -343,7 +342,7 @@ class LaptopPriceListView(ListView):
 
 class ContactView(TemplateView):
     template_name = 'product/contact.html'
-    
+
     def get_context_data(self, *args, **kwargs):
         context = super(ContactView, self).get_context_data(**kwargs)
         context['about'] = AboutITeam.objects.last()

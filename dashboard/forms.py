@@ -13,11 +13,26 @@ class ProductForm(forms.ModelForm):
     height = forms.FloatField(widget=forms.HiddenInput(), required=False)
     brand = forms.ModelChoiceField(Brand.objects, widget=SelectWithPop)
     product_type = forms.ModelChoiceField(Type.objects, widget=SelectWithPop)
-    
+
     class Meta:
-        model = Product 
+        model = Product
         fields = ['name', 'description', 'previous_price', 'new_price', 'category', 'brand', 'product_type', 'super_deals', 'offer', 'availability', 'main_image', 'visibility', 'x', 'y', 'width', 'height']
-    
+
+    def __init__(self, *args, **kwargs):
+        super(ProductForm, self).__init__(**kwargs)
+        self.fields['name'].widget.attrs['class'] = 'form-control'
+        self.fields['description'].widget.attrs['class'] = 'form-control'
+        self.fields['previous_price'].widget.attrs['class'] = 'form-control'
+        self.fields['new_price'].widget.attrs['class'] = 'form-control'
+        self.fields['category'].widget.attrs['class'] = 'form-control'
+        self.fields['brand'].widget.attrs['class'] = 'form-control'
+        self.fields['product_type'].widget.attrs['class'] = 'form-control'
+        self.fields['super_deals'].widget.attrs['class'] = 'form-control'
+        self.fields['offer'].widget.attrs['class'] = 'form-control'
+        self.fields['availability'].widget.attrs['class'] = 'form-control'
+        self.fields['main_image'].widget.attrs['class'] = 'form-control'
+        self.fields['visibility'].widget.attrs['class'] = 'form-control'
+
     def save(self):
         photo = super(ProductForm, self).save()
         x = self.cleaned_data.get('x')
@@ -41,7 +56,12 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ['name', 'category_image', 'x', 'y', 'width', 'height']
-    
+
+    def __init__(self, *args, **kwargs):
+        super(CategoryForm, self).__init__(*args, **kwargs)
+        self.fields['name'].widget.attrs['class'] = 'form-control'
+        self.fields['category_image'].widget.attrs['class'] = 'form-control'
+
     def save(self):
         photo = super(CategoryForm, self).save()
 
@@ -66,8 +86,13 @@ class BrandForm(forms.ModelForm):
     class Meta:
         model = Brand
         fields = ['category', 'name', 'brand_image', 'x', 'y', 'width', 'height']
-    
-    
+
+    # def __init__(self, *args, **kwargs):
+    #     super(BrandForm, self).__init__(**kwargs)
+    #     self.fields['name'].widget.attrs.update({'class': 'form-control'})
+    #     self.fields['category'].widget.attrs.update({'class': 'form-control'})
+    #     self.fields['brand_image'].widget.attrs.update({'class': 'form-control'})
+
     def save(self):
         photo = super(BrandForm, self).save()
 
@@ -86,7 +111,7 @@ class BrandForm(forms.ModelForm):
 class TypeForm(forms.ModelForm):
     class Meta:
         model = Type
-        fields = ['brand_type']
+        fields = ('brand_type', )
 
 
 class BannerImageForm(forms.ModelForm):
@@ -98,6 +123,10 @@ class BannerImageForm(forms.ModelForm):
     class Meta:
         model = BannerImage
         fields = ['image', 'x', 'y', 'width', 'height']
+
+    def __init__(self, *args, **kwargs):
+        super(BannerImageForm, self).__init__(**kwargs)
+        self.fields['image'].widget.attrs.update({'class': 'form-control'})
 
     def save(self, *args, **kwargs):
         photo = super(BannerImageForm, self).save()
@@ -117,7 +146,7 @@ class BannerImageForm(forms.ModelForm):
 class ProductSpecificationForm(forms.ModelForm):
     title = forms.ModelChoiceField(SpecificationTitle.objects, widget=SelectWithPop)
     content = forms.ModelChoiceField(SpecificationContent.objects, widget=SelectWithPop)
-    
+
     class Meta:
         model = ProductSpecification
         fields = ['title', 'content']
@@ -136,13 +165,13 @@ class ProductImageForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProductImageForm, self).__init__(*args, **kwargs)
-        self.fields['big_image'].widget.attrs['class'] = 'big_image_class'
-        self.fields['thumbnail_image'].widget.attrs['class'] = 'thumb_image_class'
+        self.fields['big_image'].widget.attrs.update({'class': 'big_image_class'})
+        self.fields['thumbnail_image'].widget.attrs.update({'class': 'thumb_image_class'})
 
     class Meta:
         model = ProductImage
         fields = ['big_image', 'thumbnail_image', 'x_main', 'y_main', 'width_main', 'height_main', 'x_thumb', 'y_thumb', 'width_thumb', 'height_thumb']
-    
+
     def save(self, commit=True):
         photo = super(ProductImageForm, self).save(commit=False)
 
@@ -161,7 +190,7 @@ class ProductImageForm(forms.ModelForm):
             cropped_image = image.crop((x_main, y_main, w_main+x_main, h_main+y_main))
             resized_image = cropped_image.resize((700, 700), Image.ANTIALIAS)
             resized_image.save(photo.big_image.path)
-        
+
         if x_thumb is not None and y_thumb is not None:
             image = Image.open(photo.thumbnail_image)
             cropped_image = image.crop((x_thumb, y_thumb, w_thumb + x_thumb, h_thumb + y_thumb))
@@ -186,6 +215,11 @@ class SuperImageForm(forms.ModelForm):
     class Meta:
         model = SuperImage
         fields = ['name', 'super_image', 'x', 'y', 'width', 'height']
+
+    def __init__(self, *args, **kwargs):
+        super(SuperImageForm, self).__init__(**kwargs)
+        self.fields['name'].widget.attrs['class'] = 'form-control'
+        self.fields['super_image'].widget.attrs['class'] = 'form-control'
 
     def save(self):
         photo = super(SuperImageForm, self).save()
@@ -212,6 +246,11 @@ class OfferImageForm(forms.ModelForm):
         model = OfferImage
         fields = ['name', 'offer_image', 'x', 'y', 'width', 'height']
 
+    def __init__(self, *args, **kwargs):
+        super(OfferImageForm, self).__init__(**kwargs)
+        self.fields['name'].widget.attrs['class'] = 'form-control'
+        self.fields['offer_image'].widget.attrs['class'] = 'form-control'
+
     def save(self):
         photo = super(OfferImageForm, self).save()
 
@@ -230,13 +269,14 @@ class OfferImageForm(forms.ModelForm):
 class SpecificationTitleForm(forms.ModelForm):
     class Meta:
         model = SpecificationTitle
-        fields = ['title']
+        fields = ('title',)
 
 
 class SpecificationContentForm(forms.ModelForm):
     class Meta:
         model = SpecificationContent
-        fields = ['title', 'content']
+        fields = ('title', 'content')
+
 
 SpecificationContentFormset = inlineformset_factory(SpecificationTitle, SpecificationContent, form=SpecificationContentForm, fields=['title', 'content'], extra=1, max_num=20)
 
@@ -264,4 +304,3 @@ class AboutForm(forms.ModelForm):
             resized_image = cropped_image.resize((192, 31), Image.ANTIALIAS)
             resized_image.save(photo.logo.path)
         return photo
-    

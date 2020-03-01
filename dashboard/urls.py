@@ -52,20 +52,24 @@ urlpatterns = [
     path('offerimage/<int:pk>/update/', views.OfferImageUpdate.as_view(), name='offerimage-update'),
     path('offerimage/<int:pk>/delete/', views.OfferImageDelete.as_view(), name='offerimage-delete'),
 
-    path('favourite/list/', views.FavouriteView.as_view(), name='favourite-list'),
-    path('waitlist/list/', views.WaitListView.as_view(), name='wait-list'),
-    path('bargain/list/', views.BargainView.as_view(), name='bargain-list'),
-
     path('order/list/', views.OrderList.as_view(), name='order-list'),
     path('order/detail/<int:pk>/', views.OrderDetail.as_view(), name='order_detail'),
-    path('request/list/', views.RequestView.as_view(), name='request-list'),
 
     path('specification/list', views.SpecificationList.as_view(), name='specification-list'),
     path('specification/add', views.SpecificationCreate.as_view(), name='specification-create'),
     path('specification/<int:pk>/update', views.SpecificationUpdate.as_view(), name="specification-update"),
-    
-    path('about/list/', views.AboutList.as_view(), name='about-list'),
+    path('specification/<int:pk>/delete', views.SpecificationDelete.as_view(), name="specification-delete"),
+
+    path('specification/<int:pk>/content/list', views.SpecificationContentList.as_view(), name="specification-content-list"),
+    path('specification/<int:spec_id>/content/<int:pk>/delete', views.SpecificationContentDelete.as_view(), name="specification-content-delete"),
+
     path('about/create/', views.AboutCreate.as_view(), name='about-create'),
-    path('about/<int:pk>/delete/', views.AboutDelete.as_view(), name='about-delete'),
     path('about/<int:pk>/update/', views.AboutUpdate.as_view(), name='about-update'),
+
+    path('product/<int:pk>/image/list/', views.ProductImageList.as_view(), name="product-images-list"),
+    path('product/<int:product_id>/image/<int:pk>/delete/', views.ProductImageDelete.as_view(), name="product-image-delete"),
+    path('product/<int:pk>/specification/list/', views.ProductSpecificationList.as_view(), name="product-specification-list"),
+    path('product/<int:product_id>/specification/<int:pk>/delete/', views.ProductSpecificationDelete.as_view(), name="product-specification-delete"),
+    # path('product/<int:product_id>/specification/<int:pk>/edit', views.ProductSpecificationEdit.as_view(), name="product-specification-edit"),
+
 ]

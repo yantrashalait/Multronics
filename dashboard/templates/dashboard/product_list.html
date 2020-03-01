@@ -44,7 +44,7 @@
                             <div class="blog-pagination">
                                 <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
                                 <ul class="flat-pagination style1">
-                                    
+
                                     {% if page_obj.has_previous %}
                                     <li class="prev">
                                         <a href="?page={{ page_obj.previous_page_number }}" title="">

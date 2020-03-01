@@ -14,7 +14,11 @@
                     <div class="prd_add fields-content">
                         <form method="POST">
                             {% csrf_token %}
-                            <p>Do you really want to delete "{{ object }}"</p>
+                            <div class="fm-ls sm-mb">
+                                <label>Do you really want to delete "{{ object }}"</label>
+                                {{ form.name }}
+                            </div>
+                            <p></p>
                             <div class="sbtprd">
                                 <button type="submit">Confirm</button>
                             </div>
