@@ -95,6 +95,7 @@
                                                       {{ imageform.management_form }}
                                                         <div class="devit-card-custom" id="imageformset">
                                                             {% for form in imageform.forms %}
+                                                            {{ form.id }}
                                                               <div class="form-group">
                                                                   <label>Select an image. *</label>
                                                                   {{ form.big_image }}
@@ -157,6 +158,7 @@
                                                   {{ specificationform.management_form }}
                       														<div class="devit-card-custom" id="specificationformset">
                                                     {% for form in specificationform.forms %}
+                                                    {{ form.id }}
                       															<div class="form-group">
                                                       <label>Choose a specification title *</label>
                       																{{ form.title|add_class:"form-control title_class" }}
