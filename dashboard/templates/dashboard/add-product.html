@@ -168,8 +168,9 @@
                                                     <hr>
                                                     {% endfor %}
                       														</div>
+                                                  <button class="btn btn-primary" type="button" id="specificationadd">Add More Specifications</button>
                       													</div>
-                                                <div id="imageempty_form" style="display:none">
+                                                <div id="specempty_form" style="display:none">
                                                     {% with specificationform.empty_form as form %}
                                                     {{ form.id }}
                                                     <div class="form-group">
@@ -465,6 +466,7 @@
                 });
 
                 $('#specificationadd').click(function() {
+                  console.log('adsadsad');
 
                     var form_idx = $('#id_specform-TOTAL_FORMS').val();
                     $('#specificationformset').append($('#specempty_form').html().replace(/__prefix__/g, form_idx));
