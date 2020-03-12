@@ -22,232 +22,18 @@
                     <div class="section_heading">
                         <div class="sectionheading_cont">
                             <div class="sectionttl">
-                                <h2>Most Viewed</h2>
+                                <h2>Newly Arrived</h2>
                             </div>
                             <div class="vi_all_prd_caro">
-                                <a href="{% url 'product:product-most-viewed-list'  %}">View All</a>
+                                <a href="{% url 'product:product-offer-list'  %}">View All</a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="featured_caro itms_caro owl-carousel owl-theme">
-                        {% with most_viewed|separate_two as items %}
-                            {% for counts in items %}
-                            <div class="item">
-                                {% with most_viewed|block_viewed:forloop.counter as populars %}
-                                    {% for item in populars %}
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
-                                                {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
-                                                <span class="price">Rs.{{ item.new_price }}</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
-                                                {% if item|check_favourite:request.user.pk %}
-                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% else %}
-                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% endwith %}
-                            </div>
-                            {% endfor %}
-                        {% endwith %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% if gaming %}
-<section class="caro_products">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="featured_caro_holder brdr_bx">
-                    <div class="section_heading">
-                        <div class="sectionheading_cont">
-                            <div class="sectionttl">
-                                <h2>Gaming Series</h2>
-                            </div>
-                            <div class="vi_all_prd_caro">
-                                <a href="{% url 'product:product-type-list' gaming.0.product_type.id %}">View All</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="featured_caro itms_caro owl-carousel owl-theme">
-                        {% with gaming|separate_two as items %}
-                            {% for counts in items %}
-                            <div class="item">
-                                {% with gaming.0.product_type|block_type:forloop.counter as type_laptops %}
-                                    {% for item in type_laptops %}
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
-                                                {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
-                                                <span class="price">Rs.{{ item.new_price }}</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
-                                                {% if item|check_favourite:request.user.pk %}
-                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% else %}
-                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% endwith %}
-                            </div>
-                            {% endfor %}
-                        {% endwith %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-{% if business %}
-<section class="caro_products">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="featured_caro_holder brdr_bx">
-                    <div class="section_heading">
-                        <div class="sectionheading_cont">
-                            <div class="sectionttl">
-                                <h2>Business Series</h2>
-                            </div>
-                            <div class="vi_all_prd_caro">
-                                <a href="{% url 'product:product-type-list' business.0.product_type.id  %}">View All</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="featured_caro itms_caro owl-carousel owl-theme">
-                        {% with business|separate_two as items %}
-                            {% for counts in items %}
-                            <div class="item">
-                                {% with business.0.product_type|block_type:forloop.counter as type_laptops %}
-                                    {% for item in type_laptops %}
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
-                                                {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
-                                                <span class="price">Rs.{{ item.new_price }}</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
-                                                {% if item|check_favourite:request.user.pk %}
-                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% else %}
-                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% endwith %}
-                            </div>
-                            {% endfor %}
-                        {% endwith %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-{% if economic %}
-<section class="caro_products">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="featured_caro_holder brdr_bx">
-                    <div class="section_heading">
-                        <div class="sectionheading_cont">
-                            <div class="sectionttl">
-                                <h2>Economic Series</h2>
-                            </div>
-                            <div class="vi_all_prd_caro">
-                                <a href="{% url 'product:product-type-list' economic.0.product_type.id %}">View All</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="featured_caro itms_caro owl-carousel owl-theme">
-                        {% with economic|separate_two as items %}
-                            {% for counts in items %}
-                            <div class="item">
-                                {% with economic.0.product_type|block_type:forloop.counter as type_laptops %}
-                                    {% for item in type_laptops %}
-                                        <div class="list_prd_itm text-center">
-                                            <div class="prd_img">
-                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
-                                            </div>
-                                            <div class="prd_infos">
-                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
-                                                {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
-                                                <span class="price">Rs.{{ item.new_price }}</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
-                                                {% if item|check_favourite:request.user.pk %}
-                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% else %}
-                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    {% endfor %}
-                                {% endwith %}
-                            </div>
-                            {% endfor %}
-                        {% endwith %}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-{% endif %}
-<section class="caro_products">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="featured_caro_holder brdr_bx">
-                    <div class="section_heading">
-                        <div class="sectionheading_cont">
-                            <div class="sectionttl">
-                                <h2>Super Deals</h2>
-                            </div>
-                            
-                            <div class="vi_all_prd_caro">
-                                <a href="{% url 'product:product-super-deals-list'  %}">View All</a>
-                            </div>
-                           
                         </div>
                     </div>
                     <div class="thumimg_caro_itms">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="thumimg_for_caro">
-                                    <img src="{{ superimage.super_image.url }}" alt="">
-                                </div>
-                            </div>
-
                             <div class="col-md-8">
                                 <div class="thumimg_caro itms_caro owl-carousel owl-theme">
-                                    {% for item in super_deals %}
+                                    {% for item in offer %}
                                     <div class="item">
                                         <div class="list_prd_itm text-center">
                                             <div class="prd_img">
@@ -257,14 +43,6 @@
                                                 <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
                                                 {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
                                                 <span class="price">Rs.{{ item.new_price }}</span>
-                                            </div>
-                                            <div class="prd_actions">
-                                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
-                                                {% if item|check_favourite:request.user.pk %}
-                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% else %}
-                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
@@ -278,9 +56,7 @@
             </div>
         </div>
     </div>
-    </div>
 </section>
-
 <section class="caro_products">
     <div class="container">
         <div class="row">
@@ -298,12 +74,6 @@
                     </div>
                     <div class="thumimg_caro_itms">
                         <div class="row">
-                            <div class="col-md-4">
-                                <div class="thumimg_for_caro">
-                                    <img src="{{ offerimage.offer_image.url }}" alt="">
-                                </div>
-                            </div>
-
                             <div class="col-md-8">
                                 <div class="thumimg_caro itms_caro owl-carousel owl-theme">
                                     {% for item in offer %}
@@ -317,17 +87,9 @@
                                                 {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
                                                 <span class="price">Rs.{{ item.new_price }}</span>
                                             </div>
-                                            <div class="prd_actions">
-                                                    <a href="{% url 'product:product-detail' item.pk %}"><button class="addtocart">Add To Cart</button></a>
-                                                {% if item|check_favourite:request.user.pk %}
-                                                    <button class="addwhislist" p_id={{ item.pk }} style="background: #ff8202"><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% else %}
-                                                    <button class="addwhislist" p_id={{ item.pk }}><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-                                                {% endif %}
-                                            </div>
                                         </div>
                                     </div>
-                                    {% endfor %} 
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -337,34 +99,51 @@
             </div>
         </div>
     </div>
-    </div>
 </section>
-<section class="offers_ads">
+{% for item in category %}
+<section class="caro_products">
     <div class="container">
         <div class="row">
-            {% for item in brand %}
-            <div class="col-lg-4">
-                <div class="ban_ads_sml">
-                    <div class="sml_ad_img">
-                        {% if item.brand_image %}
-                            <img src="{{ item.brand_image.url }}" alt="">
-                        {% else %}
-                            <img src="{% static 'images/cameras.jpg' %}" alt="">
-                        {% endif %}
-                    </div>
-                    <div class="sml_ad_txt_hldr">
-                        <div class="sml_ad_txt">
-                            <span class="sml_adt_ttl">{{ item.name }} Laptops price in Nepal</span>
-                            <a href="{% url 'product:laptop-price-in-nepal' item.name|space_to_underscore  %}">Shop Now <i class="fa fa-angle-right" aria-hidden="true"></i></a>
+            <div class="col-md-12">
+                <div class="featured_caro_holder brdr_bx">
+                    <div class="section_heading">
+                        <div class="sectionheading_cont">
+                            <div class="sectionttl">
+                                <h2>{{ item.name }}s</h2>
+                            </div>
+                            <div class="vi_all_prd_caro">
+                                <a href="{% url 'product:product-category-list' item.id %}">View All</a>
+                            </div>
                         </div>
+                    </div>
+                    <div class="featured_caro itms_caro owl-carousel owl-theme">
+                        {% with item.product_category.all|separate_two as items %}
+                            {% for counts in items %}
+                            <div class="item">
+                                {% with item|block_category:forloop.counter as category_laptops %}
+                                    {% for item in category_laptops %}
+                                        <div class="list_prd_itm text-center">
+                                            <div class="prd_img">
+                                                <a href="{% url 'product:product-detail' item.pk %}"><img src="{{ item.main_image.url }}" alt=""></a>
+                                            </div>
+                                            <div class="prd_infos">
+                                                <h3> <a href="{% url 'product:product-detail' item.pk %}">{{ item.name }}</a></h3>
+                                                {% if item.previous_price %}<span class="price_old">Rs. {{ item.previous_price }}</span>{% endif %}
+                                                <span class="price">Rs.{{ item.new_price }}</span>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% endwith %}
+                            </div>
+                            {% endfor %}
+                        {% endwith %}
                     </div>
                 </div>
             </div>
-            {% endfor %}
         </div>
     </div>
 </section>
-
+{% endfor %}
 <section class="caro_products brands">
     <div class="container">
         <div class="row">
@@ -380,51 +159,25 @@
                             </div> -->
                         </div>
                     </div>
-                    
+
                     <div class="brand_caro itms_caro owl-carousel owl-theme">
                             {% for item in brand %}
                         <div class="item">
-                            
+
                             <a href="{% url 'product:product-brand-list' item.pk %}">
                                 {% if item.brand_image %}
-                                
+
                                 <img src="{{ item.brand_image.url }}" alt="">
                                 {% endif %}
                             </a>
-                            
+
                         </div>
                         {% endfor %}
                     </div>
-                  
+
                 </div>
             </div>
         </div>
     </div>
 </section>
-{% endblock %}
-
-{% block scripts %}
-<script>
-    $(".addwhislist").click(function(){
-        // var base_url = "http://localhost:8000/";
-        var base_url = "http://iteam.com.np/";
-        var product_id = $(this).attr('p_id');
-        var fav_item = $(this);
-
-        $.ajax({
-            url: '/favourite/add',
-            data: {
-                'pk': product_id,
-            },
-
-            success: function(data){
-                fav_item.css("background", "#ff8202");
-            },
-
-            error: function(data){
-                window.location.replace(base_url + "login/");
-            }
-        });
-    });
-</script>
 {% endblock %}

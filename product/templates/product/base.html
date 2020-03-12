@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/cropper.css' %}">
-    
+
 
     <!-- Plugins css -->
     <link rel="stylesheet" href="{% static 'css/plugins.css' %}">
@@ -46,7 +46,7 @@
                         <span class="menu_cat_name">
                             <span class="menu_icn">
                             <i class="fa fa-bars"></i>
-                            </span> All Laptops
+													</span> All Products
                         </span>
                         </a>
                     </li>
@@ -55,7 +55,7 @@
                             <span class="menu_cat_name">
                                 <span class="menu_icn">
                                 <i class="fa fa-bars"></i>
-                                </span> Laptops By Brand
+															</span> Products By Brand
                             </span>
                             <span class="sh_hd_accor_cont">
                                 <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -71,51 +71,8 @@
                             </ul>
                         </div>
                     </li>
-                    <li>
-                        <div class="clk_show_dh_catlist">
-                            <span class="menu_cat_name">
-                                <span class="menu_icn">
-                                    <i class="fa fa-bars"></i>
-                                </span> Laptops By Types
-                            </span>
-                            <span class="sh_hd_accor_cont">
-                                <i class="fa fa-caret-down" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                        <div class="pg_links_cat">
-                            <ul class="accor_lowlvl">
-                                {% for item in menu_types %}
-                                <li>
-                                    <a href="{% url 'product:product-type-list' item.pk %}">{{ item.brand_type }}</a>
-                                </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </li>
                 </ul>
             </div>
-            <!-- <div class="mb_btm_menus">
-                <ul>
-                    <li>
-                        <a href="#">Groceries</a>
-                    </li>
-                    <li>
-                        <a href="#">Cakes & Gifts</a>
-                    </li>
-                    <li>
-                        <a href="#">Home & Living</a>
-                    </li>
-                    <li>
-                        <a href="#">Groceries</a>
-                    </li>
-                    <li>
-                        <a href="#">Cakes & Gifts</a>
-                    </li>
-                    <li>
-                        <a href="#">Home & Living</a>
-                    </li>
-                </ul>
-            </div> -->
         </div>
     </div>
 
@@ -124,13 +81,6 @@
 
 
     <header class="main_header">
-        <div class="req__item">
-            <div class="text-center req__content">
-                <div class="req__item__text__hldr">
-                    <span class="req__text">...order a Product Not Found Here</span><a href="{% url 'product:request-product' %}">Request An Item</a> 
-                </div>
-            </div>
-        </div>
         <div class="rsp_srch_bx_hldr">
             <span class="rsp_srch_close">x</span>
             <form method="POST" action="{% url 'product:search-product' %}">
@@ -142,10 +92,10 @@
                     </div>
                 </div>
             </form>
-        </div>    
+        </div>
         <div class="header-2">
             <div class="container">
-                <div class="header_contnt">                
+                <div class="header_contnt">
                     <!-- responsive toggle main menu -->
                     <div class="resp_tggl_main_menu">
                         <span class="menu_bar"></span>
@@ -159,32 +109,25 @@
                                 {% else %}
                                     <img src="{% static 'images/newlogo.png' %}"></a>
                                 {% endif %}
+														</a>
                         </div>
                     </div>
                     <div class="header_right">
                         <div class="header_right_left">
                             <div class="hd_rgt_lft_hldr">
-                                
+
                                 <div class="new-cn-inf">
                                     <div class="cnt_infos">
                                         <span class="cnt_infs_lst">
-                                               <i class="fa fa-phone "> </i> Hotline: {{ about.contact1 }}{% if about.contact2 %}, {{ about.contact2 }}{% endif %}{% if about.contact3 %}{{about.contact3}}{% endif %}
+                                               <i class="fa fa-phone "> </i> Hotline: {{ about.contact1 }}{% if about.contact2 %}, {{ about.contact2 }}{% endif %}{% if about.contact3 %}, {{about.contact3}}{% endif %}
                                                </span>
                                         <span class="cnt_infs_lst">
                                                <i class="fa fa-envelope"> </i>Email: {{ about.email }}
                                                </span>
                                     </div>
-                                    <div class="flt-lft-lr">
-                                        {% if request.user.is_authenticated %}
-                                            <a href="{% url 'logout' %}">Logout</a>
-                                        {% else %}
-                                            <a href="{% url 'login' %}">Login</a> /
-                                            <a href="{% url 'users:register' %}">Register</a>
-                                        {% endif %}
-                                    </div>
                                 </div>
                                 <div class="srchfrm_hdr">
-                                    
+
                                         <form method="POST" action="{% url 'product:search-product' %}">
                                             {% csrf_token %}
                                         <div class="input-groups ">
@@ -194,11 +137,11 @@
                                             </div>
                                         </div>
                                         </form>
-                                    
+
                                 </div>
                             </div>
-                        </div>                    
-                        <div class="header_right_prt">                        
+                        </div>
+                        <div class="header_right_prt">
                                     <div class="cart_whis_noti">
                                         <!-- RESPONSIVE SEARCH DIV -->
                                         <div class="resp_srch">
@@ -207,297 +150,6 @@
                                             </span>
                                         </div>
                                         <!-- RESPONSIVE SEARCH DIV -->
-                                        <div class="hd_wishlist shop_itm">                                    
-                                            <div class="clk_for_dropdwn fabclick"></div>
-                                            <span class="shop_itm_txt">
-                                                <a href="#">
-                                                <i class="fa fa-heart" aria-hidden="true"></i>
-                                                <!-- <span class="shp_itm_indic">2</span> -->
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="hd_cart shop_itm">
-                                            <div class="clk_for_dropdwn cartclick"></div>
-                                            <span class="shop_itm_txt">
-                                                <a href="#">
-                                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                                                <!-- <span class="shp_itm_indic">2</span> -->
-                                                </a>
-                                            </span>
-                                        </div>
-                                        <div class="hd_noti shop_itm">
-                                            <div class="clk_for_dropdwn hd_notofi"></div>
-                                            <span class="shop_itm_txt">
-                                                <a href="#">
-                                                <i class="fa fa-bell" aria-hidden="true"></i>
-                                                <!-- <span class="shp_itm_indic">2</span> -->
-                                                </a>
-                                            </span>
-                                        </div>
-                                        {% if request.user.is_authenticated %}
-                                            <div class="hd_prof shop_itm">
-                                                <span class="shop_itm_txt">
-                                                    <a href="{% url 'users:profile' request.user.pk %}">
-                                                        {% if request.user.profile.image %}
-                                                            <img src="{{ request.user.profile.image.url }}" alt="">
-                                                        {% else %}
-                                                            <img src="{% static 'images/216.jpg' %}" alt="">
-                                                        {% endif %}
-                                                    </a>
-                                                </span>
-                                            </div>
-                                        {% endif %}
-                                        <!-- drop downs -->
-                                        <div class="dprdwn fav_drp">
-                                            <span class="drpdwn_cls">close</span>
-                                            <div class="drpdwn_header">
-                                                <span class="drpdwn_hdingtxt">
-                                                            Favourites
-                                                        </span>
-                                            </div>
-                                            <div class="drp_added_itms">
-                                                {% if request.user.is_authenticated %}
-                                                <ul>
-                                                        {% for item in header_favourites %}
-                                                        <li>
-                                                            <div class="drp_added_itms_lst">
-                                                                <div class="added_itms_img">
-                                                                    <a href="{% url 'product:product-detail' item.product.pk %}">
-                                                                        <img src="{{ item.product.main_image.url }}" alt="">
-                                                                    </a>
-                                                                </div>
-                                                                <div class="drp_added_itms_cont_hldr">
-                                                                    <div class="drp_added_itms_cont">
-                                                                        <span class="drp_added_itms_txt">
-                                                                                    <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.product.name }}</a>
-                                                                                    <span class="drp_added_itms_prc">{{ item.product.new_price }}</span>
-                                                                        </span>
-
-                                                                    </div>
-                                                                    <!-- <div class="dlt_drp_added_itm">
-                                                                        <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                    </div> -->
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        {% endfor %}
-                                                </ul>
-                                                <div class="drp_more_items">
-                                                    <div class="drp_vew_mritemsbtn">
-                                                        <a href="{% url 'product:favourite' request.user.pk %}">View All Items</a>
-                                                    </div>
-                                                </div> 
-                                                {% else %}
-                                                <p>You need to be logged in to view your Favourites.</p>
-                                                <div class="drp_more_items">
-                                                        <div class="drp_vew_mritemsbtn">
-                                                            <a href="{% url 'login' %}">Login</a>
-                                                        </div>
-                                                    </div> 
-                                                {% endif %}                                               
-                                            </div>
-                                        </div>
-
-                                        <div class="dprdwn cart_drp">
-                                            <span class="drpdwn_cls">close</span>
-                                            <div class="drpdwn_header">
-                                                <span class="drpdwn_hdingtxt">
-                                                            Cart
-                                                        </span>
-                                            </div>
-                                            <div class="drp_added_itms">
-                                                {% if request.user.is_authenticated %}
-                                                <ul>
-                                                    {% for item in header_cart %}
-                                                    <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="{% url 'product:product-detail' item.product.pk %}">
-                                                                    <img src="{{ item.product.main_image.url }}" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.product.name }}</a>
-                                                                                <span class="drp_added_itms_prc">{{ item.product.new_price }}</span>
-                                                                    </span>
-
-                                                                </div>
-                                                                <!-- <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div> -->
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    {% endfor %}
-                                                </ul>
-                                                <div class="drp_more_items">
-                                                    <div class="drp_vew_mritemsbtn">
-                                                        <a href="{% url 'product:cart-list' request.user.pk %}">View All Items</a>
-                                                    </div>
-                                                </div>
-                                                {% else %}
-                                                <p>You need to be logged in to view your Cart.</p>
-                                                <div class="drp_more_items">
-                                                        <div class="drp_vew_mritemsbtn">
-                                                            <a href="{% url 'login' %}">Login</a>
-                                                        </div>
-                                                    </div> 
-                                                {% endif %}
-                                            </div>
-                                        </div>
-
-                                        <div class="dprdwn wait_drp">
-                                            <span class="drpdwn_cls">close</span>
-                                            <div class="drpdwn_header">
-                                                <span class="drpdwn_hdingtxt">
-                                                            Wait List
-                                                        </span>
-                                            </div>
-                                            <div class="drp_added_itms">
-                                                {% if request.user.is_authenticated %}
-                                                <ul>
-                                                    {% for item in header_waitlist %}
-                                                    <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="{% url 'product:product-detail' item.product.pk %}">
-                                                                    <img src="{{ item.product.main_image.url }}" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.product.name }}</a>
-                                                                                <span class="drp_added_itms_prc">{{ item.product.new_price }}</span>
-                                                                    </span>
-
-                                                                </div>
-                                                                <!-- <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div> -->
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    {% endfor %}
-                                                </ul>
-                                                <div class="drp_more_items">
-                                                    <div class="drp_vew_mritemsbtn">
-                                                        <a href="{% url 'product:waitlist' request.user.pk %}">View All Items</a>
-                                                    </div>
-                                                </div>
-                                                {% else %}
-                                                <p>You need to be logged in to view your Waitlists.</p>
-                                                <div class="drp_more_items">
-                                                        <div class="drp_vew_mritemsbtn">
-                                                            <a href="{% url 'login' %}">Login</a>
-                                                        </div>
-                                                    </div> 
-                                                {% endif %}
-                                            </div>
-                                        </div>
-
-                                        <div class="dprdwn notifi_drp">
-                                            <span class="drpdwn_cls">close</span>
-                                            <div class="drpdwn_header">
-                                                <span class="drpdwn_hdingtxt">
-                                                            Notifications
-                                                        </span>
-                                            </div>
-                                            <div class="drp_added_itms">
-                                                {% if request.user.is_authenticated %}
-                                                <ul>
-                                                    {% for item in menu_notifications %}
-                                                    <li>
-                                                        <div class="row">
-                                                            <a href="{% url 'product:product-detail' item.product.pk %}">
-                                                                <div class="notif__sml__img">
-                                                                    <img src="{{ item.product.main_image.url }}" alt="product-image">
-                                                                </div>
-                                                            </a>
-                                                            <div class="notif__text">
-                                                                <div class="notif__ttl">
-                                                                    {{ item.title }}
-                                                                </div>
-                                                                <div class="notif__dat">
-                                                                    {{ item.date }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <!-- <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                        <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.title }}</a>
-                                                                        <span class="drp_added_itms_prc">{{ item.description }}</span>
-                                                                    </span>
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li> -->
-                                                    {% endfor %}
-                                                </ul>
-                                                <ul>
-                                                    {% for item in header_waitlist %}
-                                                    <li>
-                                                        <div class="row">
-                                                            <a href="{% url 'product:product-detail' item.product.pk %}">
-                                                                <div class="notif__sml__img">
-                                                                    <img src="{{ item.product.main_image.url }}" alt="product-image">
-                                                                </div>
-                                                            </a>
-                                                            <div class="notif__text">
-                                                                <div class="notif__ttl">
-                                                                    {{ item.title }}
-                                                                </div>
-                                                                <div class="notif__dat">
-                                                                    {{ item.date }}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </li>
-                                                    <!-- <li>
-                                                        <div class="drp_added_itms_lst">
-                                                            <div class="added_itms_img">
-                                                                <a href="{% url 'product:product-detail' item.product.pk %}">
-                                                                    <img src="{{ item.product.main_image.url }}" alt="">
-                                                                </a>
-                                                            </div>
-                                                            <div class="drp_added_itms_cont_hldr">
-                                                                <div class="drp_added_itms_cont">
-                                                                    <span class="drp_added_itms_txt">
-                                                                                <a href="{% url 'product:product-detail' item.product.pk %}">{{ item.product.name }}</a>
-                                                                                <span class="drp_added_itms_prc">{{ item.product.new_price }}</span>
-                                                                    </span>
-
-                                                                </div> -->
-                                                                <!-- <div class="dlt_drp_added_itm">
-                                                                    <button><i class="fa fa-window-close" aria-hidden="true"></i></button>
-                                                                </div> -->
-                                                            <!-- </div>
-                                                        </div>
-                                                    </li> -->
-                                                    {% endfor %}
-                                                </ul>
-                                                <div class="drp_more_items">
-                                                    <div class="drp_vew_mritemsbtn">
-                                                        <a href="{% url 'product:notification' request.user.pk %}">View All</a>
-                                                    </div>
-                                                </div>
-                                                {% else %}
-                                                <p>You need to be logged in to view your Notifications.</p>
-                                                <div class="drp_more_items">
-                                                        <div class="drp_vew_mritemsbtn">
-                                                            <a href="{% url 'login' %}">Login</a>
-                                                        </div>
-                                                    </div> 
-                                                {% endif %}
-                                            </div>
-                                        </div>
                                         <!-- drop downs -->
                                     </div>
                         </div>
@@ -523,14 +175,14 @@
                                         <a href="{% url 'product:product-list' %}">
                                             <span class="menu_icn">
                                                 <i class="fa fa-list"></i>
-                                                    </span> All Laptops
+																							</span> All Products
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
                                             <span class="menu_icn">
                                                 <i class="fa fa-angle-right"></i>
-                                            </span> Laptops By Brands
+                                            </span> Products By Brands
                                         </a>
                                         <div class="submenu">
                                             <ul>
@@ -546,20 +198,20 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li>
+																		<li>
                                         <a href="#">
                                             <span class="menu_icn">
                                                 <i class="fa fa-angle-right"></i>
-                                            </span> Laptops By Type
+                                            </span> Products By Category
                                         </a>
                                         <div class="submenu">
                                             <ul>
-                                                {% for item in menu_types %}
+                                                {% for item in menu_categories %}
                                                 <li>
-                                                    <a href="{% url 'product:product-type-list' item.pk %}">
+                                                    <a href="{% url 'product:product-category-list' item.pk %}">
                                                         <span class="menu_icn">
                                                             <i class="fa fa-list"></i>
-                                                            </span> {{ item.brand_type }}
+                                                        </span> {{ item.name }}
                                                     </a>
                                                 </li>
                                                 {% endfor %}
@@ -622,39 +274,19 @@
                 </ul>
             </div>
         </div>
-        <div class="newslettersub">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-7">
-                        <div class="newsletter_ttl_para">
-                            <h4><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Subscribe For Newsletter</h4>
-                            <p>...be upto date with our <strong>Offers</strong> and <strong>Discounts</strong></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-5">
-                        <div class="newsltter_from">
-                            <form action="{% url 'product:subscribe' %}" method="POST" enctype="multipart/form-data">
-                                {% csrf_token %}
-                            
-                                <div class="input-groups ">
-                                    <input type="text" class="form-control" name="subs" placeholder="Email Address..." required>
-                                    <button type="submit" class="nwl_btn">Subscribe</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footerinfos">
             <div class="container">
                 <div class="row">
                     <div class="col-md-5">
                         <div class="foot_general">
                             <div class="footlogo">
-                                <a href="#">
-                                    <img src="{% static 'images/newlogo.png' %}" alt="">
-                                </a>
+															<a href="{% url 'product:index' %}">
+																{% if about.logo %}
+																		<img src="{{ about.logo.url }}">
+																{% else %}
+																		<img src="{% static 'images/newlogo.png' %}"></a>
+																{% endif %}
+															</a>
                             </div>
                             <div class="cont_info">
                                 <div class="continf_top">
@@ -663,7 +295,7 @@
                                     </div>
                                     <div class="cont_num_txt">
                                         <span class="fotphone_ttl">Got Questions ? Call us 24/7!</span>
-                                        <span class="fotphonenum">{{ about.contact1 }}{% if about.contact2 %}, {{ about.contact2 }}{% endif %}{% if about.contact3 %}{{about.contact3}}{% endif %}</span>
+                                        <span class="fotphonenum">{{ about.contact1 }}{% if about.contact2 %}, {{ about.contact2 }}{% endif %}{% if about.contact3 %}, {{about.contact3}}{% endif %}</span>
                                     </div>
                                 </div>
                                 <div class="continfo">
@@ -717,20 +349,6 @@
                                                 <li>
                                                     <a href="{% url 'product:contact' %}">Contact Us</a>
                                                 </li>
-                                                {% if request.user.is_authenticated %}
-                                                <li>
-                                                    <a href="{% url 'users:profile' request.user.pk %}">My Account</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{% url 'product:favourite' request.user.pk %}">Favourites</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{% url 'product:waitlist' request.user.pk %}">Waitlist</a>
-                                                </li>
-                                                <li>
-                                                    <a href="{% url 'product:cart-list' request.user.pk %}">Cart</a>
-                                                </li>
-                                                {% endif %}
                                                 <li>
                                                     <a href="#">Product Support</a>
                                                 </li>

@@ -1,6 +1,6 @@
 from django import forms
-from product.models import Product, Category, Brand, Type, BannerImage, Cart, ProductSpecification, \
-    ProductImage, SuperImage, OfferImage, SpecificationTitle, SpecificationContent, AboutITeam
+from product.models import Product, Category, Brand, BannerImage, ProductSpecification, \
+    ProductImage, SpecificationTitle, SpecificationContent, AboutITeam
 from django.forms.models import inlineformset_factory
 from PIL import Image
 from .widgets import *
@@ -12,11 +12,10 @@ class ProductForm(forms.ModelForm):
     width = forms.FloatField(widget=forms.HiddenInput(), required=False)
     height = forms.FloatField(widget=forms.HiddenInput(), required=False)
     brand = forms.ModelChoiceField(Brand.objects, widget=SelectWithPop)
-    product_type = forms.ModelChoiceField(Type.objects, widget=SelectWithPop)
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'previous_price', 'new_price', 'category', 'brand', 'product_type', 'super_deals', 'offer', 'availability', 'main_image', 'visibility', 'x', 'y', 'width', 'height']
+        fields = ['name', 'description', 'previous_price', 'new_price', 'category', 'brand', 'super_deals', 'offer', 'availability', 'main_image', 'visibility', 'x', 'y', 'width', 'height']
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(**kwargs)
@@ -26,7 +25,6 @@ class ProductForm(forms.ModelForm):
         self.fields['new_price'].widget.attrs['class'] = 'form-control'
         self.fields['category'].widget.attrs['class'] = 'form-control'
         self.fields['brand'].widget.attrs['class'] = 'form-control'
-        self.fields['product_type'].widget.attrs['class'] = 'form-control'
         self.fields['super_deals'].widget.attrs['class'] = 'form-control'
         self.fields['offer'].widget.attrs['class'] = 'form-control'
         self.fields['availability'].widget.attrs['class'] = 'form-control'
@@ -106,12 +104,6 @@ class BrandForm(forms.ModelForm):
             resized_image = cropped_image.resize((193, 115), Image.ANTIALIAS)
             resized_image.save(photo.brand_image.path)
         return photo
-
-
-class TypeForm(forms.ModelForm):
-    class Meta:
-        model = Type
-        fields = ('brand_type', )
 
 
 class BannerImageForm(forms.ModelForm):
@@ -204,66 +196,6 @@ class ProductImageForm(forms.ModelForm):
 
 ProductImageFormset = inlineformset_factory(Product, ProductImage, form=ProductImageForm, fields=['big_image', 'thumbnail_image', 'x_main', 'y_main', 'width_main', 'height_main', 'x_thumb', 'y_thumb', 'width_thumb', 'height_thumb'], extra=1, max_num=10)
 ProductSpecificationFormset = inlineformset_factory(Product, ProductSpecification, form=ProductSpecificationForm, fields=['title', 'content'], extra=1, max_num=20)
-
-
-class SuperImageForm(forms.ModelForm):
-    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
-    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
-    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
-    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
-
-    class Meta:
-        model = SuperImage
-        fields = ['name', 'super_image', 'x', 'y', 'width', 'height']
-
-    def __init__(self, *args, **kwargs):
-        super(SuperImageForm, self).__init__(**kwargs)
-        self.fields['name'].widget.attrs['class'] = 'form-control'
-        self.fields['super_image'].widget.attrs['class'] = 'form-control'
-
-    def save(self):
-        photo = super(SuperImageForm, self).save()
-
-        x = self.cleaned_data.get('x')
-        y = self.cleaned_data.get('y')
-        w = self.cleaned_data.get('width')
-        h = self.cleaned_data.get('height')
-        if x is not None and y is not None:
-            image = Image.open(photo.super_image)
-            cropped_image = image.crop((x, y, w+x, h+y))
-            resized_image = cropped_image.resize((401, 424), Image.ANTIALIAS)
-            resized_image.save(photo.super_image.path)
-        return photo
-
-
-class OfferImageForm(forms.ModelForm):
-    x = forms.FloatField(widget=forms.HiddenInput(), required=False)
-    y = forms.FloatField(widget=forms.HiddenInput(), required=False)
-    width = forms.FloatField(widget=forms.HiddenInput(), required=False)
-    height = forms.FloatField(widget=forms.HiddenInput(), required=False)
-
-    class Meta:
-        model = OfferImage
-        fields = ['name', 'offer_image', 'x', 'y', 'width', 'height']
-
-    def __init__(self, *args, **kwargs):
-        super(OfferImageForm, self).__init__(**kwargs)
-        self.fields['name'].widget.attrs['class'] = 'form-control'
-        self.fields['offer_image'].widget.attrs['class'] = 'form-control'
-
-    def save(self):
-        photo = super(OfferImageForm, self).save()
-
-        x = self.cleaned_data.get('x')
-        y = self.cleaned_data.get('y')
-        w = self.cleaned_data.get('width')
-        h = self.cleaned_data.get('height')
-        if x is not None and y is not None:
-            image = Image.open(photo.offer_image)
-            cropped_image = image.crop((x, y, w+x, h+y))
-            resized_image = cropped_image.resize((401, 424), Image.ANTIALIAS)
-            resized_image.save(photo.offer_image.path)
-        return photo
 
 
 class SpecificationTitleForm(forms.ModelForm):

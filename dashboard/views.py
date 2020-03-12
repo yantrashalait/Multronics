@@ -1,13 +1,11 @@
 from django.shortcuts import render, get_object_or_404, render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, UpdateView, TemplateView
-from product.models import Category, Brand, Type, Product, Notification, WaitList, Favourite, BannerImage, \
-    SuperImage, OfferImage, UserBargain, UserRequestProduct, UserOrder, SpecificationTitle, AboutITeam, Cart, \
+from product.models import Category, Brand, Product, BannerImage, SpecificationTitle, AboutITeam, \
     SpecificationContent, ProductImage, ProductSpecification
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .forms import ProductForm, ProductImageForm, ProductSpecificationFormset, ProductImageFormset, \
-    CategoryForm, BannerImageForm, BrandForm, TypeForm, SuperImageForm, OfferImageForm, \
-        SpecificationContentFormset, SpecificationTitleForm, SpecificationContentForm, AboutForm
+    CategoryForm, BannerImageForm, BrandForm, SpecificationContentFormset, SpecificationTitleForm, SpecificationContentForm, AboutForm
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -58,6 +56,9 @@ class DashboardView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = 'product'
     paginate_by = 10
 
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.all().order_by('-id')
+
 class ProductList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_product'
     template_name = 'dashboard/product-list.html'
@@ -65,16 +66,13 @@ class ProductList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     context_object_name = 'product'
     paginate_by = 10
 
+    def get_queryset(self, *args, **kwargs):
+        return Product.objects.all().order_by('-id')
+
 
 @login_required
 def newBrand(request, *args, **kwargs):
     return brandPopAdd(request, BrandForm, "brand")
-
-
-@login_required
-def newType(request, *args, **kwargs):
-    return handlePopAdd(request, TypeForm, "product_type")
-
 
 class ProductCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     permission_required = ('add_product')
@@ -258,52 +256,6 @@ class BrandUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return reverse('dashboard:brand-list')
 
 
-class TypeList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    permission_required = 'add_type'
-    template_name = 'dashboard/type-list.html'
-    model = Type
-    context_object_name = 'type'
-    paginate_by = 10
-
-
-class TypeCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'add_type'
-    model = Type
-    template_name = 'dashboard/add-type.html'
-    form_class = TypeForm
-
-    def get_success_url(self):
-        return reverse('dashboard:type-list')
-
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
-
-
-class TypeDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = 'delete_type'
-    model = Type
-    template_name = 'dashboard/type_confirm_delete.html'
-    success_url = "/dashboard/type/list"
-
-
-class TypeUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = 'change_type'
-    template_name = 'dashboard/add-type.html'
-    form_class = TypeForm
-
-    def get_object(self):
-        id_ = self.kwargs.get("pk")
-        return get_object_or_404(Type, pk=id_)
-
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('dashboard:type-list')
-
-
 class BannerList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
     permission_required = 'add_bannerimage'
     template_name = 'dashboard/banner-list.html'
@@ -346,123 +298,6 @@ class BannerUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse('dashboard:banner-list')
-
-
-class SuperImageList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    permission_required = 'add_superimage'
-    template_name = 'dashboard/super-list.html'
-    model = SuperImage
-    context_object_name = 'superimage'
-    paginate_by = 10
-
-
-class SuperImageAdd(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'add_superimage'
-    template_name = 'dashboard/add-super.html'
-    form_class = SuperImageForm
-
-    def get_success_url(self):
-        return reverse('dashboard:superimage-list')
-
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
-
-
-class SuperImageUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = 'change_superimage'
-    template_name = 'dashboard/add-super.html'
-    form_class = SuperImageForm
-
-    def get_object(self):
-        id_ = self.kwargs.get("pk")
-        return get_object_or_404(SuperImage, pk=id_)
-
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('dashboard:superimage-list')
-
-
-class SuperImageDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = 'delete_offerimage'
-    model = SuperImage
-    template_name = 'dashboard/superimage_confirm_delete.html'
-    success_url = "/dashboard/superimage/list"
-
-
-class OfferImageList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    permission_required = 'add_offerimage'
-    template_name = 'dashboard/offer-list.html'
-    model = OfferImage
-    context_object_name = 'offerimage'
-    paginate_by = 10
-
-
-class OfferImageAdd(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    permission_required = 'add_offerimage'
-    template_name = 'dashboard/add-offer.html'
-    form_class = OfferImageForm
-
-    def get_success_url(self):
-        return reverse('dashboard:offerimage-list')
-
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
-
-
-class OfferImageUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    permission_required = 'change_offerimage'
-    template_name = 'dashboard/add-offer.html'
-    form_class = OfferImageForm
-
-    def get_object(self):
-        id_ = self.kwargs.get("pk")
-        return get_object_or_404(OfferImage, pk=id_)
-
-    def form_valid(self, form):
-        print(form.cleaned_data)
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('dashboard:offerimage-list')
-
-
-class OfferImageDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
-    permission_required = 'delete_offerimage'
-    model = OfferImage
-    template_name = 'dashboard/offerimage_confirm_delete.html'
-    success_url = "/dashboard/offerimage/list"
-
-
-class OrderList(LoginRequiredMixin, PermissionRequiredMixin, ListView):
-    permission_required = 'add_product'
-    model = UserOrder
-    template_name = 'dashboard/order-list.html'
-    context_object_name = 'order'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super(OrderList, self).get_context_data(**kwargs)
-        requests = UserRequestProduct.objects.filter(active=True)
-        bargains = UserBargain.objects.all()
-        context['requests'] = requests
-        context['bargains'] = bargains
-        return context
-
-
-class OrderDetail(LoginRequiredMixin, PermissionRequiredMixin, TemplateView):
-    permission_required = 'add_product'
-    template_name = 'dashboard/order-detail.html'
-
-    def get_context_data(self, *args ,**kwargs):
-        context = super(OrderDetail, self).get_context_data(**kwargs)
-        _id = self.kwargs.get('pk')
-        order = UserOrder.objects.get(id=_id)
-        context['carts'] = order.cart.all()
-        return context
 
 
 class SpecificationCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
@@ -587,7 +422,7 @@ class AboutCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = AboutForm
 
     def get_success_url(self):
-        return reverse('dashboard:about-list')
+        return reverse('dashboard:dashboard')
 
 
 class AboutUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):

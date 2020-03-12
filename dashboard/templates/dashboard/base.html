@@ -66,13 +66,6 @@
                                 <li><a title="Add Brand" href="{% url 'dashboard:brand-create' %}"><span class="mini-sub-pro">Add Brand</span></a></li>
                             </ul>
                         </li>
-                        <li id="type-nav">
-                            <a class="has-arrow" href="{% url 'dashboard:type-list' %}" aria-expanded="false"><span class="mini-click-non">Product Type</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="All Product Types" href="{% url 'dashboard:type-list' %}"><span class="mini-sub-pro">All Product Types</span></a></li>
-                                <li><a title="Add Product Type" href="{% url 'dashboard:type-create' %}"><span class="mini-sub-pro">Add Product Type</span></a></li>
-                            </ul>
-                        </li>
                         <li id="specification-nav">
                             <a class="has-arrow" href="{% url 'dashboard:specification-list' %}" aria-expanded="false"> <span class="mini-click-non">Specification</span></a>
                             <ul class="submenu-angle" aria-expanded="false">
@@ -92,20 +85,6 @@
                             <ul class="submenu-angle" aria-expanded="false">
                                 <li><a title="Banners List" href="{% url 'dashboard:banner-list' %}"><span class="mini-sub-pro">All Banner Images</span></a></li>
                                 <li><a title="Add Banner" href="{% url 'dashboard:banner-create' %}"><span class="mini-sub-pro">Add Banner Image</span></a></li>
-                            </ul>
-                        </li>
-                        <li id="super-nav">
-                            <a class="has-arrow" href="{% url 'dashboard:superimage-list' %}" aria-expanded="false"> <span class="mini-click-non">Super Deals Image</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Super Deal Images List" href="{% url 'dashboard:superimage-list' %}"><span class="mini-sub-pro">All Super Deal Images</span></a></li>
-                                <li><a title="Add Super Deal Image" href="{% url 'dashboard:superimage-create' %}"><span class="mini-sub-pro">Add Super Deal Image</span></a></li>
-                            </ul>
-                        </li>
-                        <li id="offer-nav">
-                            <a class="has-arrow" href="{% url 'dashboard:offerimage-list' %}" aria-expanded="false"><span class="mini-click-non">Offer Image</span></a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li><a title="Departments List" href="{% url 'dashboard:offerimage-list' %}"><span class="mini-sub-pro">All Offer Images</span></a></li>
-                                <li><a title="Add Departments" href="{% url 'dashboard:offerimage-create' %}"><span class="mini-sub-pro">Add Offer Image</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -143,7 +122,7 @@
                                                 </li>
                                                 <li class="nav-item"><a href="{% url 'dashboard:product-list' %}" class="nav-link">Products</a>
                                                 </li>
-                                                <li class="nav-item">{% if about %}<a href="{% url 'dashboard:about-update' about.pk %}" class="nav-link">{% else %}<a href="{% url 'dashboard:about-create' about.pk %}" class="nav-link">{% endif %}About ITeam</a>
+                                                <li class="nav-item">{% if about %}<a href="{% url 'dashboard:about-update' about.pk %}" class="nav-link">{% else %}<a href="{% url 'dashboard:about-create' %}" class="nav-link">{% endif %}About Us</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -151,62 +130,6 @@
                                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
                                         <div class="header-right-info">
                                             <ul class="nav navbar-nav mai-top-nav header-right-menu">
-                                                <li class="nav-item dropdown">
-                                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-envelope" aria-hidden="true"></i>{% if requested_products %}<span class="indicator-ms"></span>{% endif %}</a>
-                                                    <div role="menu" class="author-message-top dropdown-menu animated zoomIn">
-                                                        <div class="message-single-top">
-                                                            <h1>Request Product Message</h1>
-                                                        </div>
-                                                        {% if requested_products %}
-                                                        <ul class="message-menu">
-                                                            {% for item in requested_products %}
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="message-content">
-                                                                        <span class="message-date">{{ item.date }}</span>
-                                                                        <h2>{{ item.name }}</h2>
-                                                                        <p>{{ item.name|title }} has requested a product {{ product_name }}.</p>
-                                                                    </div>
-                                                                </a>
-                                                            </li>
-                                                            {% endfor %}
-                                                        </ul>
-                                                        {% else %}
-                                                          <div class="message-content">
-                                                            <p>No products requested</p>
-                                                          </div>
-                                                        {% endif %}
-                                                        <div class="message-view">
-                                                            <a href="{% url 'dashboard:order-list' %}">View All Messages</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i class="fa fa-bell" aria-hidden="true"></i>{% if header_orders %}<span class="indicator-nt"></span>{% endif %}</a>
-                                                    <div role="menu" class="notification-author dropdown-menu animated zoomIn">
-                                                        <div class="notification-single-top">
-                                                            <h1>Orders</h1>
-                                                        </div>
-                                                        <ul class="notification-menu">
-                                                            {% for item in header_orders %}
-                                                            <li>
-                                                                <a href="#">
-                                                                    <div class="notification-icon">
-                                                                        <img src="{{ item.user.user_profile.image.url }}">
-                                                                    </div>
-                                                                    <div class="notification-content">
-                                                                        <h2>{{ item.user.username }}</h2>
-                                                                        <p>Order placed by {{ item.user.username }}.</p>
-                                                                    </div>
-                                                                    <span class="notification-date">{{ item.date|date }}</span>
-                                                                </a>
-                                                            </li>
-                                                            {% endfor %}
-                                                        </ul>
-                                                        <div class="notification-view">
-                                                            <a href="{% url 'dashboard:order-list' %}">View All Orders</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
                                                 <li class="nav-item">
                                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                         															<img src="{{ request.user.user_profile.image.url }}" alt="" />
@@ -251,19 +174,12 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#democrou" href="{% url 'dashboard:type-list' %}">Types <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
-                                            <ul id="democrou" class="collapse dropdown-header-top">
-                                                <li><a href="{% url 'dashboard:type-list' %}">All Types</a>
-                                                </li>
-                                                <li><a href="{% url 'dashboard:type-create' %}">Add Type</a>
-                                                </li>
-                                            </ul>
-                                        </li>
+
                                         <li><a data-toggle="collapse" data-target="#demolibra" href="{% url 'dashboard:specification-list' %}">Specifications <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
                                             <ul id="demolibra" class="collapse dropdown-header-top">
                                                 <li><a href="{% url 'dashboard:specification-list' %}">All Specifications</a>
                                                 </li>
-                                                <li><a href="{% url 'dashboard:type-create' %}">Add Specification</a>
+                                                <li><a href="{% url 'dashboard:specification-create' %}">Add Specification</a>
                                                 </li>
                                             </ul>
                                         </li>
@@ -280,22 +196,6 @@
                                                 <li><a href="{% url 'dashboard:banner-list' %}">All Banner Images </a>
                                                 </li>
                                                 <li><a href="{% url 'dashboard:banner-create' %}">Add Banner Images</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a data-toggle="collapse" data-target="#demodepart" href="{% url 'dashboard:superimage-list' %}">Super Deal Images <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
-                                            <ul id="demodepart" class="collapse dropdown-header-top">
-                                                <li><a href="{% url 'dashboard:superimage-list' %}">All Super Deal Images </a>
-                                                </li>
-                                                <li><a href="{% url 'dashboard:superimage-create' %}">Add Super Deal Images</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li><a data-toggle="collapse" data-target="#demodepart" href="{% url 'dashboard:offerimage-list' %}">Offer Images <span class="admin-project-icon edu-icon edu-down-arrow"></span></a>
-                                            <ul id="demodepart" class="collapse dropdown-header-top">
-                                                <li><a href="{% url 'dashboard:offerimage-list' %}">All Offer Images </a>
-                                                </li>
-                                                <li><a href="{% url 'dashboard:offerimage-create' %}">Add Offer Images</a>
                                                 </li>
                                             </ul>
                                         </li>

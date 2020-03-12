@@ -24,13 +24,6 @@ urlpatterns = [
     path('brand/<int:pk>/delete/', views.BrandDelete.as_view(), name='brand-delete'),
     path('brand/<int:pk>/update/', views.BrandUpdate.as_view(), name='brand-update'),
 
-    # crud for types
-    path('add/product_type/', views.newType, name="type"),
-    path('type/list/', views.TypeList.as_view(), name='type-list'),
-    path('type/create/', views.TypeCreate.as_view(), name='type-create'),
-    path('type/<int:pk>/delete/', views.TypeDelete.as_view(), name='type-delete'),
-    path('type/<int:pk>/update/', views.TypeUpdate.as_view(), name='type-update'),
-
     # crud for banner images
     path('banner/list/', views.BannerList.as_view(), name='banner-list'),
     path('banner/create/', views.BannerCreate.as_view(), name='banner-create'),
@@ -41,19 +34,6 @@ urlpatterns = [
     path('product/create/', views.ProductCreate.as_view(), name='product-create'),
     path('product/<int:pk>/delete/', views.ProductDelete.as_view(), name='product-delete'),
     path('product/<int:pk>/update/', views.ProductUpdate.as_view(), name='product-update'),
-
-    path('superimage/list/', views.SuperImageList.as_view(), name='superimage-list'),
-    path('superimage/create/', views.SuperImageAdd.as_view(), name='superimage-create'),
-    path('superimage/<int:pk>/update/', views.SuperImageUpdate.as_view(), name='superimage-update'),
-    path('superimage/<int:pk>/delete/', views.SuperImageDelete.as_view(), name='superimage-delete'),
-
-    path('offerimage/list/', views.OfferImageList.as_view(), name='offerimage-list'),
-    path('offerimage/create/', views.OfferImageAdd.as_view(), name='offerimage-create'),
-    path('offerimage/<int:pk>/update/', views.OfferImageUpdate.as_view(), name='offerimage-update'),
-    path('offerimage/<int:pk>/delete/', views.OfferImageDelete.as_view(), name='offerimage-delete'),
-
-    path('order/list/', views.OrderList.as_view(), name='order-list'),
-    path('order/detail/<int:pk>/', views.OrderDetail.as_view(), name='order_detail'),
 
     path('specification/list', views.SpecificationList.as_view(), name='specification-list'),
     path('specification/add', views.SpecificationCreate.as_view(), name='specification-create'),
