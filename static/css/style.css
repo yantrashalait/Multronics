@@ -192,7 +192,7 @@ p{
 
 .header-2 input,
 .header-mobile input {
-    border: 1px solid #ff8202;
+    border: 1px solid #2b428a;
     height: 36px;
     border-radius: 0;
 }
@@ -209,16 +209,16 @@ p{
 }
 
 .srchfrm_hdr form button {
-    background: #ff8202;
+    background: #2b428a;
     width: 84px;
-    border: 1px solid #ff8202;
+    border: 1px solid #2b428a;
     outline: none;
     height: 36px;
     color: #fff;
 }
 
 .headerbottom {
-    background: #4b4b4b;
+    background: #2b428a;
 }
 
 .menu-item-wrapper {
@@ -478,7 +478,7 @@ span.rsp_srch_close {
 span.menu_bar {
     width: 20px;
     height: 2px;
-    background: #4b4b4b;
+    background: #2b428a;
     display: flex;
     position: relative;
 }
@@ -488,7 +488,7 @@ span.menu_bar:before{
     position: absolute;
     width: 100%;
     height: 2px;
-    background: #4b4b4b;
+    background: #2b428a;
     top: -5px;
 }
 
@@ -497,7 +497,7 @@ span.menu_bar:after{
     position: absolute;
     width: 100%;
     height: 2px;
-    background: #4b4b4b;
+    background: #2b428a;
     bottom: -5px;
 }
 
@@ -521,7 +521,7 @@ span.menu_bar:after{
     width: 6px;
 }
 .mb_slide_meu::-webkit-scrollbar-thumb {
-    background: #4b4b4b;
+    background: #2b428a;
 }
 .mb_slide_meu::-webkit-scrollbar-track {
     background: #ff8202;
@@ -841,7 +841,7 @@ section.caro_products {
 .list_prd_itm .prd_actions button.addtocart{
     border: none;
     padding: 5px 22px;
-    background: #4b4b4b;
+    background: #2b428a;
     color: #fff;
     font-size: 12px;
 }
@@ -918,7 +918,7 @@ footer{
     margin: 30px 0 0 0;
 }
 .wrap-function-info{
-    background: #4b4b4b;
+    background: #2b428a;
     padding: 30px 0;
 }
 .wrap-function-info .wrap-left-info{
@@ -984,7 +984,7 @@ footer{
     width: 140px;
     border-radius: 0px 50px 50px 0px;
     border: none;
-    background: #4b4b4b;
+    background: #2b428a;
     color: #fff;
 }
 .footerinfos {
@@ -1107,7 +1107,7 @@ button.thd_prtysocial_btn.fb_btn{
 
 
 .sbt_btn:hover{
-    background: #4b4b4b;
+    background: #2b428a;
 }
 
 
@@ -1240,7 +1240,7 @@ button.thd_prtysocial_btn.fb_btn{
     color: red;
 }
 .dlt_drp_added_itm button:hover{
-    color: #4b4b4b;
+    color: #2b428a;
 }
 span.drpdwn_cls {
     position: absolute;
@@ -1303,7 +1303,7 @@ span.drpdwn_hdingtxt {
 }
 
 .pd_zoom_icn:hover{
-        background: #4b4b4b;
+        background: #2b428a;
 }
 
 .pdetails-largeimages{
@@ -2294,11 +2294,11 @@ table.product thead tr th:last-child {
 }
 
 .sendlnk_bx a:hover{
-    background: #4b4b4b;
+    background: #2b428a;
 }
 
 .crt_ad{
-    background: #4b4b4b;
+    background: #2b428a;
     border: none;
     padding: 5px 20px;
     color: #fff;
@@ -2360,7 +2360,7 @@ table.product thead tr th:last-child {
 }
 
 .sbtprd button:hover{
-    background: #4b4b4b;
+    background: #2b428a;
 }
 
 .prd_add input[type="file"] {
@@ -2558,7 +2558,7 @@ select.multi-select{
 }
 .req__item__text__hldr a{
     background: #fff;
-    color: #4b4b4b;
+    color: #2b428a;
     display: inline-block;
     margin: 0 0 0 20px;
     padding: 5px 30px;
@@ -2771,7 +2771,7 @@ section.contact__frm__sec {
 }
 
 .cntmsg__sbt_btn{
-    background: #4b4b4b;
+    background: #2b428a;
     border: none;
     color: #fff;
     width: 50%;

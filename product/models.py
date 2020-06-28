@@ -44,10 +44,9 @@ class Product(models.Model):
 
     def save(self):
         if self.previous_price and self.previous_price > self.new_price:
-            offer = round(((int(self.previous_price) - int(self.new_price)) / int(self.previous_price)), 2)* 100
+            offer = round(((int(self.previous_price) - int(self.new_price)) / int(self.previous_price)), 2) * 100
             self.offer_tag = offer
         super(Product, self).save()
-
 
 
 class ProductImage(models.Model):

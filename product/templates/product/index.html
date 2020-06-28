@@ -14,6 +14,42 @@
         </div>
     </div>
 </section>
+<section class="caro_products brands">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="brdr_bx">
+                    <div class="section_heading">
+                        <div class="sectionheading_cont">
+                            <div class="sectionttl">
+                                <h2>Available Brands</h2>
+                            </div>
+                            <!-- <div class="vi_all_prd_caro">
+                                <a href="#">View All</a>
+                            </div> -->
+                        </div>
+                    </div>
+
+                    <div class="brand_caro itms_caro owl-carousel owl-theme">
+                            {% for item in brand %}
+                        <div class="item">
+
+                            <a href="{% url 'product:product-brand-list' item.pk %}">
+                                {% if item.brand_image %}
+
+                                <img src="{{ item.brand_image.url }}" alt="">
+                                {% endif %}
+                            </a>
+
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <section class="caro_products">
     <div class="container">
         <div class="row">
@@ -144,40 +180,4 @@
     </div>
 </section>
 {% endfor %}
-<section class="caro_products brands">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="brdr_bx">
-                    <div class="section_heading">
-                        <div class="sectionheading_cont">
-                            <div class="sectionttl">
-                                <h2>Available Brands</h2>
-                            </div>
-                            <!-- <div class="vi_all_prd_caro">
-                                <a href="#">View All</a>
-                            </div> -->
-                        </div>
-                    </div>
-
-                    <div class="brand_caro itms_caro owl-carousel owl-theme">
-                            {% for item in brand %}
-                        <div class="item">
-
-                            <a href="{% url 'product:product-brand-list' item.pk %}">
-                                {% if item.brand_image %}
-
-                                <img src="{{ item.brand_image.url }}" alt="">
-                                {% endif %}
-                            </a>
-
-                        </div>
-                        {% endfor %}
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 {% endblock %}

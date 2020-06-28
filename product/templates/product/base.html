@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
     <meta name="keywords" content="">
-	<title>Iteam</title>
+	<title>Multronics International Pvt. Ltd.</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -294,7 +294,7 @@
                                         <i class="fa fa-headphones" aria-hidden="true"></i>
                                     </div>
                                     <div class="cont_num_txt">
-                                        <span class="fotphone_ttl">Got Questions ? Call us 24/7!</span>
+                                        <span class="fotphone_ttl">Got Questions? Call us!</span>
                                         <span class="fotphonenum">{{ about.contact1 }}{% if about.contact2 %}, {{ about.contact2 }}{% endif %}{% if about.contact3 %}, {{about.contact3}}{% endif %}</span>
                                     </div>
                                 </div>
@@ -306,17 +306,17 @@
                                     <ul>
                                         {% if about.facebook_link %}
                                         <li>
-                                            <a href="{{ about.facebook_link }}"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                                            <a target="_blank" href="{{ about.facebook_link }}"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
                                         </li>
                                         {% endif %}
                                         {% if about.instagram_link %}
                                         <li>
-                                            <a href="{{about.instagram_link}}"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                                            <a target="_blank" href="{{about.instagram_link}}"><i class="fa fa-instagram" aria-hidden="true"></i></a>
                                         </li>
                                         {% endif %}
                                         {% if about.youtube_link %}
                                         <li>
-                                            <a href="{{about.youtube_link}}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                                            <a target="_blank" href="{{about.youtube_link}}"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
                                         </li>
                                         {% endif %}
                                     </ul>
@@ -349,9 +349,6 @@
                                                 <li>
                                                     <a href="{% url 'product:contact' %}">Contact Us</a>
                                                 </li>
-                                                <li>
-                                                    <a href="#">Product Support</a>
-                                                </li>
                                             </ul>
                                         </div>
                                     </div>
@@ -366,7 +363,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <p>© <strong>Electronic</strong> - All Rights Reserved</p>
+                        <p>© <strong>Multronics International Pvt. Ltd.</strong> - All Rights Reserved</p>
+												<p>Designed By <strong>Yantrashala IT Pvt. Ltd.</strong></p>
                     </div>
                 </div>
             </div>
