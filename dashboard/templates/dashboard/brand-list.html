@@ -22,7 +22,7 @@
                                     {% for item in brand %}
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
-                                        {% if item.image %}
+                                        {% if item.brand_image %}
                                         <td><img src="{{ item.brand_image.url }}" alt="" /></td>
                                         {% else %}
                                         <td><img src="" alt="image"></td>
