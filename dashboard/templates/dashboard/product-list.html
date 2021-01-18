@@ -27,7 +27,11 @@
                                     {% for item in product %}
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
+                                        {% if item.main_image %}
                                         <td><img src="{{ item.main_image.url }}" alt="" /></td>
+                                        {% else %}
+                                        <td><img src="" alt="image"></td>
+                                        {% endif %}
                                         <td>{{ item.name }}</td>
                                         <!-- <td>
                                             <button class="pd-setting">Active</button>

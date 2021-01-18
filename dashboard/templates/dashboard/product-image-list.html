@@ -17,7 +17,11 @@
                                     {% for item in images %}
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
+                                        {% if item.big_image %}
                                         <td><img src="{{ item.big_image.url }}" alt="" /></td>
+                                        {% else %}
+                                        <td><img src="" alt="image" /></td>
+                                        {% endif %}
                                         <td>
                                             <form method="get" action="{% url 'dashboard:product-image-delete' item.product.pk item.pk %}">
                                               <button type="submit" data-toggle="tooltip" title="Trash" class="pd-setting-ed"><i class="fa fa-trash-o" aria-hidden="true"></i></button>

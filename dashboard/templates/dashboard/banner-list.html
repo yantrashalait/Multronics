@@ -20,7 +20,11 @@
                                     {% for item in banner %}
                                     <tr>
                                         <td>{{ forloop.counter }}</td>
+                                        {% if item.image %}
                                         <td><img src="{{ item.image.url }}" alt="" /></td>
+                                        {% else %}
+                                        <td><img src="" alt="image"></td>
+                                        {% endif %}
                                         <td>
                                             <a href="{% url 'dashboard:banner-update' item.pk %}" data-toggle="tooltip" title="Edit" class="pd-setting-ed"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                             <form method="get" action="{% url 'dashboard:banner-delete' item.pk %}">
